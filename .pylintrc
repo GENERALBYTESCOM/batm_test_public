@@ -1,0 +1,52 @@
+[MASTER]
+# Exclude tests directory from checks
+ignore=tests
+
+[MESSAGES CONTROL]
+disable=
+    missing-module-docstring,
+    missing-class-docstring,
+    missing-function-docstring,
+    too-few-public-methods,
+    trailing-whitespace,
+    undefined-variable,
+    bad-indentation,
+    unnecessary-semicolon,
+    superfluous-parens,
+    redefined-builtin
+
+# Ensure naming rules are enforced
+enable=invalid-name
+
+[BASIC]
+# Enforce camelCase for naming
+variable-naming-style=camelCase
+function-naming-style=camelCase
+argument-naming-style=camelCase
+method-naming-style=camelCase
+attr-naming-style=camelCase
+class-attribute-naming-style=camelCase
+module-rgx=^[A-Z][a-zA-Z0-9]+$
+
+# Allow common short variable names
+good-names=i,j,k,x,y,z
+
+[FORMAT]
+# Set maximum line length
+max-line-length=120
+
+[TYPECHECK]
+# Ignore specific class-related issues
+ignored-classes=SQLObject, optparse.Values, django.db.models.fields.related.RelatedManager
+
+[REPORTS]
+# Disable reports for cleaner output
+reports=no
+
+[LOGGING]
+# Use old-style logging formatting
+logging-format-style=old
+
+[SIMILARITIES]
+# Minimum number of similar lines before a refactoring suggestion
+min-similarity-lines=4
