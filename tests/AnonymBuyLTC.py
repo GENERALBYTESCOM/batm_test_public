@@ -56,8 +56,8 @@ def openBanknoteDropdown():
     sys.stdout.flush()
 
 
-if has("1727773475891.png"):
-    assertClick("1727775827520.png", "SCREENSAVER")
+if has("tests/screenshots/1724847707672.png"):
+    assertClick("tests/screenshots/1727773516372.png", "SCREENSAVER")
 assertExists("1728304602566.png", "LTC LOGO")
 assertClick("1728304616977.png", "LTC LOGO")
 assertExists("1727773811641.png", "BUY BUTTON EXIST")
