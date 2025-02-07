@@ -1,6 +1,8 @@
 [MASTER]
 # Exclude tests directory from checks
 ignore=tests
+ignored-modules=sikuli
+init-hook='import sys; sys.path.append("/path/to/root")'
 
 [MESSAGES CONTROL]
 disable=

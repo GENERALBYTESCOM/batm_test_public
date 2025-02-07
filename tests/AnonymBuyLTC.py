@@ -1,5 +1,5 @@
 import sys
-from sikuli import wait, click, find, type, Pattern, has, waitVanish
+from sikuli import *
 
 WAIT_TIMEOUT = 7
 BTC_DESTINATION_ADDRESS = "1GBjMVQputwgRkCJ9zK2u9KJVkcEnFXi7z"
