@@ -2,7 +2,6 @@ import sys
 from sikuli import wait, click, find, type, Pattern, has, waitVanish
 
 WAIT_TIMEOUT = 7
-BTC_DESTINATION_ADDRESS = "1GBjMVQputwgRkCJ9zK2u9KJVkcEnFXi7z"
 
 
 def assertExists(pattern, name):
@@ -21,37 +20,6 @@ def assertClick(pattern, name):
         sys.stdout.write("OK")
     else:
         sys.stdout.write("FAIL")
-        sys.exit()
-    sys.stdout.flush()
-
-
-def openBanknoteDropdown():
-    if has(Pattern("1722425469678.png").similar(0.71)):
-        assertClick(
-            Pattern("1722425469678.png").similar(0.95), "OPEN BANKNOTES DROPDOWN 100"
-        )
-    elif has(Pattern("1722427265172.png").similar(0.95)):
-        assertClick(
-            Pattern("1722427265172.png").similar(0.95), "OPEN BANKNOTES DROPDOWN 200"
-        )
-    elif has(Pattern("1722427299365.png").similar(0.95)):
-        assertClick(
-            Pattern("1722427299365.png").similar(0.95), "OPEN BANKNOTES DROPDOWN 500"
-        )
-    elif has(Pattern("1722427411838.png").similar(0.95)):
-        assertClick(
-            Pattern("1722427411838.png").similar(0.95), "OPEN BANKNOTES DROPDOWN 1000"
-        )
-    elif has(Pattern("1722427462571.png").similar(0.95)):
-        assertClick(
-            Pattern("1722427462571.png").similar(0.95), "OPEN BANKNOTES DROPDOWN 2000"
-        )
-    elif has(Pattern("1722427510166.png").similar(0.95)):
-        assertClick(
-            Pattern("1722427510166.png").similar(0.95), "OPEN BANKNOTES DROPDOWN 5000"
-        )
-    else:
-        sys.stdout.write("CANNOT OPEN DROPDOWN")
         sys.exit()
     sys.stdout.flush()
 
@@ -112,11 +80,9 @@ assertClick("1727791300173.png", "CLICK DROPDOWN")
 assertExists("1727784530186.png", "INSERTED VALUE = 100 CZK")
 assertClick("1727791315299.png", "INSERT BANKNOTE 100 CZK")
 
-
 def openBanknoteDropdown():
     if has("1727792164614.png"):
         assertClick("1727792215829.png", "SELECT 100 CZK")
-
 
 assertClick("1727784547352.png", "INSERT BANKNOTE 100 CZK")
 assertExists("1727784268519.png", "INSERT CASH LOGO")
