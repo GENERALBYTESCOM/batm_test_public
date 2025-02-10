@@ -1,5 +1,5 @@
 import sys
-from sikuli import wait, click, find, type, Pattern, has, waitVanish
+from sikuli import wait, click, find, type, has, waitVanish
 
 WAIT_TIMEOUT = 7
 
