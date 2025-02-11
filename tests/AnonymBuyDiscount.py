@@ -1,13 +1,16 @@
-
-from Utils import (WAIT_TIMEOUT, assertClick, assertExists,
-                   checkMainScreenAndClickLogo, insertBanknote,
-                   processPurchaseSteps)
+from Utils import (
+    WAIT_TIMEOUT,
+    assertClick,
+    assertExists,
+    checkMainScreenAndClickLogo,
+    insertBanknote,
+    processPurchaseSteps,
+)
 
 from sikuli import Pattern, find, type, wait, waitVanish
 
 BTC_DESTINATION_ADDRESS = "bc1qcwjpenc7vyrun0ttzsm72xwdu8rklgjwdma5vg"
 DISCOUNT_TEXT = "ATTT"
-
 
 checkMainScreenAndClickLogo()
 assertExists("tests/screenshots/BTC_button.png", "BTC LOGO")
