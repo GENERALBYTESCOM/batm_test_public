@@ -1,6 +1,6 @@
 import sys
 
-from sikuli import click, find, has, wait
+from sikuli import click, find, has, wait, waitVanish, Pattern
 
 WAIT_TIMEOUT = 10
 
@@ -26,10 +26,15 @@ def assertClick(pattern, name):
 
 
 def processPurchaseSteps():
-    clickBuyButton()
-    verifyWalletOwnership()
-    acceptDisclaimers()
-    selectCashLimit()
+    confirmWalletOwnership()
+    acceptPrivacyAndDisclaimer()
+    chooseAnonymousTierAndContinue()
+
+
+def applyDiscountCode(discountText):
+    openDiscountDialog()
+    inputDiscountCode(discountText)
+    verifyDiscountToast()
 
 
 def checkMainScreenAndClickLogo():
@@ -42,7 +47,7 @@ def clickBuyButton():
     assertClick("tests/screenshots/BUY_button.png", "BUY BUTTON")
 
 
-def verifyWalletOwnership():
+def confirmWalletOwnership():
     wait("tests/screenshots/where_do_you_want_to_send_crypto_text.png", WAIT_TIMEOUT)
     assertExists(
         "tests/screenshots/where_do_you_want_to_send_crypto_text.png",
@@ -54,7 +59,7 @@ def verifyWalletOwnership():
     )
 
 
-def acceptDisclaimers():
+def acceptPrivacyAndDisclaimer():
     assertExists("tests/screenshots/pep_question_text.png", "PEP QUESTION TEXT EXIST")
     assertClick("tests/screenshots/NO_button.png", "NO BUTTON")
     assertExists(
@@ -67,7 +72,7 @@ def acceptDisclaimers():
     assertClick("tests/screenshots/tests/screenshots/OK_button.png", "OK BUTTON")
 
 
-def selectCashLimit():
+def chooseAnonymousTierAndContinue():
     assertExists(
         "tests/screenshots/choose_cash_limit_text.png", "CHOOSE CASH LIMIT TEXT EXIST"
     )
@@ -77,10 +82,15 @@ def selectCashLimit():
         "tests/screenshots/CONTINUE_button.png", "REQUIRED DISCLOSURES TEXT EXIST"
     )
     wait("tests/screenshots/CONTINUE_button.png", WAIT_TIMEOUT)
-    assertClick("tests/screenshots/CONTINUE_button.png", "DISCLOSURE CONTINUE BUTTON")
+    assertClick("tests/screenshots/CONTINUE_button.png", "CONTINUE BUTTON")
 
 
-def insertBanknote(amount="100 CZK"):
+def insertBanknoteAndVerify(amount="100 CZK"):
+    assertExists("tests/screenshots/insert_cash_text.png", "INSERT MONEY TEXT EXIST")
+    assertExists(
+        "tests/screenshots/cash_amount_inserted_value_0_CZK.png",
+        "INSERTED VALUE = 0 CZK",
+    )
     find("tests/screenshots/CZK_banknote_dropdown.png")
     assertClick(
         "tests/screenshots/CZK_banknote_dropdown_button.png", "OPEN BANKNOTES DROPDOWN"
@@ -95,3 +105,64 @@ def insertBanknote(amount="100 CZK"):
     assertClick(
         "tests/screenshots/insert_banknote_button.png", "INSERT BANKNOTE BUTTON"
     )
+    wait("tests/screenshots/cash_amount_inserted_value_100_CZK.png", WAIT_TIMEOUT)
+    assertExists(
+        "tests/screenshots/cash_amount_inserted_value_100_CZK.png",
+        "INSERTED VALUE = 100 CZK",
+    )
+
+
+def clickCryptoWallet():
+    assertExists(
+        "tests/screenshots/scan_your_wallet's_QR_text.png",
+        "SCAN YOUR WALLET'S QR TEXT EXIST",
+    )
+    assertExists("tests/screenshots/crypto_wallet_field.png", "CRYPTO WALLET FIELD")
+    assertClick("tests/screenshots/crypto_wallet_field.png", "CRYPTO WALLET FIELD")
+
+
+def clickScanQrButton():
+    assertExists("tests/screenshots/scan_qr_code_button.png", "SCAN QR CODE BUTTON")
+    assertClick("tests/screenshots/scan_qr_code_button.png", "SCAN QR CODE BUTTON")
+
+
+def openDiscountDialog():
+    assertExists("tests/screenshots/discount_text.png", "DISCOUNT INPUT TEXT EXIST")
+    assertClick("tests/screenshots/discount_code_button.png", "DISCOUNT BUTTON")
+    wait("tests/screenshots/enter_discount_code_text.png", WAIT_TIMEOUT)
+    assertExists(
+        "tests/screenshots/enter_discount_code_text.png", "ENTER DISCOUNT CODE DIALOGUE"
+    )
+
+
+def inputDiscountCode(discountText):
+    find("tests/screenshots/send_text_input_button.png")
+    assertExists("tests/screenshots/send_text_input_field.png", "TEXT INPUT FIELD")
+    type(discountText)
+    assertClick(
+        "tests/screenshots/send_text_input_button.png", "SEND TEXT INPUT BUTTON"
+    )
+    assertExists("tests/screenshots/OK_button.png", "OK BUTTON")
+    assertClick("tests/screenshots/OK_button.png", "OK BUTTON")
+    waitVanish("tests/screenshots/enter_discount_code_text.png", WAIT_TIMEOUT)
+
+
+def verifyDiscountToast():
+    assertExists(
+        "tests/screenshots/discount_code_accepted_toast.png", "DISCOUNT ACCEPTED TOAST"
+    )
+    waitVanish("tests/screenshots/discount_code_accepted_toast.png", WAIT_TIMEOUT)
+    assertExists(
+        Pattern("tests/screenshots/discount_20_CZK_exist.png").exact(),
+        "DISCOUNT 20 CZK",
+    )
+
+
+def completeTransaction():
+    wait("tests/screenshots/transaction_completed_text.png", WAIT_TIMEOUT)
+    assertExists(
+        "tests/screenshots/transaction_completed_text.png",
+        "TRANSACTION COMPLETED TEXT EXIST",
+    )
+    assertExists("tests/screenshots/DONE_completed_button.png", "BUY DONE BUTTON")
+    assertClick("tests/screenshots/DONE_completed_button.png", "BUY DONE BUTTON")
