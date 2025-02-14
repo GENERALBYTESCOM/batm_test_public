@@ -3,15 +3,15 @@ from Utils import (
     assertClick,
     assertExists,
     checkMainScreenAndClickLogo,
-    insertBanknote,
+    insertBanknoteAndVerify,
     processPurchaseSteps,
 )
 
 from sikuli import find, type, wait, waitVanish
 
 checkMainScreenAndClickLogo()
-assertExists("tests/screenshots/LTC_logo.png", "LTC LOGO")
-assertClick("tests/screenshots/LTC_logo.png", "LTC LOGO")
+assertExists("tests/screenshots/LTC_button.png", "LTC LOGO")
+assertClick("tests/screenshots/LTC_button.png", "LTC LOGO")
 processPurchaseSteps()
 assertExists(
     "tests/screenshots/don't_have_a_wallet_button.png", "DON'T HAVE WALLET? TEXT EXIST"
@@ -55,7 +55,7 @@ assertExists(
     "UNKNOWN DISCOUNT CODE TOAST",
 )
 waitVanish("tests/screenshots/unknown_discount_code_text.png", WAIT_TIMEOUT)
-insertBanknote("100 CZK")
+insertBanknoteAndVerify("100 CZK")
 assertExists("tests/screenshots/insert_cash_text.png", "INSERT CASH TEXT")
 wait("tests/screenshots/BUY_LTC_button.png", WAIT_TIMEOUT)
 assertClick("tests/screenshots/BUY_LTC_button.png", "BUY LTC BUTTON")
