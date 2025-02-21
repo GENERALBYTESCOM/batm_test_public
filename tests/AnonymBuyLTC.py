@@ -7,8 +7,11 @@ from Utils import (
     processPurchaseSteps,
     clickCryptoWallet,
     clickScanQrButton,
-    applyDiscountCode,
+    clickBuyButton,
+    prepareDiscountDialog,
     completeTransaction,
+    submitAndCloseDiscountDialog,
+    verifyDiscountToast,
 )
 
 from sikuli import type, wait
@@ -17,15 +20,19 @@ LTC_DESTINATION_ADDRESS = "LgbEoMr5eJWKEyzXs4ZYBiEjCaUTxbsDm8"
 LTC_DISCOUNT_TEXT = "LTC"
 
 checkMainScreenAndClickLogo()
-assertExists("tests/screenshots/LTC_button.png", "LTC LOGO")
-assertClick("tests/screenshots/LTC_button.png", "LTC LOGO")
+assertExists("LTC_button.png", "LTC LOGO")
+assertClick("LTC_button.png", "LTC LOGO")
+clickBuyButton()
 processPurchaseSteps()
 clickCryptoWallet()
 type(LTC_DESTINATION_ADDRESS)
 clickScanQrButton()
 insertBanknoteAndVerify("100 CZK")
-wait("tests/screenshots/BUY_LTC_button.png", WAIT_TIMEOUT)
-applyDiscountCode(LTC_DISCOUNT_TEXT)
-assertExists("tests/screenshots/BUY_LTC_button.png", "BUY LTC BUTTON")
-assertClick("tests/screenshots/BUY_LTC_button.png", "BUY LTC BUTTON")
+wait("BUY_LTC_button.png", WAIT_TIMEOUT)
+prepareDiscountDialog()
+type(LTC_DISCOUNT_TEXT)
+submitAndCloseDiscountDialog()
+verifyDiscountToast()
+assertExists("BUY_LTC_button.png", "BUY LTC BUTTON")
+assertClick("BUY_LTC_button.png", "BUY LTC BUTTON")
 completeTransaction()
