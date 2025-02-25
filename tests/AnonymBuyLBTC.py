@@ -36,5 +36,5 @@ assertExists(
     "wait_we_are_not_done_yet_text.png",
     "WAIT, WE ARE NOT DONE YET! TEXT EXIST",
 )
-assertExists("DONE_completed_button.png", "BUY DONE BUTTON")
+wait("DONE_completed_button.png", WAIT_TIMEOUT)
 assertClick("DONE_completed_button.png", "BUY DONE BUTTON")

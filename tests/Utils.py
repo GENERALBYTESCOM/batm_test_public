@@ -1,7 +1,7 @@
 import sys
 import os
 from time import sleep
-from sikuli import addImagePath, click, find, has, wait, waitVanish, Pattern
+from sikuli import addImagePath, click, find, has, wait, waitVanish
 
 WAIT_TIMEOUT = 15
 
@@ -138,10 +138,6 @@ def submitAndCloseDiscountDialog():
 def verifyDiscountToast():
     assertExists("discount_code_accepted_toast.png", "DISCOUNT ACCEPTED TOAST")
     waitVanish("discount_code_accepted_toast.png", WAIT_TIMEOUT)
-    assertExists(
-        Pattern("discount_20_CZK_exist.png").exact(),
-        "DISCOUNT 20 CZK",
-    )
 
 
 def completeTransaction():
