@@ -1,37 +1,32 @@
-from Utils import (
-    WAIT_TIMEOUT,
-    assertClick,
-    assertExists,
-    checkMainScreenAndClickLogo
-)
+from Utils import WAIT_TIMEOUT, assertClick, assertExists, checkMainScreenAndClickLogo
 
 from sikuli import wait, Pattern
 
 
-def choose_language_button():
+def chooseLanguageButton():
     assertExists("choose_language_button.png", "CHOOSE LANGUAGE SCREEN")
     assertClick("choose_language_button.png", "CHOOSE LANGUAGE BUTTON")
 
 
-def select_language(banner_image, banner_label, welcome_logo, similarity=0.90):
-    wait(banner_image, WAIT_TIMEOUT)
-    pattern = Pattern(banner_image).similar(similarity)
-    assertExists(pattern, banner_label)
-    assertClick(pattern, banner_label)
-    assertExists(welcome_logo, "%s WELCOME LOGO" % banner_label)
+def selectLanguage(bannerImage, bannerLabel, welcomeLogo, similarity=0.90):
+    wait(bannerImage, WAIT_TIMEOUT)
+    pattern = Pattern(bannerImage).similar(similarity)
+    assertExists(pattern, bannerLabel)
+    assertClick(pattern, bannerLabel)
+    assertExists(welcomeLogo, "%s WELCOME LOGO" % bannerLabel)
 
 
-def click_arrow_right():
+def clickArrowRight():
     assertExists("arrow_to_the_right_button.png", "ARROW TO THE RIGHT")
     assertClick("arrow_to_the_right_button.png", "ARROW TO THE RIGHT")
 
 
-def click_arrow_left():
+def clickArrowLeft():
     assertExists("arrow_to_the_left_button.png", "ARROW TO THE LEFT")
     assertClick("arrow_to_the_left_button.png", "ARROW TO THE LEFT")
 
 
-def cancel_and_verify():
+def cancelAndVerify():
     assertExists("CANCEL_button.png", "CANCEL BUTTON")
     assertClick("CANCEL_button.png", "CANCEL BUTTON")
     assertExists("EN_welcome_logo_text.png", "EN WELCOME LOGO")
@@ -39,15 +34,15 @@ def cancel_and_verify():
 
 checkMainScreenAndClickLogo()
 assertExists("EN_welcome_logo_text.png", "EN WELCOME LOGO")
-choose_language_button()
-click_arrow_right()
+chooseLanguageButton()
+clickArrowRight()
 wait("arrow_to_the_left_button.png", WAIT_TIMEOUT)
-click_arrow_left()
-select_language("CZ_banner.png", "CZ BUTTON", "CZ_welcome_logo_text.png", 0.90)
-choose_language_button()
-select_language("ES_banner.png", "ES BUTTON", "ES_welcome_logo_text.png", 0.90)
-select_language("DE_banner.png", "DE BUTTON", "DE_welcome_logo_text.png", 0.90)
-choose_language_button()
-select_language("EN_banner.png", "EN BUTTON", "EN_welcome_logo_text.png", 0.90)
-choose_language_button()
-cancel_and_verify()
+clickArrowLeft()
+selectLanguage("CZ_banner.png", "CZ BUTTON", "CZ_welcome_logo_text.png", 0.90)
+chooseLanguageButton()
+selectLanguage("ES_banner.png", "ES BUTTON", "ES_welcome_logo_text.png", 0.90)
+selectLanguage("DE_banner.png", "DE BUTTON", "DE_welcome_logo_text.png", 0.90)
+chooseLanguageButton()
+selectLanguage("EN_banner.png", "EN BUTTON", "EN_welcome_logo_text.png", 0.90)
+chooseLanguageButton()
+cancelAndVerify()
