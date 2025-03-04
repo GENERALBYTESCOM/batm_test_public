@@ -7,6 +7,7 @@ from Utils import (
     processPurchaseSteps,
     clickScanQrButton,
     clickCryptoWallet,
+    clickBuyButton,
     prepareDiscountDialog,
     completeTransaction,
     submitAndCloseDiscountDialog,
@@ -22,6 +23,7 @@ ETH_DISCOUNT_TEXT = "ETH"
 checkMainScreenAndClickLogo()
 assertExists("ETH_button.png", "ETH LOGO")
 assertClick("ETH_button.png", "ETH LOGO")
+clickBuyButton()
 processPurchaseSteps()
 clickCryptoWallet()
 type(ETH_DESTINATION_ADDRESS)

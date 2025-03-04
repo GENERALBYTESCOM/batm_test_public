@@ -52,6 +52,7 @@ def clickBuyButton():
 
 
 def confirmWalletOwnership():
+    wait("wallet_ownership_screen_text.png", WAIT_TIMEOUT)
     assertExists(
         "send_coins_to_my_wallet_button.png",
         "WALLET OWNERSHIP SCREEN TEXT EXIST",
@@ -66,7 +67,7 @@ def acceptPrivacyAndDisclaimer():
     assertExists("pep_question_text.png", "PEP QUESTION TEXT EXIST")
     assertClick("NO_button.png", "NO BUTTON")
     assertExists("privacy_policy_text.png", "PRIVACY POLICY TEXT EXIST")
-    assertClick("i_agree_button.png", "I AGREE BUTTON")
+    assertClick("I_agree_button.png", "I AGREE BUTTON")
     assertExists("scam_disclaimer_text.png", "SCAM DISCLAIMER TEXT EXIST")
     assertClick("OK_button.png", "OK BUTTON")
 
@@ -75,12 +76,13 @@ def chooseAnonymousTierAndContinue():
     assertExists("choose_cash_limit_text.png", "CHOOSE CASH LIMIT TEXT EXIST")
     assertExists("anonymous_tier_button.png", "ANONYMOUS TIER BUTTON")
     assertClick("anonymous_tier_button.png", "ANONYMOUS TIER BUTTON")
-    assertExists("CONTINUE_button.png", "REQUIRED DISCLOSURES TEXT EXIST")
     wait("CONTINUE_button.png", WAIT_TIMEOUT)
+    assertExists("CONTINUE_button.png", "REQUIRED DISCLOSURES TEXT EXIST")
     assertClick("CONTINUE_button.png", "CONTINUE BUTTON")
 
 
 def insertBanknoteAndVerify(amount="100 CZK"):
+    wait("insert_cash_text.png", WAIT_TIMEOUT)
     assertExists("insert_cash_text.png", "INSERT MONEY TEXT EXIST")
     assertExists(
         "cash_amount_inserted_value_0_CZK.png",
