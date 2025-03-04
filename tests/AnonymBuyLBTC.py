@@ -2,6 +2,7 @@ from Utils import (
     WAIT_TIMEOUT,
     assertClick,
     assertExists,
+    clickBuyButton,
     prepareDiscountDialog,
     insertBanknoteAndVerify,
     confirmWalletOwnership,
@@ -18,6 +19,7 @@ LBTC_DISCOUNT_TEXT = "LBTC"
 checkMainScreenAndClickLogo()
 assertExists("LBTC_button.png", "LBTC LOGO")
 assertClick("LBTC_button.png", "LBTC LOGO")
+clickBuyButton()
 confirmWalletOwnership()
 acceptPrivacyAndDisclaimer()
 wait("you_must_have_a_wallet_text.png", WAIT_TIMEOUT)
