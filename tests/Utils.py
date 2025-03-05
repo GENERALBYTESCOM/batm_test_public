@@ -51,6 +51,11 @@ def clickBuyButton():
     assertClick("BUY_button.png", "BUY BUTTON")
 
 
+def clickSellButton():
+    assertExists("SELL_button.png", "SELL BUTTON")
+    assertClick("SELL_button.png", "SELL BUTTON")
+
+
 def confirmWalletOwnership():
     wait("wallet_ownership_screen_text.png", WAIT_TIMEOUT)
     assertExists(
@@ -63,11 +68,15 @@ def confirmWalletOwnership():
     )
 
 
-def acceptPrivacyAndDisclaimer():
+def acceptPrivacy():
     assertExists("pep_question_text.png", "PEP QUESTION TEXT EXIST")
     assertClick("NO_button.png", "NO BUTTON")
     assertExists("privacy_policy_text.png", "PRIVACY POLICY TEXT EXIST")
     assertClick("I_agree_button.png", "I AGREE BUTTON")
+
+
+def acceptPrivacyAndDisclaimer():
+    acceptPrivacy()
     assertExists("scam_disclaimer_text.png", "SCAM DISCLAIMER TEXT EXIST")
     assertClick("OK_button.png", "OK BUTTON")
 
@@ -150,3 +159,15 @@ def completeTransaction():
     )
     assertExists("DONE_completed_button.png", "BUY DONE BUTTON")
     assertClick("DONE_completed_button.png", "BUY DONE BUTTON")
+
+
+def questionnaireRadio():
+    wait("questionnaire_radio_text.png", WAIT_TIMEOUT)
+    assertExists("questionnaire_radio_text.png", "QUESTIONNAIRE SCREEN RADIO")
+    assertExists("DONE_button.png", "DONE BUTTON")
+    assertClick("DONE_button.png", "DONE BUTTON")
+
+
+def clickBtcButton():
+    assertExists("BTC_button.png", "BTC LOGO")
+    assertClick("BTC_button.png", "BTC LOGO")
