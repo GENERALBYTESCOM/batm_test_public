@@ -1,8 +1,7 @@
 from Utils import (
-    clickBtcButton,
+    clickLbtcButton,
     clickSellButton,
     acceptPrivacy,
-    questionnaireRadio,
     openDiscountDialog,
     checkMainScreenAndClickLogo,
     chooseAnonymousTierAndContinue,
@@ -12,15 +11,14 @@ from Utils import (
 
 from sikuli import type
 
-DISCOUNT_TEXT = "ATTT"
+LBTC_DISCOUNT_TEXT = "LBTC"
 
 checkMainScreenAndClickLogo()
-clickBtcButton()
+clickLbtcButton()
 clickSellButton()
 acceptPrivacy()
 chooseAnonymousTierAndContinue()
-questionnaireRadio()
 openDiscountDialog()
 waitAndClickDiscountInputField()
-type(DISCOUNT_TEXT)
+type(LBTC_DISCOUNT_TEXT)
 completeSellDiscountFlow()
