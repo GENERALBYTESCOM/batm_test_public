@@ -41,6 +41,15 @@ def prepareDiscountDialog():
     waitAndClickDiscountInputField()
 
 
+def completeSellDiscountFlow():
+    submitAndCloseDiscountDialog()
+    verifyDiscountToast()
+    add100CzkButton()
+    completeSellTransaction()
+    dismissSmsNotificationModal()
+    completeTransaction()
+
+
 def checkMainScreenAndClickLogo():
     if has("main_screen.png"):
         assertClick("BTC_logo.png", "SCREENSAVER")
@@ -125,7 +134,7 @@ def clickScanQrButton():
 
 
 def openDiscountDialog():
-    assertExists("discount_text.png", "DISCOUNT INPUT TEXT EXIST")
+    assertExists("discount_code_button.png", "DISCOUNT BUTTON EXIST")
     assertClick("discount_code_button.png", "DISCOUNT BUTTON")
     wait("enter_discount_code_text.png", WAIT_TIMEOUT)
     assertExists("enter_discount_code_text.png", "ENTER DISCOUNT CODE DIALOGUE")
@@ -171,3 +180,25 @@ def questionnaireRadio():
 def clickBtcButton():
     assertExists("BTC_button.png", "BTC LOGO")
     assertClick("BTC_button.png", "BTC LOGO")
+
+
+def clickLbtcButton():
+    assertExists("LBTC_button.png", "LBTC LOGO")
+    assertClick("LBTC_button.png", "LBTC LOGO")
+
+
+def completeSellTransaction():
+    assertExists("SELL_complete_button.png", "SELL BUTTON")
+    assertClick("SELL_complete_button.png", "SELL BUTTON")
+
+
+def add100CzkButton():
+    assertExists("+100_CZK_button.png", "+100 CZK BUTTON")
+    assertClick("+100_CZK_button.png", "+100 CZK BUTTON")
+
+
+def dismissSmsNotificationModal():
+    assertExists(
+        "sms_transaction_notification_in_modal.png", "SMS TRANSACTION NOTIFICATION"
+    )
+    assertClick("NO_button_in_modal.png", "NO BUTTON IN MODAL")
