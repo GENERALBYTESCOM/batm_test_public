@@ -1,5 +1,5 @@
 from Utils import (
-    clickLbtcButton,
+    clickLtcButton,
     checkMainScreenAndClickLogo,
     initiateAnonymousSellDiscountFlow,
     completeSellDiscountFlow,
@@ -7,10 +7,10 @@ from Utils import (
 
 from sikuli import type
 
-LBTC_DISCOUNT_TEXT = "LBTC"
+LTC_DISCOUNT_TEXT = "LTC"
 
 checkMainScreenAndClickLogo()
-clickLbtcButton()
+clickLtcButton()
 initiateAnonymousSellDiscountFlow()
-type(LBTC_DISCOUNT_TEXT)
+type(LTC_DISCOUNT_TEXT)
 completeSellDiscountFlow()

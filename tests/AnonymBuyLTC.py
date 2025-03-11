@@ -2,6 +2,7 @@ from Utils import (
     WAIT_TIMEOUT,
     assertClick,
     assertExists,
+    clickLtcButton,
     checkMainScreenAndClickLogo,
     insertBanknoteAndVerify,
     processPurchaseSteps,
@@ -20,8 +21,7 @@ LTC_DESTINATION_ADDRESS = "LgbEoMr5eJWKEyzXs4ZYBiEjCaUTxbsDm8"
 LTC_DISCOUNT_TEXT = "LTC"
 
 checkMainScreenAndClickLogo()
-assertExists("LTC_button.png", "LTC LOGO")
-assertClick("LTC_button.png", "LTC LOGO")
+clickLtcButton()
 clickBuyButton()
 processPurchaseSteps()
 clickCryptoWallet()
