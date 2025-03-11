@@ -50,6 +50,14 @@ def completeSellDiscountFlow():
     completeTransaction()
 
 
+def initiateAnonymousSellDiscountFlow():
+    clickSellButton()
+    acceptPrivacy()
+    chooseAnonymousTierAndContinue()
+    openDiscountDialog()
+    waitAndClickDiscountInputField()
+
+
 def checkMainScreenAndClickLogo():
     if has("main_screen.png"):
         assertClick("BTC_logo.png", "SCREENSAVER")
@@ -185,6 +193,11 @@ def clickBtcButton():
 def clickLbtcButton():
     assertExists("LBTC_button.png", "LBTC LOGO")
     assertClick("LBTC_button.png", "LBTC LOGO")
+
+
+def clickLtcButton():
+    assertExists("LTC_button.png", "LTC LOGO")
+    assertClick("LTC_button.png", "LTC LOGO")
 
 
 def completeSellTransaction():
