@@ -58,6 +58,23 @@ def initiateAnonymousSellDiscountFlow():
     waitAndClickDiscountInputField()
 
 
+def performCommonBuySetup():
+    checkMainScreenAndClickLogo()
+    clickBtcButton()
+    clickBuyButton()
+
+
+def performDiscountFlow(discount):
+    insertBanknoteAndVerify("100 CZK")
+    assertExists("BUY_BTC_button.png", "BUY OK BUTTON")
+    prepareDiscountDialog()
+    type(discount)
+    submitAndCloseDiscountDialog()
+    verifyDiscountToast()
+    assertExists("BUY_BTC_button.png", "BUY OK BUTTON")
+    assertClick("BUY_BTC_button.png", "BUY OK BUTTON")
+
+
 def checkMainScreenAndClickLogo():
     if has("main_screen.png"):
         assertClick("BTC_logo.png", "SCREENSAVER")
@@ -215,3 +232,17 @@ def dismissSmsNotificationModal():
         "sms_transaction_notification_in_modal.png", "SMS TRANSACTION NOTIFICATION"
     )
     assertClick("NO_button_in_modal.png", "NO BUTTON IN MODAL")
+
+
+def enterNumber():
+    assertClick("1_button.png", "1 BUTTON")
+    wait("1_appear.png", WAIT_TIMEOUT)
+    assertClick("2_button.png", "2 BUTTON")
+    wait("12_appear.png", WAIT_TIMEOUT)
+    assertClick("3_button.png", "3 BUTTON")
+    wait("123_appear.png", WAIT_TIMEOUT)
+    assertClick("4_button.png", "4 BUTTON")
+    wait("1234_appear.png", WAIT_TIMEOUT)
+    assertClick("5_button.png", "5 BUTTON")
+    wait("12345_appear.png", WAIT_TIMEOUT)
+    assertClick("OK_button.png", "OK BUTTON")
