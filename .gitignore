@@ -1,0 +1,44 @@
+# Node modules and build artifacts
+node_modules/
+dist/
+
+# PyCharm/IDEA project files
+.idea/
+*.iml
+
+# Compiled Java class files
+*.class
+
+# Compiled Python bytecode
+__pycache__/
+*.py[cod]
+
+# Jython cache
+.jython_cache/
+
+# Virtual environments
+venv/
+.venv/
+
+# Log files
+*.log
+
+# Package files
+*.jar
+*.war
+
+# OS generated files (MacOS, Windows)
+.DS_Store
+Thumbs.db
+
+# Executable files
+*.app
+*.exe
+
+# Large media files
+*.mp4
+*.tiff
+*.avi
+*.flv
+*.mov
+*.wmv

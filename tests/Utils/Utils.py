@@ -6,7 +6,7 @@ from sikuli import addImagePath, click, find, has, wait, waitVanish
 WAIT_TIMEOUT = 15
 
 base_dir = os.path.dirname(__file__)
-screenshots_dir = os.path.join(base_dir, "screenshots")
+screenshots_dir = os.path.join(base_dir, "Screenshots")
 addImagePath(screenshots_dir)
 
 

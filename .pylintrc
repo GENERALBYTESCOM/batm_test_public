@@ -16,7 +16,8 @@ disable=
     unnecessary-semicolon,
     superfluous-parens,
     redefined-builtin,
-    consider-using-f-string
+    consider-using-f-string,
+    super-with-arguments
 
 # Ensure naming rules are enforced
 enable=invalid-name
