@@ -1,100 +1,102 @@
 import logging
 import unittest
 
-from AbstractTestCase import AbstractTestCase
+from BaseTest import BaseTest
+from FlowHelper import FlowHelper
 from Screens.BasePage import WAIT_TIMEOUT
-from Screens.NumberScreen import NumberScreen
+from Screens.ScreenManager import ScreenManager
 from Utils.Config import BTC_DESTINATION_ADDRESS, DISCOUNT_TEXT
 from sikuli import wait, type
 
 
-class TestBTCDiscount(AbstractTestCase):
-
+class TestBTCDiscount(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        super(TestBTCDiscount, cls).setUpClass()
+        cls.baseTest = BaseTest()
+        cls.baseTest.setupEnv()
 
     def setUp(self):
-        super(TestBTCDiscount, self).setUp()
         logging.info("=== setUp: Initializing screens for TestBTCDiscount ===")
-        self.numberScreen = NumberScreen()
+        self.screens = ScreenManager()
+        self.flow = FlowHelper(self.screens)
 
-        self.mainScreen.checkMainScreenAndClickLogo()
-        self.mainScreen.clickBtcButton()
+        self.screens.dashboardScreen.checkMainScreenAndClickLogo()
+        self.screens.dashboardScreen.clickBtcButton()
 
     def tearDown(self):
         logging.info("=== tearDown: Cleaning up after test ===")
 
+    @classmethod
+    def tearDownClass(cls):
+        cls.baseTest.teardownEnv()
+
     def testAnonymBuyDiscount(self):
         logging.info("Started test: Anonym Buy Discount.")
-        self.performAnonymBuyFlow()
+        self.flow.performAnonymBuyFlow()
         type(BTC_DESTINATION_ADDRESS)
-        self.walletScreen.clickScanQrButton()
-        self.walletScreen.insertBanknoteAndVerify("100 CZK")
+        self.screens.walletScreen.clickScanQrButton()
+        self.screens.walletScreen.insertBanknoteAndVerify("100 CZK")
 
-        self.basePage.assertExists("BUY_BTC_button.png", "BUY BTC BUTTON")
-        self.discountScreen.prepareDiscountDialog()
+        self.screens.basePage.assertExists("BUY_BTC_button.png", "BUY BTC BUTTON")
+        self.screens.discountScreen.prepareDiscountDialog()
         type(DISCOUNT_TEXT)
-        self.completeBuyDiscountFlow()
+        self.flow.completeBuyDiscountFlow()
 
-        self.basePage.assertExists("BUY_BTC_button.png", "BUY BTC BUTTON")
-        self.basePage.clickElement("BUY_BTC_button.png", "BUY BTC BUTTON")
-        self.mainScreen.completeTransaction()
+        self.screens.insertMoneyScreen.buyBTC()
+        self.screens.dashboardScreen.completeTransaction()
         logging.info("Completed test: Anonym Buy Discount.")
 
     def testAnonymSellDiscount(self):
         logging.info("Started test: Anonym Sell Discount.")
-        self.performAnonymSellFlow()
+        self.flow.performAnonymSellFlow()
         type(DISCOUNT_TEXT)
-        self.completeSellDiscountFlow()
+        self.flow.completeSellDiscountFlow()
         logging.info("Completed test: Anonym Sell Discount.")
 
     def testUnregisteredBuyDiscount(self):
         logging.info("Started test: Unregistered Buy Discount.")
 
-        self.mainScreen.clickBuyButton()
-        self.walletScreen.confirmWalletOwnership()
-        self.privacyScreen.acceptPrivacyAndDisclaimer()
-        self.tierSelectScreen.chooseUnregisteredTier()
-        self.privacyScreen.acceptPrivacyNotice()
+        self.screens.dashboardScreen.clickBuyButton()
+        self.screens.walletScreen.confirmWalletOwnership()
+        self.screens.privacyScreen.acceptPrivacyAndDisclaimer()
+        self.screens.chooseLimitScreen.chooseUnregisteredTier()
+        self.screens.privacyScreen.acceptPrivacyNotice()
 
         wait("phone_number_text.png", WAIT_TIMEOUT)
-        self.basePage.assertExists("phone_number_text.png", "PHONE NUMBER TEXT EXIST")
-        self.numberScreen.enterNumber()
+        self.screens.basePage.assertExists(
+            "phone_number_text.png", "PHONE NUMBER TEXT EXIST"
+        )
+        self.screens.numberScreen.enterNumber()
 
-        self.basePage.assertExists(
+        self.screens.basePage.assertExists(
             "one_time_password_text.png", "ONE TIME PASSWORD TEXT EXIST"
         )
-        self.numberScreen.enterNumber()
+        self.screens.numberScreen.enterNumber()
 
-        self.basePage.assertExists(
+        self.screens.basePage.assertExists(
             "required_disclosures_text.png", "REQUIRED DISCLOSURES TEXT EXIST"
         )
         wait("CONTINUE_button.png", WAIT_TIMEOUT)
-        self.basePage.clickElement("CONTINUE_button.png", "CONTINUE BUTTON")
+        self.screens.basePage.clickElement("CONTINUE_button.png", "CONTINUE BUTTON")
 
-        self.walletScreen.clickCryptoWallet()
+        self.screens.walletScreen.clickCryptoWallet()
         type(BTC_DESTINATION_ADDRESS)
-        self.walletScreen.clickScanQrButton()
-        self.walletScreen.insertBanknoteAndVerify("100 CZK")
+        self.screens.walletScreen.clickScanQrButton()
+        self.screens.walletScreen.insertBanknoteAndVerify("100 CZK")
 
-        self.basePage.assertExists("BUY_BTC_button.png", "BUY BTC BUTTON")
-        self.discountScreen.prepareDiscountDialog()
+        self.screens.basePage.assertExists("BUY_BTC_button.png", "BUY BTC BUTTON")
+        self.screens.discountScreen.prepareDiscountDialog()
         type(DISCOUNT_TEXT)
-        self.discountScreen.submitAndCloseDiscountDialog()
-        self.discountScreen.verifyDiscountToast()
-
-        self.basePage.assertExists("BUY_BTC_button.png", "BUY BTC BUTTON")
-        self.basePage.clickElement("BUY_BTC_button.png", "BUY BTC BUTTON")
-
-        self.basePage.assertExists(
+        self.flow.completeBuyDiscountFlow()
+        self.screens.insertMoneyScreen.buyBTC()
+        self.screens.basePage.assertExists(
             "marketing_agreement_text.png", "MARKETING AGREEMENT TEXT EXIST"
         )
-        self.basePage.clickElement("NO_THANKS_button.png", "NO THANKS BUTTON")
+        self.screens.basePage.clickElement("NO_THANKS_button.png", "NO THANKS BUTTON")
 
-        self.mainScreen.completeTransaction()
+        self.screens.dashboardScreen.completeTransaction()
         logging.info("Completed test: Unregistered Buy Discount.")
 
 
 if __name__ == "__main__":
-    unittest.main()
+    unittest.main(exit=False)

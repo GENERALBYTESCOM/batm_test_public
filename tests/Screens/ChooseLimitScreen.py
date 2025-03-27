@@ -3,7 +3,7 @@ from Screens.BasePage import BasePage, WAIT_TIMEOUT
 from sikuli import wait
 
 
-class TierSelectScreen(BasePage):
+class ChooseLimitScreen(BasePage):
     def chooseAnonymousTierAndContinue(self):
         self.assertExists("choose_cash_limit_text.png", "CHOOSE CASH LIMIT")
         self.assertExists("anonymous_tier_button.png", "ANONYMOUS TIER")

@@ -3,7 +3,7 @@ from Screens.BasePage import BasePage, WAIT_TIMEOUT
 from sikuli import has, wait
 
 
-class MainScreen(BasePage):
+class DashboardScreen(BasePage):
     def checkMainScreenAndClickLogo(self):
         if has("main_screen.png", WAIT_TIMEOUT):
             self.clickElement("BTC_logo.png", "SCREENSAVER")
@@ -42,6 +42,10 @@ class MainScreen(BasePage):
 
     def completeTransaction(self):
         wait("transaction_completed_text.png", WAIT_TIMEOUT)
+        self.assertExists(
+            "transaction_completed_text.png", "TRANSACTION COMPLETED TEXT EXIST"
+        )
+        wait("DONE_completed_button.png", WAIT_TIMEOUT)
         self.clickElement("DONE_completed_button.png", "BUY DONE BUTTON")
 
     def dismissSmsNotificationModal(self):
@@ -49,3 +53,9 @@ class MainScreen(BasePage):
             "sms_transaction_notification_in_modal.png", "SMS TRANSACTION NOTIFICATION"
         )
         self.clickElement("NO_button_in_modal.png", "NO BUTTON IN MODAL")
+
+    def waitAndCompleteNotDoneYetTransaction(self):
+        wait("wait_we_are_not_done_yet_text.png", WAIT_TIMEOUT)
+        self.assertExists("wait_we_are_not_done_yet_text.png", "NOT DONE YET TEXT")
+        wait("DONE_completed_button.png", WAIT_TIMEOUT)
+        self.clickElement("DONE_completed_button.png", "BUY DONE BUTTON")

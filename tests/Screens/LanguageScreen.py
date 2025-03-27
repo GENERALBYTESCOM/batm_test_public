@@ -5,7 +5,6 @@ from sikuli import wait, Pattern
 
 class LanguageScreen(BasePage):
     def selectLanguage(self, bannerImage, bannerLabel, welcomeLogo, similarity=0.90):
-
         wait(bannerImage, WAIT_TIMEOUT)
         pattern = Pattern(bannerImage).similar(similarity)
         self.assertExists(pattern, bannerLabel)

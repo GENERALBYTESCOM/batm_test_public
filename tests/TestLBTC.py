@@ -1,56 +1,62 @@
 import logging
 import unittest
 
-from AbstractTestCase import AbstractTestCase
+from BaseTest import BaseTest
+from FlowHelper import FlowHelper
 from Screens.BasePage import WAIT_TIMEOUT
+from Screens.ScreenManager import ScreenManager
 from Utils.Config import LBTC_DISCOUNT_TEXT
 from sikuli import wait, type
 
 
-class TestLBTC(AbstractTestCase):
-
+class TestLBTC(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        super(TestLBTC, cls).setUpClass()
+        cls.baseTest = BaseTest()
+        cls.baseTest.setupEnv()
 
     def setUp(self):
-        super(TestLBTC, self).setUp()
         logging.info("=== setUp: Initializing screens for TestLBTC ===")
+        self.screens = ScreenManager()
+        self.flow = FlowHelper(self.screens)
 
-        self.mainScreen.checkMainScreenAndClickLogo()
-        self.mainScreen.clickLbtcButton()
+        self.screens.dashboardScreen.checkMainScreenAndClickLogo()
+        self.screens.dashboardScreen.clickLbtcButton()
 
     def tearDown(self):
         logging.info("=== tearDown: Cleaning up after test ===")
 
+    @classmethod
+    def tearDownClass(cls):
+        cls.baseTest.teardownEnv()
+
     def testAnonymBuyLBTC(self):
         logging.info("Started test: Anonym Buy LBTC.")
+        self.screens.dashboardScreen.clickBuyButton()
+        self.screens.walletScreen.confirmWalletOwnership()
+        self.screens.privacyScreen.acceptPrivacyAndDisclaimer()
 
-        self.mainScreen.clickBuyButton()
-        self.walletScreen.confirmWalletOwnership()
-        self.privacyScreen.acceptPrivacyAndDisclaimer()
-
-        self.basePage.clickElement("I_have_a_wallet.png", "YES, I HAVE A WALLET BUTTON")
-        self.tierSelectScreen.chooseAnonymousTierAndContinue()
-        self.walletScreen.insertBanknoteAndVerify("100 CZK")
+        self.screens.basePage.clickElement(
+            "I_have_a_wallet.png", "YES, I HAVE A WALLET BUTTON"
+        )
+        self.screens.chooseLimitScreen.chooseAnonymousTierAndContinue()
+        self.screens.walletScreen.insertBanknoteAndVerify("100 CZK")
         wait("BUY_LBTC_button.png", WAIT_TIMEOUT)
 
-        self.discountScreen.prepareDiscountDialog()
+        self.screens.discountScreen.prepareDiscountDialog()
         type(LBTC_DISCOUNT_TEXT)
-        self.discountScreen.submitAndCloseDiscountDialog()
-        self.discountScreen.verifyDiscountToast()
-        self.basePage.clickElement("BUY_LBTC_button.png", "BUY LBTC BUTTON")
-        wait("DONE_completed_button.png", WAIT_TIMEOUT)
-        self.basePage.clickElement("DONE_completed_button.png", "BUY DONE BUTTON")
+        self.flow.completeBuyDiscountFlow()
+        self.screens.basePage.clickElement("BUY_LBTC_button.png", "BUY LBTC BUTTON")
+        self.screens.dashboardScreen.waitAndCompleteNotDoneYetTransaction()
         logging.info("Completed test: Anonym Buy LBTC.")
 
     def testAnonymSellLBTC(self):
         logging.info("Started test: Anonym Sell LBTC.")
-        self.performAnonymSellFlow()
+        self.flow.performAnonymSellFlow()
         type(LBTC_DISCOUNT_TEXT)
-        self.completeSellDiscountFlow()
+        self.flow.completeSellDiscountFlow()
         logging.info("Completed test: Anonym Sell LBTC.")
 
 
 if __name__ == "__main__":
-    unittest.main()
+    unittest.main(exit=False)

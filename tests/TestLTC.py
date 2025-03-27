@@ -1,50 +1,55 @@
 import logging
 import unittest
 
-from AbstractTestCase import AbstractTestCase
+from BaseTest import BaseTest
+from FlowHelper import FlowHelper
+from Screens.ScreenManager import ScreenManager
 from Utils.Config import LTC_DESTINATION_ADDRESS, LTC_DISCOUNT_TEXT
 
 
-class TestLTC(AbstractTestCase):
-
+class TestLTC(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        super(TestLTC, cls).setUpClass()
+        cls.baseTest = BaseTest()
+        cls.baseTest.setupEnv()
 
     def setUp(self):
-        super(TestLTC, self).setUp()
         logging.info("=== setUp: Initializing screens for TestLTC ===")
+        self.screens = ScreenManager()
+        self.flow = FlowHelper(self.screens)
 
-        self.mainScreen.checkMainScreenAndClickLogo()
-        self.mainScreen.clickLtcButton()
+        self.screens.dashboardScreen.checkMainScreenAndClickLogo()
+        self.screens.dashboardScreen.clickLtcButton()
 
     def tearDown(self):
         logging.info("=== tearDown: Cleaning up after test ===")
 
+    @classmethod
+    def tearDownClass(cls):
+        cls.baseTest.teardownEnv()
+
     def testAnonymBuyLTC(self):
         logging.info("Started test: Anonym Buy LTC.")
-
-        self.performAnonymBuyFlow()
+        self.flow.performAnonymBuyFlow()
         type(LTC_DESTINATION_ADDRESS)
-        self.walletScreen.clickScanQrButton()
-        self.walletScreen.insertBanknoteAndVerify("100 CZK")
-        self.basePage.assertExists("BUY_LTC_button.png", "BUY LTC BUTTON")
+        self.screens.walletScreen.clickScanQrButton()
+        self.screens.walletScreen.insertBanknoteAndVerify("100 CZK")
+        self.screens.basePage.assertExists("BUY_LTC_button.png", "BUY LTC BUTTON")
 
-        self.discountScreen.prepareDiscountDialog()
+        self.screens.discountScreen.prepareDiscountDialog()
         type(LTC_DISCOUNT_TEXT)
-        self.completeBuyDiscountFlow()
-        self.basePage.assertExists("BUY_LTC_button.png", "BUY LTC BUTTON")
-        self.basePage.clickElement("BUY_LTC_button.png", "BUY LTC BUTTON")
-        self.mainScreen.completeTransaction()
+        self.flow.completeBuyDiscountFlow()
+        self.screens.insertMoneyScreen.buyLTC()
+        self.screens.dashboardScreen.completeTransaction()
         logging.info("Completed test: Anonym Buy LTC.")
 
     def testAnonymSellLTC(self):
         logging.info("Started test: Anonym Sell LTC.")
-        self.performAnonymSellFlow()
+        self.flow.performAnonymSellFlow()
         type(LTC_DISCOUNT_TEXT)
-        self.completeSellDiscountFlow()
+        self.flow.completeSellDiscountFlow()
         logging.info("Completed test: Anonym Sell LTC.")
 
 
 if __name__ == "__main__":
-    unittest.main()
+    unittest.main(exit=False)

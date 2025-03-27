@@ -13,13 +13,13 @@ class BasePage:
             click(image)
             logging.info("Clicked on %s", name)
         else:
-            raise FindFailed("[ERROR] %s not found!" % name)
+            raise FindFailed("%s not found!" % name)
 
     def assertExists(self, image, name):
         if exists(image, WAIT_TIMEOUT):
-            logging.info("[INFO] %s exists", name)
+            logging.info("%s exists", name)
         else:
-            raise FindFailed("[ERROR] %s not found!" % name)
+            raise FindFailed("%s not found!" % name)
 
     def waitElement(self, pattern):
         wait(pattern, WAIT_TIMEOUT)
