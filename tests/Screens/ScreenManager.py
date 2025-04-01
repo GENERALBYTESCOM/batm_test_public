@@ -5,8 +5,10 @@ from Screens.ChooseLimitScreen import ChooseLimitScreen
 from Screens.DashboardScreen import DashboardScreen
 from Screens.DiscountScreen import DiscountScreen
 from Screens.InsertMoneyScreen import InsertMoneyScreen
+from Screens.MarketingAgreementScreen import MarketingAgreementScreen
 from Screens.NumberScreen import NumberScreen
 from Screens.PrivacyScreen import PrivacyScreen
+from Screens.RequiredDisclosuresScreen import RequiredDisclosuresScreen
 from Screens.WalletScreen import WalletScreen
 
 
@@ -21,8 +23,10 @@ class ScreenManager:
             "dashboard": DashboardScreen(),
             "chooseLimit": ChooseLimitScreen(),
             "insertMoney": InsertMoneyScreen(),
+            "marketingAgreement": MarketingAgreementScreen(),
+            "requiredDisclosures": RequiredDisclosuresScreen(),
         }
-        logging.info("Screen Manager: All screens initialized.")
+        logging.debug("Screen Manager: All screens initialized.")
 
     @property
     def walletScreen(self):
@@ -51,3 +55,11 @@ class ScreenManager:
     @property
     def insertMoneyScreen(self):
         return self.screens["insertMoney"]
+
+    @property
+    def requiredDisclosuresScreen(self):
+        return self.screens["requiredDisclosures"]
+
+    @property
+    def marketingAgreementScreen(self):
+        return self.screens["marketingAgreement"]

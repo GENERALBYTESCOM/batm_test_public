@@ -1,4 +1,5 @@
 import logging
+
 from sikuli import click, exists, wait, sleep, FindFailed
 
 WAIT_TIMEOUT = 30

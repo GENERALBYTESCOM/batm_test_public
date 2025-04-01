@@ -2,10 +2,16 @@ import logging
 import os
 import sys
 
+from Screens.ScreenManager import ScreenManager
+from Utils.FlowHelper import FlowHelper
 from sikuli import ImagePath, getBundlePath
 
 
 class BaseTest:
+    def __init__(self):
+        self.screens = None
+        self.flow = None
+
     def setupEnv(self):
         bundleDir = os.path.dirname(getBundlePath())
         projectRoot = os.path.abspath(bundleDir)
@@ -25,7 +31,12 @@ class BaseTest:
             datefmt="%H:%M:%S",
             level=logging.INFO,
         )
-        logging.info("BaseTest.setupEnv: environment configured successfully.")
+        logging.info("SikuliX environment configured successfully.")
+
+    def setupTestObjects(self):
+        self.screens = ScreenManager()
+        self.flow = FlowHelper(self.screens)
+        self.screens.dashboardScreen.checkMainScreenAndClickLogo()
 
     def teardownEnv(self):
-        logging.info("BaseTest.teardownEnv: environment cleanup completed.")
+        logging.info("SikuliX environment cleanup completed.")
