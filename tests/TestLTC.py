@@ -1,18 +1,24 @@
 import logging
 import unittest
 
+from BaseTest import BaseTest
+from Screens.ScreenManager import ScreenManager
 from Utils.Config import LTC_DESTINATION_ADDRESS, LTC_DISCOUNT_TEXT
-from Utils.TestEnvironmentHelper import TestEnvironmentHelper
-from sikuli import type
+from FlowHelper import FlowHelper
 
 
 class TestLTC(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        TestEnvironmentHelper.setUpTestClass(cls)
+        cls.baseTest = BaseTest()
+        cls.baseTest.setupEnv()
 
     def setUp(self):
-        TestEnvironmentHelper.setUpTestMethod(self)
+        logging.info("=== setUp: Initializing screens for TestLTC ===")
+        self.screens = ScreenManager()
+        self.flow = FlowHelper(self.screens)
+
+        self.screens.dashboardScreen.checkMainScreenAndClickLogo()
         self.screens.dashboardScreen.clickCoinButton("ltc")
 
     def tearDown(self):
@@ -20,7 +26,7 @@ class TestLTC(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        cls.env.teardownClassEnv()
+        cls.baseTest.teardownEnv()
 
     def testAnonymBuyLTC(self):
         logging.info("=== Started test: Anonym Buy LTC ===")
@@ -29,7 +35,6 @@ class TestLTC(unittest.TestCase):
         self.screens.walletScreen.clickScanQrButton()
         self.screens.walletScreen.insertBanknoteAndVerify("100 CZK")
         self.screens.basePage.assertExists("BUY_LTC_button.png", "BUY LTC BUTTON")
-
         self.screens.discountScreen.prepareDiscountDialog()
         type(LTC_DISCOUNT_TEXT)
         self.flow.completeBuyDiscountFlow()

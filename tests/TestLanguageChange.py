@@ -20,7 +20,7 @@ class TestLanguageChange(unittest.TestCase):
         self.languageScreen = LanguageScreen()
 
     def tearDown(self):
-        logging.info("=== tearDown: Cleaning up after test ===")
+        logging.info("Test '%s' cleaned up.", self._testMethodName)
 
     @classmethod
     def tearDownClass(cls):

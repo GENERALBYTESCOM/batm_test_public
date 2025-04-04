@@ -1,19 +1,27 @@
 import logging
 import unittest
 
+from sikuli import wait
+
+from BaseTest import BaseTest
 from Screens.BasePage import WAIT_TIMEOUT
+from Screens.ScreenManager import ScreenManager
 from Utils.Config import LBTC_DISCOUNT_TEXT
-from Utils.TestEnvironmentHelper import TestEnvironmentHelper
-from sikuli import wait, type
+from FlowHelper import FlowHelper
 
 
 class TestLBTC(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        TestEnvironmentHelper.setUpTestClass(cls)
+        cls.baseTest = BaseTest()
+        cls.baseTest.setupEnv()
 
     def setUp(self):
-        TestEnvironmentHelper.setUpTestMethod(self)
+        logging.info("=== setUp: Initializing screens for TestLBTC ===")
+        self.screens = ScreenManager()
+        self.flow = FlowHelper(self.screens)
+
+        self.screens.dashboardScreen.checkMainScreenAndClickLogo()
         self.screens.dashboardScreen.clickCoinButton("lbtc")
 
     def tearDown(self):
@@ -21,7 +29,7 @@ class TestLBTC(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        cls.env.teardownClassEnv()
+        cls.baseTest.teardownEnv()
 
     def testAnonymBuyLBTC(self):
         logging.info("=== Started test: Anonym Buy LBTC ===")

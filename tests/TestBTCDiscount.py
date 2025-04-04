@@ -1,18 +1,24 @@
 import logging
 import unittest
 
+from BaseTest import BaseTest
+from FlowHelper import FlowHelper
+from Screens.ScreenManager import ScreenManager
 from Utils.Config import BTC_DESTINATION_ADDRESS, DISCOUNT_TEXT
-from Utils.TestEnvironmentHelper import TestEnvironmentHelper
-from sikuli import type
 
 
 class TestBTCDiscount(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        TestEnvironmentHelper.setUpTestClass(cls)
+        cls.baseTest = BaseTest()
+        cls.baseTest.setupEnv()
 
     def setUp(self):
-        TestEnvironmentHelper.setUpTestMethod(self)
+        logging.info("=== setUp: Initializing screens for TestBTCDiscount ===")
+        self.screens = ScreenManager()
+        self.flow = FlowHelper(self.screens)
+
+        self.screens.dashboardScreen.checkMainScreenAndClickLogo()
         self.screens.dashboardScreen.clickCoinButton("btc")
 
     def tearDown(self):
@@ -20,7 +26,7 @@ class TestBTCDiscount(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        cls.env.teardownClassEnv()
+        cls.baseTest.teardownEnv()
 
     def testAnonymBuyDiscount(self):
         logging.info("=== Started test: Anonym Buy Discount ===")
@@ -28,12 +34,10 @@ class TestBTCDiscount(unittest.TestCase):
         type(BTC_DESTINATION_ADDRESS)
         self.screens.walletScreen.clickScanQrButton()
         self.screens.walletScreen.insertBanknoteAndVerify("100 CZK")
-
         self.screens.basePage.assertExists("BUY_BTC_button.png", "BUY BTC BUTTON")
         self.screens.discountScreen.prepareDiscountDialog()
         type(DISCOUNT_TEXT)
         self.flow.completeBuyDiscountFlow()
-
         self.screens.insertMoneyScreen.buyBTC()
         self.screens.dashboardScreen.completeTransaction()
         logging.info("=== Completed test: Anonym Buy Discount ===")
@@ -51,14 +55,12 @@ class TestBTCDiscount(unittest.TestCase):
         type(BTC_DESTINATION_ADDRESS)
         self.screens.walletScreen.clickScanQrButton()
         self.screens.walletScreen.insertBanknoteAndVerify("100 CZK")
-
         self.screens.basePage.assertExists("BUY_BTC_button.png", "BUY BTC BUTTON")
         self.screens.discountScreen.prepareDiscountDialog()
         type(DISCOUNT_TEXT)
         self.flow.completeBuyDiscountFlow()
         self.screens.insertMoneyScreen.buyBTC()
         self.screens.marketingAgreementScreen.declineMarketingAgreement()
-
         self.screens.dashboardScreen.completeTransaction()
         logging.info("=== Completed test: Unregistered Buy Discount ===")
 

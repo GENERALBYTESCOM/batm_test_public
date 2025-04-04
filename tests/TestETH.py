@@ -1,18 +1,22 @@
 import logging
 import unittest
 
+from BaseTest import BaseTest
+from Screens.ScreenManager import ScreenManager
 from Utils.Config import ETH_DESTINATION_ADDRESS, ETH_DISCOUNT_TEXT
-from Utils.TestEnvironmentHelper import TestEnvironmentHelper
-from sikuli import type
+from FlowHelper import FlowHelper
 
 
 class TestETH(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        TestEnvironmentHelper.setUpTestClass(cls)
+        cls.baseTest = BaseTest()
+        cls.baseTest.setupEnv()
 
     def setUp(self):
-        TestEnvironmentHelper.setUpTestMethod(self)
+        logging.info("=== setUp: Initializing screens for TestETH ===")
+        self.screens = ScreenManager()
+        self.flow = FlowHelper(self.screens)
         self.screens.dashboardScreen.clickCoinButton("eth")
 
     def tearDown(self):
@@ -20,7 +24,7 @@ class TestETH(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        cls.env.teardownClassEnv()
+        cls.baseTest.teardownEnv()
 
     def testAnonymBuyETH(self):
         logging.info("=== Started test: Test Anonym Buy ETH ===")
