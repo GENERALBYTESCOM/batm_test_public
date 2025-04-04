@@ -4,25 +4,24 @@ from sikuli import has, wait
 
 
 class DashboardScreen(BasePage):
+    coinButtons = {
+        "btc": {"image": "BTC_button.png", "desc": "BTC LOGO"},
+        "lbtc": {"image": "LBTC_button.png", "desc": "LBTC LOGO"},
+        "ltc": {"image": "LTC_button.png", "desc": "LTC LOGO"},
+        "eth": {"image": "ETH_button.png", "desc": "ETH LOGO"},
+    }
+
+    def clickCoinButton(self, coin):
+        coin = coin.lower()
+        if coin not in self.coinButtons:
+            raise ValueError("Unsupported coin: {}".format(coin))
+        btn = self.coinButtons[coin]
+        self.assertExists(btn["image"], btn["desc"])
+        self.clickElement(btn["image"], btn["desc"])
+
     def checkMainScreenAndClickLogo(self):
         if has("main_screen.png", WAIT_TIMEOUT):
             self.clickElement("BTC_logo.png", "SCREENSAVER")
-
-    def clickBtcButton(self):
-        self.assertExists("BTC_button.png", "BTC LOGO")
-        self.clickElement("BTC_button.png", "BTC LOGO")
-
-    def clickLbtcButton(self):
-        self.assertExists("LBTC_button.png", "LBTC LOGO")
-        self.clickElement("LBTC_button.png", "LBTC LOGO")
-
-    def clickLtcButton(self):
-        self.assertExists("LTC_button.png", "LTC LOGO")
-        self.clickElement("LTC_button.png", "LTC LOGO")
-
-    def clickEthButton(self):
-        self.assertExists("ETH_button.png", "ETH LOGO")
-        self.clickElement("ETH_button.png", "ETH LOGO")
 
     def chooseLanguageButton(self):
         self.assertExists("choose_language_button.png", "CHOOSE LANGUAGE SCREEN")

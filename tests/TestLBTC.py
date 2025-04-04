@@ -1,12 +1,13 @@
 import logging
 import unittest
 
+from sikuli import wait
+
 from BaseTest import BaseTest
-from FlowHelper import FlowHelper
 from Screens.BasePage import WAIT_TIMEOUT
 from Screens.ScreenManager import ScreenManager
 from Utils.Config import LBTC_DISCOUNT_TEXT
-from sikuli import wait, type
+from FlowHelper import FlowHelper
 
 
 class TestLBTC(unittest.TestCase):
@@ -21,17 +22,17 @@ class TestLBTC(unittest.TestCase):
         self.flow = FlowHelper(self.screens)
 
         self.screens.dashboardScreen.checkMainScreenAndClickLogo()
-        self.screens.dashboardScreen.clickLbtcButton()
+        self.screens.dashboardScreen.clickCoinButton("lbtc")
 
     def tearDown(self):
-        logging.info("=== tearDown: Cleaning up after test ===")
+        logging.info("Test '%s' cleaned up.", self._testMethodName)
 
     @classmethod
     def tearDownClass(cls):
         cls.baseTest.teardownEnv()
 
     def testAnonymBuyLBTC(self):
-        logging.info("Started test: Anonym Buy LBTC.")
+        logging.info("=== Started test: Anonym Buy LBTC ===")
         self.screens.dashboardScreen.clickBuyButton()
         self.screens.walletScreen.confirmWalletOwnership()
         self.screens.privacyScreen.acceptPrivacyAndDisclaimer()
@@ -48,14 +49,14 @@ class TestLBTC(unittest.TestCase):
         self.flow.completeBuyDiscountFlow()
         self.screens.basePage.clickElement("BUY_LBTC_button.png", "BUY LBTC BUTTON")
         self.screens.dashboardScreen.waitAndCompleteNotDoneYetTransaction()
-        logging.info("Completed test: Anonym Buy LBTC.")
+        logging.info("=== Completed test: Anonym Buy LBTC ===")
 
     def testAnonymSellLBTC(self):
-        logging.info("Started test: Anonym Sell LBTC.")
+        logging.info("=== Started test: Anonym Sell LBTC ===")
         self.flow.performAnonymSellFlow()
         type(LBTC_DISCOUNT_TEXT)
         self.flow.completeSellDiscountFlow()
-        logging.info("Completed test: Anonym Sell LBTC.")
+        logging.info("=== Completed test: Anonym Sell LBTC ===")
 
 
 if __name__ == "__main__":

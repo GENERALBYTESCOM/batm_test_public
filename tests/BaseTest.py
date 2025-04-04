@@ -25,7 +25,7 @@ class BaseTest:
             datefmt="%H:%M:%S",
             level=logging.INFO,
         )
-        logging.info("BaseTest.setupEnv: environment configured successfully.")
+        logging.info("SikuliX environment configured successfully.")
 
     def teardownEnv(self):
-        logging.info("BaseTest.teardownEnv: environment cleanup completed.")
+        logging.info("SikuliX environment cleanup completed.")

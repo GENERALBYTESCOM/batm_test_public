@@ -27,3 +27,16 @@ class FlowHelper:
         self.screens.dashboardScreen.completeSellTransaction()
         self.screens.dashboardScreen.dismissSmsNotificationModal()
         self.screens.dashboardScreen.completeTransaction()
+
+    def performUnregisteredBuyFlow(self):
+        self.screens.dashboardScreen.clickBuyButton()
+        self.screens.walletScreen.confirmWalletOwnership()
+        self.screens.privacyScreen.acceptPrivacyAndDisclaimer()
+        self.screens.chooseLimitScreen.chooseUnregisteredTier()
+        self.screens.privacyScreen.acceptPrivacyNotice()
+        self.screens.numberScreen.assertPhoneNumberTextIsDisplayed()
+        self.screens.numberScreen.enterNumber()
+        self.screens.numberScreen.assertOTPTextIsDisplayed()
+        self.screens.numberScreen.enterNumber()
+        self.screens.requiredDisclosuresScreen.acceptRequiredDisclosures()
+        self.screens.walletScreen.clickCryptoWallet()
