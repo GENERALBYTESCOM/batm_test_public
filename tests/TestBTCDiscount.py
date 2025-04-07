@@ -15,9 +15,9 @@ class TestBTCDiscount(unittest.TestCase):
 
     def setUp(self):
         logging.info(
-            "setUp: Initializing screens for {}.{}".format(
-                self.__class__.__name__, self._testMethodName
-            )
+            "setUp: Initializing screens for %s.%s",
+            self.__class__.__name__,
+            self._testMethodName,
         )
         self.screens = ScreenManager()
         self.flow = FlowHelper(self.screens)
