@@ -14,7 +14,7 @@ class TestBTCDiscount(unittest.TestCase):
         cls.baseTest.setupEnv()
 
     def setUp(self):
-        logging.info("=== setUp: Initializing screens for TestBTCDiscount ===")
+        logging.info("setUp: Initializing screens for {}.{}".format(self.__class__.__name__, self._testMethodName))
         self.screens = ScreenManager()
         self.flow = FlowHelper(self.screens)
 
@@ -63,6 +63,17 @@ class TestBTCDiscount(unittest.TestCase):
         self.screens.marketingAgreementScreen.declineMarketingAgreement()
         self.screens.dashboardScreen.completeTransaction()
         logging.info("=== Completed test: Unregistered Buy Discount ===")
+
+    def testUnregisteredSellDiscount(self):
+        logging.info("=== Started test: Unregistered Sell Discount ===")
+        self.flow.performUnregisteredSellFlow()
+        type(DISCOUNT_TEXT)
+        self.flow.completeBuyDiscountFlow()
+        self.screens.walletScreen.add100CzkButton()
+        self.screens.dashboardScreen.completeSellTransaction()
+        self.screens.marketingAgreementScreen.declineMarketingAgreement()
+        self.screens.dashboardScreen.completeTransaction()
+        logging.info("=== Completed test: Unregistered Sell Discount ===")
 
 
 if __name__ == "__main__":

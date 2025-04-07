@@ -13,8 +13,7 @@ class FlowHelper:
         self.screens.dashboardScreen.clickSellButton()
         self.screens.privacyScreen.acceptPrivacy()
         self.screens.chooseLimitScreen.chooseAnonymousTierAndContinue()
-        self.screens.discountScreen.openDiscountDialog()
-        self.screens.discountScreen.waitAndClickDiscountInputField()
+        self.screens.discountScreen.prepareDiscountDialog()
 
     def completeBuyDiscountFlow(self):
         self.screens.discountScreen.submitAndCloseDiscountDialog()
@@ -40,3 +39,15 @@ class FlowHelper:
         self.screens.numberScreen.enterNumber()
         self.screens.requiredDisclosuresScreen.acceptRequiredDisclosures()
         self.screens.walletScreen.clickCryptoWallet()
+
+    def performUnregisteredSellFlow(self):
+        self.screens.dashboardScreen.clickSellButton()
+        self.screens.privacyScreen.acceptPrivacy()
+        self.screens.chooseLimitScreen.chooseUnregisteredTier()
+        self.screens.requiredDisclosuresScreen.acceptRequiredDisclosures()
+        self.screens.privacyScreen.acceptPrivacyNotice()
+        self.screens.numberScreen.assertPhoneNumberTextIsDisplayed()
+        self.screens.numberScreen.enterNumber()
+        self.screens.numberScreen.assertOTPTextIsDisplayed()
+        self.screens.numberScreen.enterNumber()
+        self.screens.discountScreen.prepareDiscountDialog()
