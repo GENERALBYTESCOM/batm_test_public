@@ -2,9 +2,9 @@ import logging
 import unittest
 
 from BaseTest import BaseTest
+from Config.Constants import ETH_DESTINATION_ADDRESS, ETH_DISCOUNT_TEXT
+from Helpers.FlowHelper import FlowHelper
 from Screens.ScreenManager import ScreenManager
-from Utils.Config import ETH_DESTINATION_ADDRESS, ETH_DISCOUNT_TEXT
-from FlowHelper import FlowHelper
 
 
 class TestETH(unittest.TestCase):

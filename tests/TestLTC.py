@@ -2,9 +2,9 @@ import logging
 import unittest
 
 from BaseTest import BaseTest
-from FlowHelper import FlowHelper
+from Config.Constants import LTC_DESTINATION_ADDRESS, LTC_DISCOUNT_TEXT
+from Helpers.FlowHelper import FlowHelper
 from Screens.ScreenManager import ScreenManager
-from Utils.Config import LTC_DESTINATION_ADDRESS, LTC_DISCOUNT_TEXT
 
 
 class TestLTC(unittest.TestCase):

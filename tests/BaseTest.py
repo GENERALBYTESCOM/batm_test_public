@@ -9,14 +9,12 @@ class BaseTest:
     def setupEnv(self):
         bundleDir = os.path.dirname(getBundlePath())
         projectRoot = os.path.abspath(bundleDir)
-        if projectRoot not in sys.path:
-            sys.path.append(projectRoot)
 
-        pagesDir = os.path.join(projectRoot, "tests", "Screens")
+        testsDir = os.path.join(projectRoot, "tests")
+        if testsDir not in sys.path:
+            sys.path.append(testsDir)
+
         screenshotsDir = os.path.join(projectRoot, "tests", "Screenshots")
-        if pagesDir not in sys.path:
-            sys.path.append(pagesDir)
-
         if screenshotsDir not in list(ImagePath.getPaths()):
             ImagePath.add(screenshotsDir)
 

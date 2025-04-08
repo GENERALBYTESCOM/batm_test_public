@@ -4,10 +4,9 @@ import unittest
 from sikuli import wait
 
 from BaseTest import BaseTest
-from Screens.BasePage import WAIT_TIMEOUT
+from Config.Constants import LBTC_DISCOUNT_TEXT, WAIT_TIMEOUT
+from Helpers.FlowHelper import FlowHelper
 from Screens.ScreenManager import ScreenManager
-from Utils.Config import LBTC_DISCOUNT_TEXT
-from FlowHelper import FlowHelper
 
 
 class TestLBTC(unittest.TestCase):

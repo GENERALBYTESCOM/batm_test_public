@@ -2,9 +2,9 @@ import logging
 import unittest
 
 from BaseTest import BaseTest
-from FlowHelper import FlowHelper
+from Config.Constants import BTC_DESTINATION_ADDRESS, DISCOUNT_TEXT
+from Helpers.FlowHelper import FlowHelper
 from Screens.ScreenManager import ScreenManager
-from Utils.Config import BTC_DESTINATION_ADDRESS, DISCOUNT_TEXT
 
 
 class TestBTCDiscount(unittest.TestCase):
