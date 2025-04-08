@@ -21,7 +21,6 @@ class TestBTCDiscount(unittest.TestCase):
         )
         self.screens = ScreenManager()
         self.flow = FlowHelper(self.screens)
-
         self.screens.dashboardScreen.checkMainScreenAndClickLogo()
         self.screens.dashboardScreen.clickCoinButton("btc")
 
@@ -72,11 +71,7 @@ class TestBTCDiscount(unittest.TestCase):
         logging.info("=== Started test: Unregistered Sell Discount ===")
         self.flow.performUnregisteredSellFlow()
         type(DISCOUNT_TEXT)
-        self.flow.completeBuyDiscountFlow()
-        self.screens.walletScreen.add100CzkButton()
-        self.screens.dashboardScreen.completeSellTransaction()
-        self.screens.marketingAgreementScreen.declineMarketingAgreement()
-        self.screens.dashboardScreen.completeTransaction()
+        self.flow.completeUnregisteredSellFlow()
         logging.info("=== Completed test: Unregistered Sell Discount ===")
 
 

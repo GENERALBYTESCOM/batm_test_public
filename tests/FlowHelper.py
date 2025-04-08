@@ -51,3 +51,10 @@ class FlowHelper:
         self.screens.numberScreen.assertOTPTextIsDisplayed()
         self.screens.numberScreen.enterNumber()
         self.screens.discountScreen.prepareDiscountDialog()
+
+    def completeUnregisteredSellFlow(self):
+        self.completeBuyDiscountFlow()
+        self.screens.walletScreen.add100CzkButton()
+        self.screens.dashboardScreen.completeSellTransaction()
+        self.screens.marketingAgreementScreen.declineMarketingAgreement()
+        self.screens.dashboardScreen.completeTransaction()

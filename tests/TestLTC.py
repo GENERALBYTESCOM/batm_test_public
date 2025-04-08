@@ -2,9 +2,9 @@ import logging
 import unittest
 
 from BaseTest import BaseTest
+from FlowHelper import FlowHelper
 from Screens.ScreenManager import ScreenManager
 from Utils.Config import LTC_DESTINATION_ADDRESS, LTC_DISCOUNT_TEXT
-from FlowHelper import FlowHelper
 
 
 class TestLTC(unittest.TestCase):
@@ -63,6 +63,13 @@ class TestLTC(unittest.TestCase):
         self.screens.marketingAgreementScreen.declineMarketingAgreement()
         self.screens.dashboardScreen.completeTransaction()
         logging.info("=== Completed test: Unregistered Buy LTC ===")
+
+    def testUnregisteredSellLTC(self):
+        logging.info("=== Started test: Unregistered Sell LTC ===")
+        self.flow.performUnregisteredSellFlow()
+        type(LTC_DISCOUNT_TEXT)
+        self.flow.completeUnregisteredSellFlow()
+        logging.info("=== Completed test: Unregistered Sell LTC ===")
 
 
 if __name__ == "__main__":
