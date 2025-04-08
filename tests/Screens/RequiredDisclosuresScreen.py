@@ -1,5 +1,5 @@
-from Screens.BasePage import BasePage, WAIT_TIMEOUT
-
+from Config.Constants import WAIT_TIMEOUT
+from Screens.BasePage import BasePage
 from sikuli import wait
 
 

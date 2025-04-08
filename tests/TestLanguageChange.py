@@ -1,11 +1,12 @@
 import logging
 import unittest
 
+from sikuli import wait
+
 from BaseTest import BaseTest
-from Screens.BasePage import WAIT_TIMEOUT
+from Config.Constants import WAIT_TIMEOUT
 from Screens.LanguageScreen import LanguageScreen
 from Screens.ScreenManager import ScreenManager
-from sikuli import wait
 
 
 class TestLanguageChange(unittest.TestCase):
