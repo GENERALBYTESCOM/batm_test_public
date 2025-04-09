@@ -33,10 +33,7 @@ class FlowHelper:
         self.screens.privacyScreen.acceptPrivacyAndDisclaimer()
         self.screens.chooseLimitScreen.chooseUnregisteredTier()
         self.screens.privacyScreen.acceptPrivacyNotice()
-        self.screens.numberScreen.assertPhoneNumberTextIsDisplayed()
-        self.screens.numberScreen.enterNumber()
-        self.screens.numberScreen.assertOTPTextIsDisplayed()
-        self.screens.numberScreen.enterNumber()
+        self.verifyPhoneNumberAndOTP()
         self.screens.requiredDisclosuresScreen.acceptRequiredDisclosures()
         self.screens.walletScreen.clickCryptoWallet()
 
@@ -46,10 +43,7 @@ class FlowHelper:
         self.screens.chooseLimitScreen.chooseUnregisteredTier()
         self.screens.requiredDisclosuresScreen.acceptRequiredDisclosures()
         self.screens.privacyScreen.acceptPrivacyNotice()
-        self.screens.numberScreen.assertPhoneNumberTextIsDisplayed()
-        self.screens.numberScreen.enterNumber()
-        self.screens.numberScreen.assertOTPTextIsDisplayed()
-        self.screens.numberScreen.enterNumber()
+        self.verifyPhoneNumberAndOTP()
         self.screens.discountScreen.prepareDiscountDialog()
 
     def completeUnregisteredSellFlow(self):
@@ -58,3 +52,15 @@ class FlowHelper:
         self.screens.dashboardScreen.completeSellTransaction()
         self.screens.marketingAgreementScreen.declineMarketingAgreement()
         self.screens.dashboardScreen.completeTransaction()
+
+    def performBuyFlow(self):
+        self.screens.dashboardScreen.clickBuyButton()
+        self.screens.walletScreen.confirmWalletOwnership()
+        self.screens.privacyScreen.acceptPrivacyAndDisclaimer()
+        self.screens.walletScreen.clickIHaveAWalletButton()
+
+    def verifyPhoneNumberAndOTP(self):
+        self.screens.numberScreen.assertPhoneNumberTextIsDisplayed()
+        self.screens.numberScreen.enterNumber()
+        self.screens.numberScreen.assertOTPTextIsDisplayed()
+        self.screens.numberScreen.enterNumber()

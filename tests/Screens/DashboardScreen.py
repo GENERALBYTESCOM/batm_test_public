@@ -56,5 +56,5 @@ class DashboardScreen(BasePage):
     def waitAndCompleteNotDoneYetTransaction(self):
         wait("wait_we_are_not_done_yet_text.png", WAIT_TIMEOUT)
         self.assertExists("wait_we_are_not_done_yet_text.png", "NOT DONE YET TEXT")
-        wait("DONE_completed_button.png", WAIT_TIMEOUT)
+        wait("DONE_completed_button.png", 40)
         self.clickElement("DONE_completed_button.png", "BUY DONE BUTTON")

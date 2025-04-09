@@ -4,8 +4,13 @@ import sys
 
 from sikuli import ImagePath, getBundlePath
 
+from Screens.ScreenManager import ScreenManager
+
 
 class BaseTest:
+    def __init__(self):
+        self.screens = None
+
     def setupEnv(self):
         bundleDir = os.path.dirname(getBundlePath())
         projectRoot = os.path.abspath(bundleDir)
@@ -23,6 +28,8 @@ class BaseTest:
             datefmt="%H:%M:%S",
             level=logging.INFO,
         )
+        self.screens = ScreenManager()
+        self.screens.dashboardScreen.checkMainScreenAndClickLogo()
         logging.info("SikuliX environment configured successfully.")
 
     def teardownEnv(self):

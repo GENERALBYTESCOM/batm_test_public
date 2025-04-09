@@ -16,7 +16,10 @@ class TestLanguageChange(unittest.TestCase):
         cls.baseTest.setupEnv()
 
     def setUp(self):
-        logging.info("=== setUp: Initializing screens for TestLanguageChange ===")
+        logging.info(
+            "setUp: Initializing screens for TestLanguageChange: %s",
+            self._testMethodName,
+        )
         self.screens = ScreenManager()
         self.languageScreen = LanguageScreen()
 
@@ -29,8 +32,6 @@ class TestLanguageChange(unittest.TestCase):
 
     def testLanguageChange(self):
         logging.info("Started test: Language Change.")
-
-        self.screens.dashboardScreen.checkMainScreenAndClickLogo()
         self.screens.basePage.assertExists(
             "EN_welcome_logo_text.png", "EN WELCOME LOGO"
         )

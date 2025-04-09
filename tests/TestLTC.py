@@ -14,11 +14,12 @@ class TestLTC(unittest.TestCase):
         cls.baseTest.setupEnv()
 
     def setUp(self):
-        logging.info("=== setUp: Initializing screens for TestLTC ===")
+        logging.info(
+            "setUp: Initializing screens for TestLTC: %s",
+            self._testMethodName,
+        )
         self.screens = ScreenManager()
         self.flow = FlowHelper(self.screens)
-
-        self.screens.dashboardScreen.checkMainScreenAndClickLogo()
         self.screens.dashboardScreen.clickCoinButton("ltc")
 
     def tearDown(self):
