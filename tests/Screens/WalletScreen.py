@@ -50,5 +50,7 @@ class WalletScreen(BasePage):
         self.clickElement("+100_CZK_button.png", "+100 CZK BUTTON")
 
     def clickIHaveAWalletButton(self):
-        self.assertExists("you_must_have_a_wallet_text.png", "YOU MUST HAVE A WALLET TEXT EXIST")
+        self.assertExists(
+            "you_must_have_a_wallet_text.png", "YOU MUST HAVE A WALLET TEXT EXIST"
+        )
         self.clickElement("I_have_a_wallet.png", "YES, I HAVE A WALLET BUTTON")
