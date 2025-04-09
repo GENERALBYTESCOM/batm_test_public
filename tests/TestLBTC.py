@@ -1,10 +1,8 @@
 import logging
 import unittest
 
-from sikuli import wait
-
 from BaseTest import BaseTest
-from Config.Constants import LBTC_DISCOUNT_TEXT, WAIT_TIMEOUT
+from Config.Constants import LBTC_DISCOUNT_TEXT
 from Helpers.FlowHelper import FlowHelper
 from Screens.ScreenManager import ScreenManager
 
@@ -35,7 +33,7 @@ class TestLBTC(unittest.TestCase):
         self.flow.performBuyFlow()
         self.screens.chooseLimitScreen.chooseAnonymousTierAndContinue()
         self.screens.walletScreen.insertBanknoteAndVerify("100 CZK")
-        wait("BUY_LBTC_button.png", WAIT_TIMEOUT)
+        self.screens.basePage.assertExists("BUY_LBTC_button.png", "BUY LBTC BUTTON")
         self.screens.discountScreen.prepareDiscountDialog()
         type(LBTC_DISCOUNT_TEXT)
         self.flow.completeBuyDiscountFlow()
@@ -64,7 +62,7 @@ class TestLBTC(unittest.TestCase):
         self.flow.verifyPhoneNumberAndOTP()
         self.screens.requiredDisclosuresScreen.acceptRequiredDisclosures()
         self.screens.walletScreen.insertBanknoteAndVerify("100 CZK")
-        wait("BUY_LBTC_button.png", WAIT_TIMEOUT)
+        self.screens.basePage.assertExists("BUY_LBTC_button.png", "BUY LBTC BUTTON")
         self.screens.discountScreen.prepareDiscountDialog()
         type(LBTC_DISCOUNT_TEXT)
         self.flow.completeBuyDiscountFlow()
