@@ -14,7 +14,10 @@ class TestETH(unittest.TestCase):
         cls.baseTest.setupEnv()
 
     def setUp(self):
-        logging.info("=== setUp: Initializing screens for TestETH ===")
+        logging.info(
+            "setUp: Initializing screens for TestETH: %s",
+            self._testMethodName,
+        )
         self.screens = ScreenManager()
         self.flow = FlowHelper(self.screens)
         self.screens.dashboardScreen.clickCoinButton("eth")

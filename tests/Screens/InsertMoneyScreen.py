@@ -13,3 +13,7 @@ class InsertMoneyScreen(BasePage):
     def buyETH(self):
         self.assertExists("BUY_ETH_button.png", "BUY ETH BUTTON")
         self.clickElement("BUY_ETH_button.png", "BUY ETH BUTTON")
+
+    def buyLBTC(self):
+        self.assertExists("BUY_LBTC_button.png", "BUY LBTC BUTTON")
+        self.clickElement("BUY_LBTC_button.png", "BUY LBTC BUTTON")

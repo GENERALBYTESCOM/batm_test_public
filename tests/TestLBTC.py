@@ -16,11 +16,11 @@ class TestLBTC(unittest.TestCase):
         cls.baseTest.setupEnv()
 
     def setUp(self):
-        logging.info("=== setUp: Initializing screens for TestLBTC ===")
+        logging.info(
+            "setUp: Initializing screens for TestLBTC: %s", self._testMethodName
+        )
         self.screens = ScreenManager()
         self.flow = FlowHelper(self.screens)
-
-        self.screens.dashboardScreen.checkMainScreenAndClickLogo()
         self.screens.dashboardScreen.clickCoinButton("lbtc")
 
     def tearDown(self):
@@ -32,21 +32,14 @@ class TestLBTC(unittest.TestCase):
 
     def testAnonymBuyLBTC(self):
         logging.info("=== Started test: Anonym Buy LBTC ===")
-        self.screens.dashboardScreen.clickBuyButton()
-        self.screens.walletScreen.confirmWalletOwnership()
-        self.screens.privacyScreen.acceptPrivacyAndDisclaimer()
-
-        self.screens.basePage.clickElement(
-            "I_have_a_wallet.png", "YES, I HAVE A WALLET BUTTON"
-        )
+        self.flow.performBuyFlow()
         self.screens.chooseLimitScreen.chooseAnonymousTierAndContinue()
         self.screens.walletScreen.insertBanknoteAndVerify("100 CZK")
         wait("BUY_LBTC_button.png", WAIT_TIMEOUT)
-
         self.screens.discountScreen.prepareDiscountDialog()
         type(LBTC_DISCOUNT_TEXT)
         self.flow.completeBuyDiscountFlow()
-        self.screens.basePage.clickElement("BUY_LBTC_button.png", "BUY LBTC BUTTON")
+        self.screens.insertMoneyScreen.buyLBTC()
         self.screens.dashboardScreen.waitAndCompleteNotDoneYetTransaction()
         logging.info("=== Completed test: Anonym Buy LBTC ===")
 
@@ -56,6 +49,29 @@ class TestLBTC(unittest.TestCase):
         type(LBTC_DISCOUNT_TEXT)
         self.flow.completeSellDiscountFlow()
         logging.info("=== Completed test: Anonym Sell LBTC ===")
+
+    def testUnregisteredSellLBTC(self):
+        logging.info("=== Started test: Unregistered Sell LBTC ===")
+        self.flow.performUnregisteredSellFlow()
+        type(LBTC_DISCOUNT_TEXT)
+        self.flow.completeUnregisteredSellFlow()
+        logging.info("=== Completed test: Unregistered Sell LBTC ===")
+
+    def testUnregisteredBuyLBTC(self):
+        logging.info("=== Started test: Unregistered Buy LBTC ===")
+        self.flow.performBuyFlow()
+        self.screens.chooseLimitScreen.chooseUnregisteredTier()
+        self.flow.verifyPhoneNumberAndOTP()
+        self.screens.requiredDisclosuresScreen.acceptRequiredDisclosures()
+        self.screens.walletScreen.insertBanknoteAndVerify("100 CZK")
+        wait("BUY_LBTC_button.png", WAIT_TIMEOUT)
+        self.screens.discountScreen.prepareDiscountDialog()
+        type(LBTC_DISCOUNT_TEXT)
+        self.flow.completeBuyDiscountFlow()
+        self.screens.insertMoneyScreen.buyLBTC()
+        self.screens.marketingAgreementScreen.declineMarketingAgreement()
+        self.screens.dashboardScreen.waitAndCompleteNotDoneYetTransaction()
+        logging.info("=== Completed test: Unregistered Buy LBTC ===")
 
 
 if __name__ == "__main__":

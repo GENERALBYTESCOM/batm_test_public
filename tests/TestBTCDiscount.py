@@ -15,13 +15,11 @@ class TestBTCDiscount(unittest.TestCase):
 
     def setUp(self):
         logging.info(
-            "setUp: Initializing screens for %s.%s",
-            self.__class__.__name__,
+            "setUp: Initializing screens for TestBTCDiscount: %s",
             self._testMethodName,
         )
         self.screens = ScreenManager()
         self.flow = FlowHelper(self.screens)
-        self.screens.dashboardScreen.checkMainScreenAndClickLogo()
         self.screens.dashboardScreen.clickCoinButton("btc")
 
     def tearDown(self):
