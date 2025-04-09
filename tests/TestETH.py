@@ -44,6 +44,20 @@ class TestETH(unittest.TestCase):
         self.screens.dashboardScreen.completeTransaction()
         logging.info("=== Completed test: Test Anonym Buy ETH ===")
 
+    def testUnregisteredBuyETH(self):
+        logging.info("=== Started test: Test Unregistered Buy ETH ===")
+        self.flow.performUnregisteredBuyFlow()
+        type(ETH_DESTINATION_ADDRESS)
+        self.screens.walletScreen.clickScanQrButton()
+        self.screens.walletScreen.insertBanknoteAndVerify("100 CZK")
+        self.screens.basePage.assertExists("BUY_ETH_button.png", "BUY ETH BUTTON")
+        self.screens.discountScreen.prepareDiscountDialog()
+        type(ETH_DISCOUNT_TEXT)
+        self.flow.completeBuyDiscountFlow()
+        self.screens.insertMoneyScreen.buyETH()
+        self.screens.marketingAgreementScreen.declineMarketingAgreement()
+        self.screens.dashboardScreen.completeTransaction()
+
 
 if __name__ == "__main__":
     unittest.main(exit=False)
