@@ -47,40 +47,6 @@ class FlowHelper:
         self.screens.discountScreen.submitAndCloseDiscountDialog()
         self.screens.discountScreen.verifyDiscountToast()
 
-    # def completeSellDiscountFlow(self):
-    #     self.completeDiscountFlow()
-    #     self.finishSellTransaction(requireSmsDismiss=True)
-    #
-    # def completeUnregisteredSellFlow(self):
-    #     self.completeDiscountFlow()
-    #     self.finishSellTransaction(requireMarketingDecline=True)
-
-    # def performBuyFlow2(self, tier):
-    #     self.clickBuy()
-    #     self.chooseTier(tier)
-    #     self.screens.privacyScreen.acceptPrivacyNotice()
-    #     self.verifyPhoneNumberAndOTP()
-    #     self.screens.requiredDisclosuresScreen.acceptRequiredDisclosures()
-    #     self.screens.walletScreen.clickCryptoWallet()
-    #
-    # def performSellFlow2(self, tier):
-    #     self.clickSell()
-    #     self.chooseTier(tier)
-    #     self.screens.requiredDisclosuresScreen.acceptRequiredDisclosures()
-    #     self.screens.privacyScreen.acceptPrivacyNotice()
-    #     self.verifyPhoneNumberAndOTP()
-    #     self.screens.discountScreen.prepareDiscountDialog()
-
-    # def performAnonymBuyFlow(self, tier):
-    #     self.clickBuy()
-    #     self.chooseTier(tier)
-    #     self.screens.walletScreen.clickCryptoWallet()
-    #
-    # def performAnonymSellFlow(self, tier):
-    #     self.clickSell()
-    #     self.chooseTier(tier)
-    #     self.screens.discountScreen.prepareDiscountDialog()
-
     def performBuyLBTCFlow(self):
         self.clickBuy()
         self.screens.walletScreen.clickIHaveAWalletButton()
