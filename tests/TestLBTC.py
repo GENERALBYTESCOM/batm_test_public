@@ -30,34 +30,38 @@ class TestLBTC(unittest.TestCase):
 
     def testAnonymBuyLBTC(self):
         logging.info("=== Started test: Anonym Buy LBTC ===")
-        self.flow.performBuyFlow()
+        self.flow.performBuyLBTCFlow()
         self.screens.chooseLimitScreen.chooseAnonymousTierAndContinue()
         self.screens.walletScreen.insertBanknoteAndVerify("100 CZK")
         self.screens.basePage.assertExists("BUY_LBTC_button.png", "BUY LBTC BUTTON")
         self.screens.discountScreen.prepareDiscountDialog()
         type(LBTC_DISCOUNT_TEXT)
-        self.flow.completeBuyDiscountFlow()
+        self.flow.completeDiscountFlow()
         self.screens.insertMoneyScreen.buyLBTC()
         self.screens.dashboardScreen.waitAndCompleteNotDoneYetTransaction()
         logging.info("=== Completed test: Anonym Buy LBTC ===")
 
     def testAnonymSellLBTC(self):
         logging.info("=== Started test: Anonym Sell LBTC ===")
-        self.flow.performAnonymSellFlow()
+        self.flow.performSellFlow(tier="anonymous")
         type(LBTC_DISCOUNT_TEXT)
-        self.flow.completeSellDiscountFlow()
+        self.flow.completeSellFlow(
+            useDiscount=True, requireMarketingDecline=False, requireSmsDismiss=True
+        )
         logging.info("=== Completed test: Anonym Sell LBTC ===")
 
     def testUnregisteredSellLBTC(self):
         logging.info("=== Started test: Unregistered Sell LBTC ===")
-        self.flow.performUnregisteredSellFlow()
+        self.flow.performSellFlow(tier="unregistered")
         type(LBTC_DISCOUNT_TEXT)
-        self.flow.completeUnregisteredSellFlow()
+        self.flow.completeSellFlow(
+            useDiscount=True, requireMarketingDecline=True, requireSmsDismiss=False
+        )
         logging.info("=== Completed test: Unregistered Sell LBTC ===")
 
     def testUnregisteredBuyLBTC(self):
         logging.info("=== Started test: Unregistered Buy LBTC ===")
-        self.flow.performBuyFlow()
+        self.flow.performBuyLBTCFlow()
         self.screens.chooseLimitScreen.chooseUnregisteredTier()
         self.flow.verifyPhoneNumberAndOTP()
         self.screens.requiredDisclosuresScreen.acceptRequiredDisclosures()
@@ -65,7 +69,7 @@ class TestLBTC(unittest.TestCase):
         self.screens.basePage.assertExists("BUY_LBTC_button.png", "BUY LBTC BUTTON")
         self.screens.discountScreen.prepareDiscountDialog()
         type(LBTC_DISCOUNT_TEXT)
-        self.flow.completeBuyDiscountFlow()
+        self.flow.completeDiscountFlow()
         self.screens.insertMoneyScreen.buyLBTC()
         self.screens.marketingAgreementScreen.declineMarketingAgreement()
         self.screens.dashboardScreen.waitAndCompleteNotDoneYetTransaction()

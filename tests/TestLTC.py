@@ -31,35 +31,37 @@ class TestLTC(unittest.TestCase):
 
     def testAnonymBuyLTC(self):
         logging.info("=== Started test: Anonym Buy LTC ===")
-        self.flow.performAnonymBuyFlow()
+        self.flow.performBuyFlow(tier="anonymous")
         type(LTC_DESTINATION_ADDRESS)
         self.screens.walletScreen.clickScanQrButton()
         self.screens.walletScreen.insertBanknoteAndVerify("100 CZK")
         self.screens.basePage.assertExists("BUY_LTC_button.png", "BUY LTC BUTTON")
         self.screens.discountScreen.prepareDiscountDialog()
         type(LTC_DISCOUNT_TEXT)
-        self.flow.completeBuyDiscountFlow()
+        self.flow.completeDiscountFlow()
         self.screens.insertMoneyScreen.buyLTC()
         self.screens.dashboardScreen.completeTransaction()
         logging.info("=== Completed test: Anonym Buy LTC ===")
 
     def testAnonymSellLTC(self):
         logging.info("=== Started test: Anonym Sell LTC ===")
-        self.flow.performAnonymSellFlow()
+        self.flow.performSellFlow(tier="anonymous")
         type(LTC_DISCOUNT_TEXT)
-        self.flow.completeSellDiscountFlow()
+        self.flow.completeSellFlow(
+            useDiscount=True, requireMarketingDecline=False, requireSmsDismiss=True
+        )
         logging.info("=== Completed test: Anonym Sell LTC ===")
 
     def testUnregisteredBuyLTC(self):
         logging.info("=== Started test: Unregistered Buy LTC ===")
-        self.flow.performUnregisteredBuyFlow()
+        self.flow.performBuyFlow(tier="unregistered")
         type(LTC_DESTINATION_ADDRESS)
         self.screens.walletScreen.clickScanQrButton()
         self.screens.walletScreen.insertBanknoteAndVerify("100 CZK")
         self.screens.basePage.assertExists("BUY_LTC_button.png", "BUY LTC BUTTON")
         self.screens.discountScreen.prepareDiscountDialog()
         type(LTC_DISCOUNT_TEXT)
-        self.flow.completeBuyDiscountFlow()
+        self.flow.completeDiscountFlow()
         self.screens.insertMoneyScreen.buyLTC()
         self.screens.marketingAgreementScreen.declineMarketingAgreement()
         self.screens.dashboardScreen.completeTransaction()
@@ -67,9 +69,11 @@ class TestLTC(unittest.TestCase):
 
     def testUnregisteredSellLTC(self):
         logging.info("=== Started test: Unregistered Sell LTC ===")
-        self.flow.performUnregisteredSellFlow()
+        self.flow.performSellFlow(tier="unregistered")
         type(LTC_DISCOUNT_TEXT)
-        self.flow.completeUnregisteredSellFlow()
+        self.flow.completeSellFlow(
+            useDiscount=True, requireMarketingDecline=True, requireSmsDismiss=False
+        )
         logging.info("=== Completed test: Unregistered Sell LTC ===")
 
 
