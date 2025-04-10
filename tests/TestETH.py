@@ -31,7 +31,7 @@ class TestETH(unittest.TestCase):
 
     def testAnonymBuyETH(self):
         logging.info("=== Started test: Test Anonym Buy ETH ===")
-        self.flow.performAnonymBuyFlow()
+        self.flow.performBuyFlow(tier="anonymous")
         type(ETH_DESTINATION_ADDRESS)
         self.screens.walletScreen.clickScanQrButton()
         self.screens.walletScreen.insertBanknoteAndVerify("100 CZK")
@@ -39,21 +39,21 @@ class TestETH(unittest.TestCase):
 
         self.screens.discountScreen.prepareDiscountDialog()
         type(ETH_DISCOUNT_TEXT)
-        self.flow.completeBuyDiscountFlow()
+        self.flow.completeDiscountFlow()
         self.screens.insertMoneyScreen.buyETH()
         self.screens.dashboardScreen.completeTransaction()
         logging.info("=== Completed test: Test Anonym Buy ETH ===")
 
     def testUnregisteredBuyETH(self):
         logging.info("=== Started test: Test Unregistered Buy ETH ===")
-        self.flow.performUnregisteredBuyFlow()
+        self.flow.performBuyFlow(tier="unregistered")
         type(ETH_DESTINATION_ADDRESS)
         self.screens.walletScreen.clickScanQrButton()
         self.screens.walletScreen.insertBanknoteAndVerify("100 CZK")
         self.screens.basePage.assertExists("BUY_ETH_button.png", "BUY ETH BUTTON")
         self.screens.discountScreen.prepareDiscountDialog()
         type(ETH_DISCOUNT_TEXT)
-        self.flow.completeBuyDiscountFlow()
+        self.flow.completeDiscountFlow()
         self.screens.insertMoneyScreen.buyETH()
         self.screens.marketingAgreementScreen.declineMarketingAgreement()
         self.screens.dashboardScreen.completeTransaction()
