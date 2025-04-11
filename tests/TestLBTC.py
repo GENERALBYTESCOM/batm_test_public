@@ -75,6 +75,31 @@ class TestLBTC(unittest.TestCase):
         self.screens.dashboardScreen.waitAndCompleteNotDoneYetTransaction()
         logging.info("=== Completed test: Unregistered Buy LBTC ===")
 
+    def testRegisteredBuyLBTC(self):
+        logging.info("=== Started test: Registered Buy LBTC ===")
+        self.flow.performBuyLBTCFlow()
+        self.screens.chooseLimitScreen.chooseRegisteredTier()
+        self.flow.verifyPhoneNumberAndOTP()
+        self.screens.requiredDisclosuresScreen.acceptRequiredDisclosures()
+        self.screens.walletScreen.insertBanknoteAndVerify("100 CZK")
+        self.screens.basePage.assertExists("BUY_LBTC_button.png", "BUY LBTC BUTTON")
+        self.screens.discountScreen.prepareDiscountDialog()
+        type(LBTC_DISCOUNT_TEXT)
+        self.flow.completeDiscountFlow()
+        self.screens.insertMoneyScreen.buyLBTC()
+        self.screens.marketingAgreementScreen.declineMarketingAgreement()
+        self.screens.dashboardScreen.waitAndCompleteNotDoneYetTransaction()
+        logging.info("=== Completed test: Registered Buy LBTC ===")
+
+    def testRegisteredSellLBTC(self):
+        logging.info("=== Started test: Registered Sell LBTC ===")
+        self.flow.performSellFlow(tier="registered")
+        type(LBTC_DISCOUNT_TEXT)
+        self.flow.completeSellFlow(
+            useDiscount=True, requireMarketingDecline=True, requireSmsDismiss=False
+        )
+        logging.info("=== Completed test: Registered Sell LBTC ===")
+
 
 if __name__ == "__main__":
     unittest.main(exit=False)
