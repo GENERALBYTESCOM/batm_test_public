@@ -57,6 +57,22 @@ class TestETH(unittest.TestCase):
         self.screens.insertMoneyScreen.buyETH()
         self.screens.marketingAgreementScreen.declineMarketingAgreement()
         self.screens.dashboardScreen.completeTransaction()
+        logging.info("=== Completed test: Test Unregistered Buy ETH ===")
+
+    def testRegisteredBuyETH(self):
+        logging.info("=== Started test: Test Registered Buy ETH ===")
+        self.flow.performBuyFlow(tier="registered")
+        type(ETH_DESTINATION_ADDRESS)
+        self.screens.walletScreen.clickScanQrButton()
+        self.screens.walletScreen.insertBanknoteAndVerify("100 CZK")
+        self.screens.basePage.assertExists("BUY_BTC_button.png", "BUY BTC BUTTON")
+        self.screens.discountScreen.prepareDiscountDialog()
+        type(ETH_DISCOUNT_TEXT)
+        self.flow.completeDiscountFlow()
+        self.screens.insertMoneyScreen.buyBTC()
+        self.screens.marketingAgreementScreen.declineMarketingAgreement()
+        self.screens.dashboardScreen.completeTransaction()
+        logging.info("=== Completed test: Registered Buy ETH ===")
 
 
 if __name__ == "__main__":
