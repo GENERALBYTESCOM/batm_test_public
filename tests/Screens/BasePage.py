@@ -20,9 +20,3 @@ class BasePage:
             logging.info("%s exists", name)
         else:
             raise FindFailed("%s not found!" % name)
-
-    def waitElement(self, pattern):
-        wait(pattern, WAIT_TIMEOUT)
-
-    def sleep(self, secs):
-        sleep(secs)
