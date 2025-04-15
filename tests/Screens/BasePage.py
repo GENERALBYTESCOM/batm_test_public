@@ -1,7 +1,7 @@
 import logging
 
 from Config.Constants import WAIT_TIMEOUT
-from sikuli import click, exists, wait, sleep, FindFailed
+from sikuli import click, exists, FindFailed
 
 
 class BasePage:
