@@ -6,29 +6,12 @@ from sikuli import wait
 from BaseTest import BaseTest
 from Config.Constants import WAIT_TIMEOUT
 from Screens.LanguageScreen import LanguageScreen
-from Screens.ScreenManager import ScreenManager
 
 
-class TestLanguageChange(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.baseTest = BaseTest()
-        cls.baseTest.setupEnv()
-
+class TestLanguageChange(BaseTest):
     def setUp(self):
-        logging.info(
-            "setUp: Initializing screens for TestLanguageChange: %s",
-            self._testMethodName,
-        )
-        self.screens = ScreenManager()
+        super().setUp()
         self.languageScreen = LanguageScreen()
-
-    def tearDown(self):
-        logging.info("Test '%s' cleaned up.", self._testMethodName)
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.baseTest.teardownEnv()
 
     def testLanguageChange(self):
         logging.info("Started test: Language Change.")

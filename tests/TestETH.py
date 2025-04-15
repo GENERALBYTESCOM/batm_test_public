@@ -3,31 +3,12 @@ import unittest
 
 from BaseTest import BaseTest
 from Config.Constants import ETH_DESTINATION_ADDRESS, ETH_DISCOUNT_TEXT
-from Helpers.FlowHelper import FlowHelper
-from Screens.ScreenManager import ScreenManager
 
 
-class TestETH(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.baseTest = BaseTest()
-        cls.baseTest.setupEnv()
-
+class TestETH(BaseTest):
     def setUp(self):
-        logging.info(
-            "setUp: Initializing screens for TestETH: %s",
-            self._testMethodName,
-        )
-        self.screens = ScreenManager()
-        self.flow = FlowHelper(self.screens)
+        super().setUp()
         self.screens.dashboardScreen.clickCoinButton("eth")
-
-    def tearDown(self):
-        logging.info("Test '%s' cleaned up.", self._testMethodName)
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.baseTest.teardownEnv()
 
     def testAnonymBuyETH(self):
         logging.info("=== Started test: Test Anonym Buy ETH ===")

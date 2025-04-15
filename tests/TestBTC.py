@@ -3,31 +3,12 @@ import unittest
 
 from BaseTest import BaseTest
 from Config.Constants import BTC_DESTINATION_ADDRESS, DISCOUNT_TEXT
-from Helpers.FlowHelper import FlowHelper
-from Screens.ScreenManager import ScreenManager
 
 
-class TestBTC(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.baseTest = BaseTest()
-        cls.baseTest.setupEnv()
-
+class TestBTC(BaseTest):
     def setUp(self):
-        logging.info(
-            "setUp: Initializing screens for TestBTC: %s",
-            self._testMethodName,
-        )
-        self.screens = ScreenManager()
-        self.flow = FlowHelper(self.screens)
+        super().setUp()
         self.screens.dashboardScreen.clickCoinButton("btc")
-
-    def tearDown(self):
-        logging.info("Test '%s' cleaned up.", self._testMethodName)
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.baseTest.teardownEnv()
 
     def testAnonymBuyBTC(self):
         logging.info("=== Started test: Anonym Buy BTC ===")

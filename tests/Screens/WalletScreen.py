@@ -54,3 +54,20 @@ class WalletScreen(BasePage):
             "you_must_have_a_wallet_text.png", "YOU MUST HAVE A WALLET TEXT EXIST"
         )
         self.clickElement("I_have_a_wallet.png", "YES, I HAVE A WALLET BUTTON")
+
+    def clickCancelButton(self):
+        self.clickElement("CANCEL_button.png", "CANCEL BUTTON")
+
+    def insertBanknoteAndExpectError(self, amount):
+        wait("insert_cash_text.png", WAIT_TIMEOUT)
+        self.assertExists(
+            "cash_amount_inserted_value_0_CZK.png", "INSERTED VALUE = 0 CZK"
+        )
+        self.clickElement("CZK_banknote_dropdown_button.png", "DROPDOWN")
+        self.assertExists(
+            "%s_banknote_value.png" % amount.split()[0], "INSERTED VALUE = %s" % amount
+        )
+        self.clickElement(
+            "%s_banknote_value.png" % amount.split()[0], "INSERT BANKNOTE %s" % amount
+        )
+        self.clickElement("insert_banknote_button.png", "INSERT BANKNOTE BUTTON")

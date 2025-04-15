@@ -3,31 +3,12 @@ import unittest
 
 from BaseTest import BaseTest
 from Config.Constants import LTC_DESTINATION_ADDRESS, LTC_DISCOUNT_TEXT
-from Helpers.FlowHelper import FlowHelper
-from Screens.ScreenManager import ScreenManager
 
 
-class TestLTC(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.baseTest = BaseTest()
-        cls.baseTest.setupEnv()
-
+class TestLTC(BaseTest):
     def setUp(self):
-        logging.info(
-            "setUp: Initializing screens for TestLTC: %s",
-            self._testMethodName,
-        )
-        self.screens = ScreenManager()
-        self.flow = FlowHelper(self.screens)
+        super().setUp()
         self.screens.dashboardScreen.clickCoinButton("ltc")
-
-    def tearDown(self):
-        logging.info("Test '%s' cleaned up.", self._testMethodName)
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.baseTest.teardownEnv()
 
     def testAnonymBuyLTC(self):
         logging.info("=== Started test: Anonym Buy LTC ===")
