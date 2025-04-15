@@ -7,7 +7,7 @@ from Config.Constants import BTC_DESTINATION_ADDRESS, DISCOUNT_TEXT
 
 class TestBTC(BaseTest):
     def setUp(self):
-        super().setUp()
+        self.getSuper(TestBTC, self).setUp()
         self.screens.dashboardScreen.clickCoinButton("btc")
 
     def testAnonymBuyBTC(self):

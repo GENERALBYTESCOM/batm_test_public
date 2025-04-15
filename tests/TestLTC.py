@@ -7,7 +7,7 @@ from Config.Constants import LTC_DESTINATION_ADDRESS, LTC_DISCOUNT_TEXT
 
 class TestLTC(BaseTest):
     def setUp(self):
-        super().setUp()
+        self.getSuper(TestLTC, self).setUp()
         self.screens.dashboardScreen.clickCoinButton("ltc")
 
     def testAnonymBuyLTC(self):

@@ -42,3 +42,7 @@ class BaseTest(unittest.TestCase):
 
     def tearDown(self):
         logging.info("Test '%s' cleaned up successfully.", self._testMethodName)
+
+    @staticmethod
+    def getSuper(targetClass, instance):
+        return super(targetClass, instance)

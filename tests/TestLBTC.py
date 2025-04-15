@@ -7,7 +7,7 @@ from Config.Constants import LBTC_DISCOUNT_TEXT
 
 class TestLBTC(BaseTest):
     def setUp(self):
-        super().setUp()
+        self.getSuper(TestLBTC, self).setUp()
         self.screens.dashboardScreen.clickCoinButton("lbtc")
 
     def testAnonymBuyLBTC(self):

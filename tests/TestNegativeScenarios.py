@@ -7,7 +7,7 @@ from Config.Constants import ETH_DESTINATION_ADDRESS, BTC_DESTINATION_ADDRESS
 
 class TestNegativeScenarios(BaseTest):
     def setUp(self):
-        super().setUp()
+        self.getSuper(TestNegativeScenarios, self).setUp()
         self.screens.dashboardScreen.clickCoinButton("btc")
 
     def testBannedAddress(self):

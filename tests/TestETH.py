@@ -7,7 +7,7 @@ from Config.Constants import ETH_DESTINATION_ADDRESS, ETH_DISCOUNT_TEXT
 
 class TestETH(BaseTest):
     def setUp(self):
-        super().setUp()
+        self.getSuper(TestETH, self).setUp()
         self.screens.dashboardScreen.clickCoinButton("eth")
 
     def testAnonymBuyETH(self):

@@ -10,7 +10,7 @@ from Screens.LanguageScreen import LanguageScreen
 
 class TestLanguageChange(BaseTest):
     def setUp(self):
-        super().setUp()
+        self.getSuper(TestLanguageChange, self).setUp()
         self.languageScreen = LanguageScreen()
 
     def testLanguageChange(self):
