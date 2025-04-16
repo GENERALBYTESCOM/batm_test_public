@@ -34,15 +34,3 @@ class BaseTest:
 
     def teardownEnv(self):
         logging.info("SikuliX environment cleanup completed.")
-
-
-# def setUp(self):
-#     self.screens = ScreenManager()
-#     self.x`flow = FlowHelper(self.screens)
-#     self.screens.dashboardScreen.checkMainScreenAndClickLogo()
-#     if self.coin:
-#         self.screens.dashboardScreen.clickCoinButton(self.coin)
-
-# def cleanupTest(self):
-#     if self.screens:
-#         self.screens.cleanup()

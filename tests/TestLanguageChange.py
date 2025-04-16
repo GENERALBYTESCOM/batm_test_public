@@ -5,7 +5,6 @@ from sikuli import wait
 
 from BaseTest import BaseTest
 from Config.Constants import WAIT_TIMEOUT
-from Helpers.FlowHelper import FlowHelper
 from Screens.LanguageScreen import LanguageScreen
 from Screens.ScreenManager import ScreenManager
 
@@ -18,7 +17,6 @@ class TestLanguageChange(unittest.TestCase):
 
     def setUp(self):
         self.screens = ScreenManager()
-        self.flow = FlowHelper(self.screens)
         self.languageScreen = LanguageScreen()
         logging.info("Test '%s' setUp done.", self._testMethodName)
 
