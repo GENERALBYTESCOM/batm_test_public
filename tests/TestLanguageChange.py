@@ -5,13 +5,29 @@ from sikuli import wait
 
 from BaseTest import BaseTest
 from Config.Constants import WAIT_TIMEOUT
+from Helpers.FlowHelper import FlowHelper
 from Screens.LanguageScreen import LanguageScreen
+from Screens.ScreenManager import ScreenManager
 
 
-class TestLanguageChange(BaseTest):
+class TestLanguageChange(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.baseTest = BaseTest()
+        cls.baseTest.setupEnv()
+
     def setUp(self):
-        self.getSuper(TestLanguageChange, self).setUp()
+        self.screens = ScreenManager()
+        self.flow = FlowHelper(self.screens)
         self.languageScreen = LanguageScreen()
+        logging.info("Test '%s' setUp done.", self._testMethodName)
+
+    def tearDown(self):
+        logging.info("Test '%s' cleaned up successfully.", self._testMethodName)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.baseTest.teardownEnv()
 
     def testLanguageChange(self):
         logging.info("Started test: Language Change.")

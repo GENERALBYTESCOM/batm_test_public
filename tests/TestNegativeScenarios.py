@@ -3,12 +3,31 @@ import unittest
 
 from BaseTest import BaseTest
 from Config.Constants import ETH_DESTINATION_ADDRESS, BTC_DESTINATION_ADDRESS
+from Helpers.FlowHelper import FlowHelper
+from Screens.ScreenManager import ScreenManager
 
 
-class TestNegativeScenarios(BaseTest):
+class TestNegativeScenarios(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.baseTest = BaseTest()
+        cls.baseTest.setupEnv()
+
     def setUp(self):
-        self.getSuper(TestNegativeScenarios, self).setUp()
-        self.screens.dashboardScreen.clickCoinButton("btc")
+        self.initScreensAndFlow("btc")
+        logging.info("Test '%s' setUp done.", self._testMethodName)
+
+    def initScreensAndFlow(self, coin):
+        self.screens = ScreenManager()
+        self.flow = FlowHelper(self.screens)
+        self.screens.dashboardScreen.clickCoinButton(coin)
+
+    def tearDown(self):
+        logging.info("Test '%s' cleaned up successfully.", self._testMethodName)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.baseTest.teardownEnv()
 
     def testBannedAddress(self):
         logging.info("=== Started test: Anonym Buy BTC Banned Address ===")
