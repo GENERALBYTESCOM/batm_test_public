@@ -14,16 +14,13 @@ class TestBTC(unittest.TestCase):
         cls.baseTest.setupEnv()
 
     def setUp(self):
-        logging.info(
-            "setUp: Initializing screens for TestBTC: %s",
-            self._testMethodName,
-        )
         self.screens = ScreenManager()
         self.flow = FlowHelper(self.screens)
         self.screens.dashboardScreen.clickCoinButton("btc")
+        logging.info("Test '%s' setUp done.", self._testMethodName)
 
     def tearDown(self):
-        logging.info("Test '%s' cleaned up.", self._testMethodName)
+        logging.info("Test '%s' cleaned up successfully.", self._testMethodName)
 
     @classmethod
     def tearDownClass(cls):

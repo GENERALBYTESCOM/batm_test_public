@@ -1,7 +1,7 @@
 import logging
 
 from Config.Constants import WAIT_TIMEOUT
-from sikuli import click, exists, wait, sleep, FindFailed
+from sikuli import click, exists, FindFailed
 
 
 class BasePage:
@@ -20,9 +20,3 @@ class BasePage:
             logging.info("%s exists", name)
         else:
             raise FindFailed("%s not found!" % name)
-
-    def waitElement(self, pattern):
-        wait(pattern, WAIT_TIMEOUT)
-
-    def sleep(self, secs):
-        sleep(secs)

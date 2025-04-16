@@ -9,6 +9,7 @@ from Screens.MarketingAgreementScreen import MarketingAgreementScreen
 from Screens.NumberScreen import NumberScreen
 from Screens.PrivacyScreen import PrivacyScreen
 from Screens.RequiredDisclosuresScreen import RequiredDisclosuresScreen
+from Screens.ToastScreen import ToastScreen
 from Screens.WalletScreen import WalletScreen
 
 
@@ -16,6 +17,7 @@ class ScreenManager:
     def __init__(self):
         self.basePage = BasePage()
         self.screens = {
+            "toast": ToastScreen(),
             "wallet": WalletScreen(),
             "number": NumberScreen(),
             "privacy": PrivacyScreen(),
@@ -63,3 +65,7 @@ class ScreenManager:
     @property
     def marketingAgreementScreen(self):
         return self.screens["marketingAgreement"]
+
+    @property
+    def toastScreen(self):
+        return self.screens["toast"]
