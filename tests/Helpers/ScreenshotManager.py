@@ -24,7 +24,7 @@ def captureScreenshot(screenshotsDir, testName):
         img.save(imgPath)
         logging.info("Screenshot saved: %s", imgPath)
         return imgPath
-    except Exception as ex:
+    except (OSError, ValueError) as ex:
         logging.error("Failed to capture screenshot: %s", ex)
         return None
     finally:
