@@ -4,6 +4,7 @@ import unittest
 from BaseTest import BaseTest
 from Config.Constants import BTC_DESTINATION_ADDRESS, DISCOUNT_TEXT
 from Helpers.FlowHelper import FlowHelper
+from Helpers.ScreenshotManager import safeSetUp, safeTearDown
 from Screens.ScreenManager import ScreenManager
 
 
@@ -16,11 +17,10 @@ class TestBTC(unittest.TestCase):
     def setUp(self):
         self.screens = ScreenManager()
         self.flow = FlowHelper(self.screens)
-        self.screens.dashboardScreen.clickCoinButton("btc")
-        logging.info("Test '%s' setUp done.", self._testMethodName)
+        safeSetUp(self, coin="btc")
 
     def tearDown(self):
-        logging.info("Test '%s' cleaned up successfully.", self._testMethodName)
+        safeTearDown(self)
 
     @classmethod
     def tearDownClass(cls):

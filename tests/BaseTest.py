@@ -4,12 +4,18 @@ import sys
 
 from sikuli import ImagePath, getBundlePath
 
+from Helpers.ScreenshotManager import (
+    ensureScreenshotsDir,
+    captureScreenshot,
+    getTestClassAndMethod,
+)
 from Screens.ScreenManager import ScreenManager
 
 
 class BaseTest:
     def __init__(self):
         self.screens = None
+        self.failedScreenshotsDir = None
 
     def setupEnv(self):
         bundleDir = os.path.dirname(getBundlePath())
@@ -23,6 +29,11 @@ class BaseTest:
         if screenshotsDir not in list(ImagePath.getPaths()):
             ImagePath.add(screenshotsDir)
 
+        self.failedScreenshotsDir = os.path.join(
+            projectRoot, "tests", "FailedScreenshots"
+        )
+        ensureScreenshotsDir(self.failedScreenshotsDir)
+
         logging.basicConfig(
             format="[%(levelname)s] %(asctime)s - %(message)s",
             datefmt="%H:%M:%S",
@@ -34,3 +45,10 @@ class BaseTest:
 
     def teardownEnv(self):
         logging.info("SikuliX environment cleanup completed.")
+
+    def handleFailureScreenshot(self, testInstance):
+        if sys.exc_info()[0] is not None:
+            testId = getTestClassAndMethod(testInstance)
+            screenshotPath = captureScreenshot(self.failedScreenshotsDir, testId)
+            print("Screenshot saved to: {}".format(screenshotPath))
+            logging.info("Failure in test: %s", testId)
