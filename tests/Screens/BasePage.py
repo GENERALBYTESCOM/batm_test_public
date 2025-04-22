@@ -1,4 +1,5 @@
 import logging
+import traceback
 
 from Config.Constants import WAIT_TIMEOUT
 from sikuli import click, exists, type, FindFailed
@@ -25,5 +26,6 @@ class BasePage:
         try:
             type(text)
             logging.info("Typed text: %s", text)
-        except Exception as e:
-            raise FindFailed("Failed to type text '%s': %s" % text)
+        except Exception:
+            logging.error("Failed to type text '%s': %s", text, traceback.format_exc())
+            raise FindFailed("Failed to type text '%s'" % text)
