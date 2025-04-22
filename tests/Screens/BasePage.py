@@ -26,4 +26,4 @@ class BasePage:
             type(text)
             logging.info("Typed text: %s", text)
         except Exception as e:
-            raise FindFailed("Failed to type text '%s': %s" % (text, str(e)))
+            raise FindFailed("Failed to type text '%s': %s" % text)
