@@ -29,12 +29,12 @@ class TestBTC(unittest.TestCase):
     def testAnonymBuyBTC(self):
         logging.info("=== Started test: Anonym Buy BTC ===")
         self.flow.performBuyFlow(tier="anonymous")
-        type(BTC_DESTINATION_ADDRESS)
+        self.screens.basePage.typeText(BTC_DESTINATION_ADDRESS)
         self.screens.walletScreen.clickScanQrButton()
         self.screens.walletScreen.insertBanknoteAndVerify("100 CZK")
         self.screens.basePage.assertExists("BUY_BTC_button.png", "BUY BTC BUTTON")
         self.screens.discountScreen.prepareDiscountDialog()
-        type(DISCOUNT_TEXT)
+        self.screens.basePage.typeText(DISCOUNT_TEXT)
         self.flow.completeDiscountFlow()
         self.screens.insertMoneyScreen.buyBTC()
         self.screens.dashboardScreen.completeTransaction()
@@ -43,7 +43,7 @@ class TestBTC(unittest.TestCase):
     def testAnonymSellBTC(self):
         logging.info("=== Started test: Anonym Sell BTC ===")
         self.flow.performSellFlow(tier="anonymous")
-        type(DISCOUNT_TEXT)
+        self.screens.basePage.typeText(DISCOUNT_TEXT)
         self.flow.completeSellFlow(
             useDiscount=True, requireMarketingDecline=False, requireSmsDismiss=True
         )
@@ -52,12 +52,12 @@ class TestBTC(unittest.TestCase):
     def testUnregisteredBuyBTC(self):
         logging.info("=== Started test: Unregistered Buy BTC ===")
         self.flow.performBuyFlow(tier="unregistered")
-        type(BTC_DESTINATION_ADDRESS)
+        self.screens.basePage.typeText(BTC_DESTINATION_ADDRESS)
         self.screens.walletScreen.clickScanQrButton()
         self.screens.walletScreen.insertBanknoteAndVerify("100 CZK")
         self.screens.basePage.assertExists("BUY_BTC_button.png", "BUY BTC BUTTON")
         self.screens.discountScreen.prepareDiscountDialog()
-        type(DISCOUNT_TEXT)
+        self.screens.basePage.typeText(DISCOUNT_TEXT)
         self.flow.completeDiscountFlow()
         self.screens.insertMoneyScreen.buyBTC()
         self.screens.marketingAgreementScreen.declineMarketingAgreement()
@@ -67,7 +67,7 @@ class TestBTC(unittest.TestCase):
     def testUnregisteredSellBTC(self):
         logging.info("=== Started test: Unregistered Sell BTC ===")
         self.flow.performSellFlow(tier="unregistered")
-        type(DISCOUNT_TEXT)
+        self.screens.basePage.typeText(DISCOUNT_TEXT)
         self.flow.completeSellFlow(
             useDiscount=True, requireMarketingDecline=True, requireSmsDismiss=False
         )
@@ -76,12 +76,12 @@ class TestBTC(unittest.TestCase):
     def testRegisteredBuyBTC(self):
         logging.info("=== Started test: Registered Buy BTC ===")
         self.flow.performBuyFlow(tier="registered")
-        type(BTC_DESTINATION_ADDRESS)
+        self.screens.basePage.typeText(BTC_DESTINATION_ADDRESS)
         self.screens.walletScreen.clickScanQrButton()
         self.screens.walletScreen.insertBanknoteAndVerify("100 CZK")
         self.screens.basePage.assertExists("BUY_BTC_button.png", "BUY BTC BUTTON")
         self.screens.discountScreen.prepareDiscountDialog()
-        type(DISCOUNT_TEXT)
+        self.screens.basePage.typeText(DISCOUNT_TEXT)
         self.flow.completeDiscountFlow()
         self.screens.insertMoneyScreen.buyBTC()
         self.screens.marketingAgreementScreen.declineMarketingAgreement()
@@ -91,7 +91,7 @@ class TestBTC(unittest.TestCase):
     def testRegisteredSellBTC(self):
         logging.info("=== Started test: Registered Sell BTC ===")
         self.flow.performSellFlow(tier="registered")
-        type(DISCOUNT_TEXT)
+        self.screens.basePage.typeText(DISCOUNT_TEXT)
         self.flow.completeSellFlow(
             useDiscount=True, requireMarketingDecline=True, requireSmsDismiss=False
         )

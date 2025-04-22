@@ -32,7 +32,7 @@ class TestNegativeScenarios(unittest.TestCase):
     def testBannedAddress(self):
         logging.info("=== Started test: Anonym Buy BTC Banned Address ===")
         self.flow.performBuyFlow(tier="anonymous")
-        type(ETH_DESTINATION_ADDRESS)
+        self.screens.basePage.typeText(ETH_DESTINATION_ADDRESS)
         self.screens.walletScreen.clickScanQrButton()
         self.screens.toastScreen.errorBTCWallet()
         self.screens.walletScreen.clickCancelButton()
@@ -41,7 +41,7 @@ class TestNegativeScenarios(unittest.TestCase):
     def testOverTheLimit(self):
         logging.info("=== Started test: Anonym Buy BTC Over the limit ===")
         self.flow.performBuyFlow(tier="anonymous")
-        type(BTC_DESTINATION_ADDRESS)
+        self.screens.basePage.typeText(BTC_DESTINATION_ADDRESS)
         self.screens.walletScreen.clickScanQrButton()
         self.screens.walletScreen.insertBanknoteAndExpectError("1000 CZK")
         self.screens.toastScreen.errorLimitTransaction()

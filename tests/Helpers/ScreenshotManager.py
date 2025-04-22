@@ -16,20 +16,21 @@ def ensureScreenshotsDir(screenshotsDir):
 
 def captureScreenshot(screenshotsDir, testName):
     timestamp = time.strftime("%Y%m%d_%H%M%S")
-    filePrefix = "FAILED_{}_{}.png".format(testName, timestamp)
-    imgPath = os.path.join(screenshotsDir, filePrefix)
+    finalFileName = "FAILED_{}_{}.png".format(testName, timestamp)
+    finalPath = os.path.join(screenshotsDir, finalFileName)
     try:
         screen = Screen()
         img = screen.capture()
-        img.save(imgPath)
-        logging.info("Screenshot saved: %s", imgPath)
-        return imgPath
+        savedPath = img.getFile()
+        os.rename(savedPath, finalPath)
+        logging.info("Screenshot saved: %s", finalPath)
+        return finalPath
     except (OSError, ValueError) as ex:
         logging.error("Failed to capture screenshot: %s", ex)
         return None
     finally:
-        logging.debug("captureScreenshot attempted to save: %s", imgPath)
-        logging.debug("file exists? %s", os.path.exists(imgPath))
+        logging.debug("captureScreenshot attempted to save: %s", finalPath)
+        logging.debug("file exists? %s", os.path.exists(finalPath))
 
 
 def getTestClassAndMethod(testInstance):

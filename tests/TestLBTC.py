@@ -33,7 +33,7 @@ class TestLBTC(unittest.TestCase):
         self.screens.walletScreen.insertBanknoteAndVerify("100 CZK")
         self.screens.basePage.assertExists("BUY_LBTC_button.png", "BUY LBTC BUTTON")
         self.screens.discountScreen.prepareDiscountDialog()
-        type(LBTC_DISCOUNT_TEXT)
+        self.screens.basePage.typeText(LBTC_DISCOUNT_TEXT)
         self.flow.completeDiscountFlow()
         self.screens.insertMoneyScreen.buyLBTC()
         self.screens.dashboardScreen.waitAndCompleteNotDoneYetTransaction()
@@ -42,7 +42,7 @@ class TestLBTC(unittest.TestCase):
     def testAnonymSellLBTC(self):
         logging.info("=== Started test: Anonym Sell LBTC ===")
         self.flow.performSellFlow(tier="anonymous")
-        type(LBTC_DISCOUNT_TEXT)
+        self.screens.basePage.typeText(LBTC_DISCOUNT_TEXT)
         self.flow.completeSellFlow(
             useDiscount=True, requireMarketingDecline=False, requireSmsDismiss=True
         )
@@ -51,7 +51,7 @@ class TestLBTC(unittest.TestCase):
     def testUnregisteredSellLBTC(self):
         logging.info("=== Started test: Unregistered Sell LBTC ===")
         self.flow.performSellFlow(tier="unregistered")
-        type(LBTC_DISCOUNT_TEXT)
+        self.screens.basePage.typeText(LBTC_DISCOUNT_TEXT)
         self.flow.completeSellFlow(
             useDiscount=True, requireMarketingDecline=True, requireSmsDismiss=False
         )
@@ -66,7 +66,7 @@ class TestLBTC(unittest.TestCase):
         self.screens.walletScreen.insertBanknoteAndVerify("100 CZK")
         self.screens.basePage.assertExists("BUY_LBTC_button.png", "BUY LBTC BUTTON")
         self.screens.discountScreen.prepareDiscountDialog()
-        type(LBTC_DISCOUNT_TEXT)
+        self.screens.basePage.typeText(LBTC_DISCOUNT_TEXT)
         self.flow.completeDiscountFlow()
         self.screens.insertMoneyScreen.buyLBTC()
         self.screens.marketingAgreementScreen.declineMarketingAgreement()
@@ -82,7 +82,7 @@ class TestLBTC(unittest.TestCase):
         self.screens.walletScreen.insertBanknoteAndVerify("100 CZK")
         self.screens.basePage.assertExists("BUY_LBTC_button.png", "BUY LBTC BUTTON")
         self.screens.discountScreen.prepareDiscountDialog()
-        type(LBTC_DISCOUNT_TEXT)
+        self.screens.basePage.typeText(LBTC_DISCOUNT_TEXT)
         self.flow.completeDiscountFlow()
         self.screens.insertMoneyScreen.buyLBTC()
         self.screens.marketingAgreementScreen.declineMarketingAgreement()
@@ -92,7 +92,7 @@ class TestLBTC(unittest.TestCase):
     def testRegisteredSellLBTC(self):
         logging.info("=== Started test: Registered Sell LBTC ===")
         self.flow.performSellFlow(tier="registered")
-        type(LBTC_DISCOUNT_TEXT)
+        self.screens.basePage.typeText(LBTC_DISCOUNT_TEXT)
         self.flow.completeSellFlow(
             useDiscount=True, requireMarketingDecline=True, requireSmsDismiss=False
         )
