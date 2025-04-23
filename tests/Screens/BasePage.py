@@ -1,7 +1,7 @@
 import logging
 
 from Config.Constants import WAIT_TIMEOUT
-from sikuli import click, exists, FindFailed
+from sikuli import click, exists, type, FindFailed
 
 
 class BasePage:
@@ -20,3 +20,7 @@ class BasePage:
             logging.info("%s exists", name)
         else:
             raise FindFailed("%s not found!" % name)
+
+    def typeText(self, text):
+        type(text)
+        logging.info("Typed text: %s", text)

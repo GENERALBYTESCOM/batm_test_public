@@ -16,11 +16,16 @@ class TestLanguageChange(unittest.TestCase):
         cls.baseTest.setupEnv()
 
     def setUp(self):
-        self.screens = ScreenManager()
-        self.languageScreen = LanguageScreen()
+        try:
+            self.screens = ScreenManager()
+            self.languageScreen = LanguageScreen()
+        except Exception:
+            self.baseTest.handleFailureScreenshot(self)
+            raise
         logging.info("Test '%s' setUp done.", self._testMethodName)
 
     def tearDown(self):
+        self.baseTest.handleFailureScreenshot(self)
         logging.info("Test '%s' cleaned up successfully.", self._testMethodName)
 
     @classmethod

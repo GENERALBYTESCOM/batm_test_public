@@ -42,3 +42,6 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
+
+# Failed test screenshots
+tests/FailedScreenshots/
