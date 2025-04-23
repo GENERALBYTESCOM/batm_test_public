@@ -1,6 +1,6 @@
 from Config.Constants import WAIT_TIMEOUT
 from Screens.BasePage import BasePage
-from sikuli import has, wait
+from sikuli import exists, wait
 
 
 class DashboardScreen(BasePage):
@@ -20,7 +20,7 @@ class DashboardScreen(BasePage):
         self.clickElement(btn["image"], btn["desc"])
 
     def checkMainScreenAndClickLogo(self):
-        if has("main_screen.png", WAIT_TIMEOUT):
+        if exists("main_screen.png", WAIT_TIMEOUT):
             self.clickElement("BTC_logo.png", "SCREENSAVER")
 
     def chooseLanguageButton(self):
@@ -36,8 +36,8 @@ class DashboardScreen(BasePage):
         self.clickElement("SELL_button.png", "SELL BUTTON")
 
     def completeSellTransaction(self):
-        self.assertExists("SELL_complete_button.png", "SELL BUTTON")
-        self.clickElement("SELL_complete_button.png", "SELL BUTTON")
+        self.assertExists("SELL_complete_button.png", "SELL COMPLETE BUTTON")
+        self.clickElement("SELL_complete_button.png", "SELL COMPLETE BUTTON")
 
     def completeTransaction(self):
         wait("transaction_completed_text.png", WAIT_TIMEOUT)
