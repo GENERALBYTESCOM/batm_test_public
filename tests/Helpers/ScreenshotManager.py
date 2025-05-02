@@ -1,17 +1,21 @@
 import logging
 import os
-import shutil
+import sys
 import time
 
 from sikuli import Screen
 
 
 def ensureScreenshotsDir(screenshotsDir):
-    if os.path.exists(screenshotsDir):
-        logging.debug("Cleaning screenshot directory: %s", screenshotsDir)
-        shutil.rmtree(screenshotsDir)
-    os.makedirs(screenshotsDir)
-    logging.debug("Created screenshot directory: %s", screenshotsDir)
+    if not os.path.exists(screenshotsDir):
+        os.makedirs(screenshotsDir)
+    for fileName in os.listdir(screenshotsDir):
+        filePath = os.path.join(screenshotsDir, fileName)
+        try:
+            if os.path.isfile(filePath):
+                os.unlink(filePath)
+        except OSError as e:
+            logging.warning("Failed to delete file %s: %s", filePath, e)
 
 
 def captureScreenshot(screenshotsDir, testName):
@@ -52,5 +56,6 @@ def safeSetUp(testCase, coin):
 
 
 def safeTearDown(testCase):
-    testCase.baseTest.handleFailureScreenshot(testCase)
+    if sys.exc_info()[0] is not None:
+        testCase.baseTest.handleFailureScreenshot(testCase)
     logging.info("Test '%s' cleaned up successfully.", getTestMethodName(testCase))

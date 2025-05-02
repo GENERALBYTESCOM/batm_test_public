@@ -5,7 +5,6 @@ from BaseTest import BaseTest
 from Config.Constants import BTC_DESTINATION_ADDRESS, DISCOUNT_TEXT
 from Helpers.FlowHelper import FlowHelper
 from Helpers.ScreenshotManager import safeSetUp, safeTearDown
-from Screens.ScreenManager import ScreenManager
 
 
 class TestBTC(unittest.TestCase):
@@ -15,7 +14,7 @@ class TestBTC(unittest.TestCase):
         cls.baseTest.setupEnv()
 
     def setUp(self):
-        self.screens = ScreenManager()
+        self.screens = self.baseTest.screens
         self.flow = FlowHelper(self.screens)
         safeSetUp(self, coin="btc")
 

@@ -1,14 +1,13 @@
 from Config.Constants import WAIT_TIMEOUT
 from Screens.BasePage import BasePage
-from sikuli import wait, Pattern
+from sikuli import wait
 
 
 class LanguageScreen(BasePage):
-    def selectLanguage(self, bannerImage, bannerLabel, welcomeLogo, similarity=0.90):
+    def selectLanguage(self, bannerImage, bannerLabel, welcomeLogo):
         wait(bannerImage, WAIT_TIMEOUT)
-        pattern = Pattern(bannerImage).similar(similarity)
-        self.assertExists(pattern, bannerLabel)
-        self.clickElement(pattern, bannerLabel)
+        self.assertExists(bannerImage, bannerLabel, similarity=0.9)
+        self.clickElement(bannerImage, bannerLabel, similarity=0.9)
         self.assertExists(welcomeLogo, "%s WELCOME LOGO" % bannerLabel)
 
     def clickArrowRight(self):

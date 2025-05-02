@@ -6,7 +6,6 @@ from sikuli import wait
 from BaseTest import BaseTest
 from Config.Constants import WAIT_TIMEOUT
 from Screens.LanguageScreen import LanguageScreen
-from Screens.ScreenManager import ScreenManager
 
 
 class TestLanguageChange(unittest.TestCase):
@@ -17,7 +16,7 @@ class TestLanguageChange(unittest.TestCase):
 
     def setUp(self):
         try:
-            self.screens = ScreenManager()
+            self.screens = self.baseTest.screens
             self.languageScreen = LanguageScreen()
         except Exception:
             self.baseTest.handleFailureScreenshot(self)
@@ -42,22 +41,21 @@ class TestLanguageChange(unittest.TestCase):
         wait("arrow_to_the_left_button.png", WAIT_TIMEOUT)
         self.languageScreen.clickArrowLeft()
         self.languageScreen.selectLanguage(
-            "CZ_banner.png", "CZ BUTTON", "CZ_welcome_logo_text.png", 0.90
+            "ES_banner.png", "ES BUTTON", "ES_welcome_logo_text.png"
+        )
+        self.languageScreen.selectLanguage(
+            "CZ_banner.png", "CZ BUTTON", "CZ_welcome_logo_text.png"
+        )
+        self.languageScreen.selectLanguage(
+            "DE_banner.png", "DE BUTTON", "DE_welcome_logo_text.png"
         )
         self.screens.dashboardScreen.chooseLanguageButton()
         self.languageScreen.selectLanguage(
-            "ES_banner.png", "ES BUTTON", "ES_welcome_logo_text.png", 0.90
-        )
-        self.languageScreen.selectLanguage(
-            "DE_banner.png", "DE BUTTON", "DE_welcome_logo_text.png", 0.90
-        )
-        self.screens.dashboardScreen.chooseLanguageButton()
-        self.languageScreen.selectLanguage(
-            "EN_banner.png", "EN BUTTON", "EN_welcome_logo_text.png", 0.90
+            "EN_banner.png", "EN BUTTON", "EN_welcome_logo_text.png"
         )
         self.screens.dashboardScreen.chooseLanguageButton()
         self.languageScreen.cancelAndVerify()
 
 
 if __name__ == "__main__":
-    unittest.main()
+    unittest.main(exit=False)
