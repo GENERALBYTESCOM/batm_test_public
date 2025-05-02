@@ -40,4 +40,4 @@ def cleanLogsDir(logDir):
             if os.path.isfile(filePath):
                 os.remove(filePath)
         except OSError as e:
-            logging.warning("Failed to delete log file: %s — %s", filePath, e)
+            logging.warning("Failed to delete log file: %s - %s", filePath, e)
