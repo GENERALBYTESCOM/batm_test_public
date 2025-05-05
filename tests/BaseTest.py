@@ -4,6 +4,7 @@ import sys
 
 from sikuli import ImagePath, getBundlePath
 
+from Helpers.LoggingHelper import configureLogging, cleanLogsDir
 from Helpers.ScreenshotManager import (
     ensureScreenshotsDir,
     captureScreenshot,
@@ -29,16 +30,13 @@ class BaseTest:
         if screenshotsDir not in list(ImagePath.getPaths()):
             ImagePath.add(screenshotsDir)
 
-        self.failedScreenshotsDir = os.path.join(
-            projectRoot, "tests", "FailedScreenshots"
-        )
+        self.failedScreenshotsDir = os.path.join(testsDir, "FailedScreenshots")
         ensureScreenshotsDir(self.failedScreenshotsDir)
 
-        logging.basicConfig(
-            format="[%(levelname)s] %(asctime)s - %(message)s",
-            datefmt="%H:%M:%S",
-            level=logging.INFO,
-        )
+        logDir = os.path.join(testsDir, "Logs")
+        cleanLogsDir(logDir)
+        configureLogging(logDir)
+
         self.screens = ScreenManager()
         self.screens.dashboardScreen.checkMainScreenAndClickLogo()
         logging.info("SikuliX environment configured successfully.")
@@ -47,8 +45,6 @@ class BaseTest:
         logging.info("SikuliX environment cleanup completed.")
 
     def handleFailureScreenshot(self, testInstance):
-        if sys.exc_info()[0] is not None:
-            testId = getTestClassAndMethod(testInstance)
-            screenshotPath = captureScreenshot(self.failedScreenshotsDir, testId)
-            print("Screenshot saved to: {}".format(screenshotPath))
-            logging.info("Failure in test: %s", testId)
+        testId = getTestClassAndMethod(testInstance)
+        screenshotPath = captureScreenshot(self.failedScreenshotsDir, testId)
+        logging.info("Screenshot saved to: %s", screenshotPath)

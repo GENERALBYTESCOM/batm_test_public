@@ -5,7 +5,6 @@ from BaseTest import BaseTest
 from Config.Constants import ETH_DESTINATION_ADDRESS, BTC_DESTINATION_ADDRESS
 from Helpers.FlowHelper import FlowHelper
 from Helpers.ScreenshotManager import safeSetUp, safeTearDown
-from Screens.ScreenManager import ScreenManager
 
 
 class TestNegativeScenarios(unittest.TestCase):
@@ -18,7 +17,7 @@ class TestNegativeScenarios(unittest.TestCase):
         self.initScreensAndFlow("btc")
 
     def initScreensAndFlow(self, coin):
-        self.screens = ScreenManager()
+        self.screens = self.baseTest.screens
         self.flow = FlowHelper(self.screens)
         safeSetUp(self, coin)
 

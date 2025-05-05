@@ -45,3 +45,4 @@ Thumbs.db
 
 # Failed test screenshots
 tests/FailedScreenshots/
+tests/Logs/
