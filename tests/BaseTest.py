@@ -4,7 +4,7 @@ import sys
 
 from sikuli import ImagePath, getBundlePath
 
-from Helpers.LoggingUtils import configureLogging, cleanLogsDir
+from Helpers.LoggingHelper import configureLogging, cleanLogsDir
 from Helpers.ScreenshotManager import (
     ensureScreenshotsDir,
     captureScreenshot,
