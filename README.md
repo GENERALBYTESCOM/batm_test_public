@@ -8,6 +8,7 @@ General Bytes (GB) has developed the Automated Terminal Testing Tool (ATTT) to h
 testing of their BATM fleet.  
 ATTT ensures error-free, stable operation across various configurations, reducing testing time from days to
 hours.
+> **Tip:** For more details, refer to the [Knowledge Base](https://generalbytes.atlassian.net/wiki/spaces/ESD/pages/3554541570/ATTT+-+Automated+Testing+Tool+for+Terminal).
 
 ## Use Cases
 
@@ -51,25 +52,33 @@ hours.
   Automation tool that lets QA engineers write Python scripts for visual recognition and interaction with terminal
   screens.
 
+## Prerequisites 
+
+Clone this repository to your local machine:
+
+   ```bash
+   git clone https://github.com/GENERALBYTESCOM/batm_test_public.git
+  ```
+
 ## Setup & Activation
 
 > ⚠️ **Warning:**
 > This tool is **not recommended** for use on terminals connected to production CAS servers.
 > Proceed **at your own risk**.
 
-### Risks
+### Risks to keep in mind when testing production configurations:
 
 - Sending real cryptocurrency to wallets without any fiat deposited
 - Inadvertent dispensing of cash during automated sell flows
 
 ### 1. Request Activation
 
-- Contact GB Support to request ATTT server access by providing your terminal serial numbers and user email addresses.
-  Support portal: [Create a Support Ticket](https://generalbytes.atlassian.net/wiki/spaces/ESD/pages/934609035)
+Contact GB Support to request ATTT server access by providing your terminal serial numbers and user email addresses.
+Support portal: [Create a Support Ticket](https://generalbytes.atlassian.net/wiki/spaces/ESD/pages/934609035)
 
 ### 2. Prepare CAS Settings
 
-- Before setting up terminals, configure the following settings in CAS.
+Before setting up terminals, configure the following settings in CAS.
 
 #### 2.1.Create a new **AML/KYC Setting:**
 
@@ -78,11 +87,14 @@ hours.
     - Allow withdrawals only for the same identity as sell transaction
     - Verify Wallet Ownership
 
-**KYC and Customer Limits**
+**KYC configuration for registered/unregistered customers**
 
 - Set **Default Fiat Currency** to **USD - United States dollar**
 - For **Registered** and **Unregistered Customers**:
     - Require **Cellphone Number**
+
+**Customer Limits**
+
 - **Anonymous:** Cash Limit Per Transaction = `500.00` (check **Enable cash payments**)
 - **Unregistered:** Cash Limit Per Transaction = `1000.00` (check **Enable cash payments**)
 - **Registered:** Cash Limit Per Transaction = `5000.00` (check **Enable cash payments**)
@@ -99,7 +111,7 @@ hours.
 - For each supported currency: **BTC, LBTC, LTC, ETH**.
 - Configuration Cash Currency: **USD**.
 
-**Buy Settings:**
+**2.3.1 Buy Settings:**
 
 - Minimum Buy Cash Amount per Transaction: **100.00**
 - Minimum Buy Card Amount per Transaction: **0.00**
@@ -109,7 +121,7 @@ hours.
 - Buy Profit (%): **10.00%**
 - Fixed Transaction Fee: **10.00**
 
-**Sell Settings (except ETH):**
+**2.3.2 Sell Settings (except ETH):**
 
 - Sell Rate Source: **Demo Rate Source**
 - Hot Wallet Sell: **Demo Wallet**
@@ -120,7 +132,7 @@ hours.
 
 > **Note:** ETH does not support sell wallets, thus sell transactions for ETH are not tested.
 
-#### 2.4. Create a new **Discounts:**
+#### 2.4. Create a new **Discount:**
 
 - Discount Type: **Discount from fee**
 - Set all discount values (`Discount From Buy Profit Fee`, `Discount From Sell Profit Fee`, `Buy Fixed Fee Discount`,
@@ -130,9 +142,10 @@ hours.
 - Set **Valid From** and **Valid To** dates to define the period the discount is active (e.g., `01.09.2024` –
   `01.02.2030`)
 
-#### 2.5. Create a new **Locations:**
+#### 2.5. Create a new **Location:**
 
 - Create and select the actual location of your BATM.
+- The location's capacity must be equal to or greater than the number of testing terminals.
 
 ### 3. Configure Terminal Details in CAS
 
@@ -140,9 +153,9 @@ hours.
 
 - Add the `attt` flag to the `special_configuration` custom string.
 
-> ⚠️ **Warning:** Without this flag, ATTT will not work for the terminal!
+> ⚠️ **Warning:** Without this flag, ATTT will not be enabled on the terminal!
 
-- Add key-value pairs _(case-sensitive: must match exactly)_:
+- Configure following custom strings  _(Values are case-sensitive: must match exactly)_:
     - `terms_and_conditions`: **TERMS AND CONDITIONS**
     - `scam_disclaimer`: **SCAM DISCLAIMER**
     - `custom_pep_question`: **PEP QUESTION**
@@ -150,21 +163,18 @@ hours.
     - `privacy_policy`: **PRIVACY POLICY**
     - `marketing_opt_in_agreement_text`: **Marketing agreement text. Agree?**
 
-#### 3.2. AML/KYC Setting: Select the AML/KYC setting created in step 2.1.
+### 3.2. Set previously created configurations:
+- AML/KYC Setting from step 2.1. 
+- Fiat Settings from step 2.2. 
+- Crypto Settings from step 2.3.
+- Discount from step 2.4. 
+- Location from step 2.5.
 
-#### 3.3. Fiat Settings: Select the fiat settings created in step 2.2.
+#### 3.3. Main Cash Currency: **USD - United States dollar**
 
-#### 3.4. Crypto Settings: Select the crypto settings created in step 2.3.
+#### 3.4 Crypto Currencies: Select **BTC, LBTC, LTC, ETH**
 
-#### 3.5. Discounts: Select the discounts created in step 2.4.
-
-#### 3.6. Location: Select the location created in step 2.5.
-
-#### 3.7. Main Cash Currency: **USD - United States dollar**
-
-#### 3.8. Crypto Currencies: Select **BTC, LBTC, LTC, ETH**
-
-#### 3.9. **Administration Settings:**
+#### 3.5 **Administration Settings:**
 
 Select the following checkboxes (✓):
 
@@ -172,16 +182,15 @@ Select the following checkboxes (✓):
 - Show Marketing Agreement Screen
 - Blur Detection Limit: 1
 
-#### 3.10. **Languages:**
+#### 3.6. **Languages:**
 
 - **Default Language:** en - English
 - **Preferred Languages:** cs - Czech, de - German, es - Spanish, ar - Arabic, fi - Finnish, ja - Japanese, fr - French,
-  bg - Bulgarian, el - Greek, et - Estonian, hi - Hindi, hr - Croatian, hu - Hungarian, hy - Armenian, it - Italian,
-  kk - Kazakh, ko - Korean, lv - Latvian, he - Hebrew, ht - Haitian, ka - Georgian, mk - Macedonian, lt - Lithuanian,
-  nl - Dutch, no - Norwegian, pl - Polish, pt - Portuguese, ru - Russian, ro - Romanian, sk - Slovak, sl - Slovenian,
-  sr - Serbian, sr - Serbian, th - Thai, tr - Turkish, uk - Ukrainian, vi - Vietnamese, sq - Albanian, zh - Chinese.
+  bg - Bulgarian, el - Greek, et - Estonian, hr - Croatian, hu - Hungarian, hy - Armenian, it - Italian,
+  kk - Kazakh, ko - Korean, lv - Latvian, ka - Georgian, mk - Macedonian, lt - Lithuanian,
+  nl - Dutch, no - Norwegian, pl - Polish, pt - Portuguese, sk - Slovak.
 
-#### 3.11. **Printing Settings:**
+#### 3.7. **Printing Settings:**
 
 - Select the following checkboxes (✓):
     - Disable Printer Warnings
@@ -192,25 +201,30 @@ Select the following checkboxes (✓):
 > **Tip:** Disabling printer warnings and setting receipt printing to “Never” or “None” helps prevent unwanted paper
 > slips from being printed or falling out of the terminal.
 
-#### 3.12. **Publish Settings:**
+#### 3.8. **Publish Settings:**
 
-- The `Publish` checkbox **must NOT** be selected.
+The `Publish` checkbox **must NOT** be selected.
 
-#### 3.13. **Terminal Template:**
+#### 3.9. **Terminal Template:**
 
-- You can save all required settings in a Terminal Template and select it in the "Use Terminal Template" field, instead
-  of configuring each setting manually.
+You can save all required settings in a Terminal Template and select it in the "Use Terminal Template" field, instead
+of configuring each setting manually.
 
 > **Note:** Reboot the terminal after configuration (recommended, but not required).
 
 ### 4. Upload Activation Keys (on the BATM terminal)
 
-- Extract the activation ZIP archive (received from GB Support) to a FAT32-formatted USB drive.  
-  The file must be named `attt.bks`
-- **On the BATM terminal:**  
-  Open the **Advanced Administration** menu.
+> ⚠️ **Warning:** Each terminal has its **own unique keystore file** (`attt.bks`).  
+> You **must repeat this step for every terminal individually**, using the correct `attt.bks` file provided specifically
+> for that terminal.  
+> If you upload a keystore meant for another terminal, **ATTT will not work correctly**.
 
-> **Tip:** For more details, refer to the [Knowledge Base](https://generalbytes.atlassian.net/wiki/spaces/ESD/pages/3554541570/ATTT+-+Automated+Testing+Tool+for+Terminal).
+- Extract the activation ZIP archive (received from GB Support) and copy the extracted file to a FAT32-formatted USB
+  drive. The extracted file must be named `attt.bks`
+- **On the BATM terminal:**  
+  Enter the **Advanced Administration** menu.
+
+> **Tip:** For access instructions, see [Access ADVANCED Administration](https://generalbytes.atlassian.net/wiki/spaces/ESD/pages/934609153/Access+ADVANCED+Administration)
 
 - Click on the **UPLOAD ATTT KEYS** button.
 - Insert the USB drive into any available USB port on the BATM.
@@ -218,19 +232,48 @@ Select the following checkboxes (✓):
   After successful upload, a notification will appear.
 - Remove the USB drive (and reconnect the printer if necessary).
 - Press the button **ENABLE ATTT**.  
+  If the terminal is rebooted, you must press only the `ENABLE ATTT` button again to reconnect to the ATTT server. There
+  is **no need to re-upload the keystore file**.
+
   The terminal will now establish a secure connection to the ATTT server.
 
 > ⚠️ The **UPLOAD ATTT KEYS** option will only be visible if the `attt` flag is set in the `special_configuration`
 > custom string for this terminal in CAS.
 
+### 5. Access a BATM from the ATTT Server
+
+Before running tests, you must configure access to the ATTT server by importing a client certificate into your web browser.
+
+#### 5.1. Request a Certificate
+
+To access the ATTT server, request a client certificate (in .p12  format) and the associated password from GB Support.
+
+> **Tip:** Request the certificate and password from GB Support as described from step 1.
+
+#### 5.2. Import the Certificate into Your Browser
+
+You can use any major browser that supports client certificate authentication (e.g., Google Chrome, Mozilla Firefox). Below are general instructions that work across browsers:
+- Open your browser.
+  Go to Settings → Security → Manage certificates:
+    - In the Your Certificates tab, click Import.
+    - Select the .p12 file received from GB Support.
+    - Enter the password provided along with the file.
+    - Confirm import. The certificate will now appear in your certificate list.
+
+> Note: This certificate is required to establish a secure connection to the ATTT server. Without it, you will not be able to access the login page.
+
+#### 5.3. Log in to the ATTT Server
+
+- Go to the ATTT server website at https://attt.generalbytes.com.
+- Enter your Username and Password, then click Log In.
+- Open your authenticator app and enter the OTP code.
+- Click Submit OTP.
+- You will now see a list of BATMs.
+- Find the terminal you wish to test.
+- Click at the **Control terminal** button to access the BATM’s console.
+
 ## Running Tests
 
-- Open the ATTT server at [https://attt.generalbytes.com](https://attt.generalbytes.com).
-- Click at the **Control terminal** button to access the BATM’s console.
-- Clone repository to your local machine:
-   ```bash
-   git clone https://github.com/GENERALBYTESCOM/batm_test_public.git
-  ```
 - Start SikuliX IDE:
     - Open a terminal or command prompt.
     - Navigate to the folder where SikuliX IDE was downloaded (for example, ~/Downloads).
