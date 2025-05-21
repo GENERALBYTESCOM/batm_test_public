@@ -296,8 +296,10 @@ Below are general instructions that work across browsers:
     - Open a terminal or command prompt.
     - Navigate to the folder where SikuliX IDE was downloaded (for example, ~/Downloads).
     - Run:
-     ```bash
-    java -jar sikulixide-2.0.5.jar ```
+        ```bash
+        java -jar sikulixide-2.0.5.jar
+        ```
+
 - In SikuliX IDE:
     - Click File → Open
     - Select and open a test file from the cloned `batm_test_public` repository.
