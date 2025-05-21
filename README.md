@@ -296,9 +296,9 @@ Below are general instructions that work across browsers:
     - Open a terminal or command prompt.
     - Navigate to the folder where SikuliX IDE was downloaded (for example, ~/Downloads).
     - Run:
-        ```bash
+   ```bash
         java -jar sikulixide-2.0.5.jar
-        ```
+  ```
 
 - In SikuliX IDE:
     - Click File → Open
