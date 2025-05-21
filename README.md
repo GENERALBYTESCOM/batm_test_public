@@ -8,7 +8,8 @@ General Bytes (GB) has developed the Automated Terminal Testing Tool (ATTT) to h
 testing of their BATM fleet.  
 ATTT ensures error-free, stable operation across various configurations, reducing testing time from days to
 hours.
-> **Tip:** For more details, refer to the [Knowledge Base](https://generalbytes.atlassian.net/wiki/spaces/ESD/pages/3554541570/ATTT+-+Automated+Testing+Tool+for+Terminal).
+> [!TIP]
+> For more details, refer to the [Knowledge Base](https://generalbytes.atlassian.net/wiki/spaces/ESD/pages/3554541570/ATTT+-+Automated+Testing+Tool+for+Terminal).
 
 ## Use Cases
 
@@ -31,7 +32,8 @@ hours.
 - Communication with the ATTT server is only possible using unique client certificates issued by GB.
 - Certificates must be physically uploaded to each terminal using a FAT32-formatted USB flash drive.
 
-> **Note:** A FAT32-formatted USB flash drive is required to upload certificate to the terminal during activation.
+> [!NOTE]
+> A FAT32-formatted USB flash drive is required to upload certificate to the terminal during activation.
 
 - The ATTT system has been independently security audited.
 
@@ -129,7 +131,8 @@ Before setting up terminals, configure the following settings in CAS.
 - Sell Profit (%): **10.00%**
 - Fixed Transaction Fee: **10.00**
 
-> **Note:** ETH does not support sell wallets, thus sell transactions for ETH are not tested.
+> [!NOTE]
+> ETH does not support sell wallets, thus sell transactions for ETH are not tested.
 
 #### 2.4. Create a new **Discount:**
 
@@ -152,7 +155,8 @@ Before setting up terminals, configure the following settings in CAS.
 
 - Add the `attt` flag to the `special_configuration` custom string.
 
-> ⚠️ **Warning:** Without this flag, ATTT will not be enabled on the terminal!
+> [!WARNING]
+> Without this flag, ATTT will not be enabled on the terminal!
 
 - Configure following custom strings  _(Values are case-sensitive: must match exactly)_:
     - `terms_and_conditions`: **TERMS AND CONDITIONS**
@@ -198,7 +202,8 @@ Select the following checkboxes (✓):
 - Print Withdrawal Receipt — set value to **Never**
 - Sell Tickets Delivery: set to **None** (to be used with withdrawal using phone number)
 
-> **Tip:** Disabling printer warnings and setting receipt printing to “Never” or “None” helps prevent unwanted paper
+> [!TIP]
+> Disabling printer warnings and setting receipt printing to “Never” or “None” helps prevent unwanted paper
 > slips from being printed or falling out of the terminal.
 
 #### 3.8. **Publish Settings:**
@@ -210,11 +215,14 @@ The `Publish` checkbox **must NOT** be selected.
 You can save all required settings in a Terminal Template and select it in the "Use Terminal Template" field, instead
 of configuring each setting manually.
 
-> **Note:** Reboot the terminal after configuration (recommended, but not required).
+> [!NOTE]
+> Reboot the terminal after configuration (recommended, but not required).
 
 ### 4. Upload Activation Keys (on the BATM terminal)
 
-> ⚠️ **Warning:** Each terminal has its **own unique keystore file** (`attt.bks`).  
+
+> [!WARNING]
+> Each terminal has its **own unique keystore file** (`attt.bks`).  
 > You **must repeat this step for every terminal individually**, using the correct `attt.bks` file provided specifically
 > for that terminal.  
 > If you upload a keystore meant for another terminal, **ATTT will not work correctly**.
@@ -224,7 +232,8 @@ of configuring each setting manually.
 - **On the BATM terminal:**  
   Enter the **Advanced Administration** menu.
 
-> **Tip:** For access instructions, see [Access ADVANCED Administration](https://generalbytes.atlassian.net/wiki/spaces/ESD/pages/934609153/Access+ADVANCED+Administration)
+> [!TIP]
+> For access instructions, see [Access ADVANCED Administration](https://generalbytes.atlassian.net/wiki/spaces/ESD/pages/934609153/Access+ADVANCED+Administration)
 
 - Click on the **UPLOAD ATTT KEYS** button.
 - Insert the USB drive into any available USB port on the BATM.
@@ -234,12 +243,13 @@ of configuring each setting manually.
 - Press the button **ENABLE ATTT**.  
 The terminal will now establish a secure connection to the ATTT server.
 
-> 🚨 **IMPORTANT:**  
+> [!CAUTION]
 > After **terminal reboot or upgrade**, you must enter the **Advanced Administration** menu and press the button `ENABLE ATTT` again.  
 > There is **no need to re-upload** the keystore file (`attt.bks`).  
 > If you skip this step, remote testing will **NOT** be possible: the terminal will not be able to connect to the ATTT server, and automated tests will not function.
 
-> ⚠️ The **UPLOAD ATTT KEYS** option will only be visible if the `attt` flag is set in the `special_configuration`
+> [!WARNING]
+> The **UPLOAD ATTT KEYS** option will only be visible if the `attt` flag is set in the `special_configuration`
 > custom string for this terminal in CAS.
 
 ### 5. Access a BATM from the ATTT Server
@@ -251,7 +261,8 @@ browser.
 
 To access the ATTT server, request a client certificate (in .p12 format) and the associated password from GB Support.
 
-> **Tip:** Request the certificate and password from GB Support as described from step 1.
+> [!TIP]
+> Request the certificate and password from GB Support as described from step 1.
 
 #### 5.2. Import the Certificate into Your Browser
 
@@ -265,7 +276,8 @@ Below are general instructions that work across browsers:
     - Enter the password provided along with the file.
     - Confirm import. The certificate will now appear in your certificate list.
 
-> Note: This certificate is required to establish a secure connection to the ATTT server. Without it, you will not be
+> [!NOTE]
+> This certificate is required to establish a secure connection to the ATTT server. Without it, you will not be
 > able to access the login page.
 
 #### 5.3. Log in to the ATTT Server
@@ -284,7 +296,7 @@ Below are general instructions that work across browsers:
     - Open a terminal or command prompt.
     - Navigate to the folder where SikuliX IDE was downloaded (for example, ~/Downloads).
     - Run:
-  ```bash
+     ```bash
     java -jar sikulixide-2.0.5.jar
   ```
 - In SikuliX IDE:
