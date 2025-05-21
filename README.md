@@ -63,7 +63,7 @@ Clone this repository to your local machine:
 
 ## Setup & Activation
 
-> ⚠️ **Warning:**
+> [!WARNING]
 > This tool is **not recommended** for use on terminals connected to production CAS servers.
 > Proceed **at your own risk**.
 
@@ -297,8 +297,7 @@ Below are general instructions that work across browsers:
     - Navigate to the folder where SikuliX IDE was downloaded (for example, ~/Downloads).
     - Run:
      ```bash
-    java -jar sikulixide-2.0.5.jar
-  ```
+    java -jar sikulixide-2.0.5.jar ```
 - In SikuliX IDE:
     - Click File → Open
     - Select and open a test file from the cloned `batm_test_public` repository.
