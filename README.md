@@ -45,14 +45,13 @@ hours.
   keyboard events.
 
 - **ATTT Server**  
-  Hosted and maintained by GB; enables remote control of terminals via a web browser.  
-  [https://attt.generalbytes.com](https://attt.generalbytes.com)
+  Hosted and maintained by GB; enables remote control of terminals via a web browser.
 
 - **SikuliX**  
   Automation tool that lets QA engineers write Python scripts for visual recognition and interaction with terminal
   screens.
 
-## Prerequisites 
+## Prerequisites
 
 Clone this repository to your local machine:
 
@@ -164,10 +163,11 @@ Before setting up terminals, configure the following settings in CAS.
     - `marketing_opt_in_agreement_text`: **Marketing agreement text. Agree?**
 
 ### 3.2. Set previously created configurations:
-- AML/KYC Setting from step 2.1. 
-- Fiat Settings from step 2.2. 
+
+- AML/KYC Setting from step 2.1.
+- Fiat Settings from step 2.2.
 - Crypto Settings from step 2.3.
-- Discount from step 2.4. 
+- Discount from step 2.4.
 - Location from step 2.5.
 
 #### 3.3. Main Cash Currency: **USD - United States dollar**
@@ -232,27 +232,32 @@ of configuring each setting manually.
   After successful upload, a notification will appear.
 - Remove the USB drive (and reconnect the printer if necessary).
 - Press the button **ENABLE ATTT**.  
-  If the terminal is rebooted, you must press only the `ENABLE ATTT` button again to reconnect to the ATTT server. There
-  is **no need to re-upload the keystore file**.
+The terminal will now establish a secure connection to the ATTT server.
 
-  The terminal will now establish a secure connection to the ATTT server.
+> 🚨 **IMPORTANT:**  
+> After **terminal reboot or upgrade**, you must enter the **Advanced Administration** menu and press the button `ENABLE ATTT` again.  
+> There is **no need to re-upload** the keystore file (`attt.bks`).  
+> If you skip this step, remote testing will **NOT** be possible: the terminal will not be able to connect to the ATTT server, and automated tests will not function.
 
 > ⚠️ The **UPLOAD ATTT KEYS** option will only be visible if the `attt` flag is set in the `special_configuration`
 > custom string for this terminal in CAS.
 
 ### 5. Access a BATM from the ATTT Server
 
-Before running tests, you must configure access to the ATTT server by importing a client certificate into your web browser.
+Before running tests, you must configure access to the ATTT server by importing a client certificate into your web
+browser.
 
 #### 5.1. Request a Certificate
 
-To access the ATTT server, request a client certificate (in .p12  format) and the associated password from GB Support.
+To access the ATTT server, request a client certificate (in .p12 format) and the associated password from GB Support.
 
 > **Tip:** Request the certificate and password from GB Support as described from step 1.
 
 #### 5.2. Import the Certificate into Your Browser
 
-You can use any major browser that supports client certificate authentication (e.g., Google Chrome, Mozilla Firefox). Below are general instructions that work across browsers:
+You can use any major browser that supports client certificate authentication (e.g., Google Chrome, Mozilla Firefox).
+Below are general instructions that work across browsers:
+
 - Open your browser.
   Go to Settings → Security → Manage certificates:
     - In the Your Certificates tab, click Import.
@@ -260,7 +265,8 @@ You can use any major browser that supports client certificate authentication (e
     - Enter the password provided along with the file.
     - Confirm import. The certificate will now appear in your certificate list.
 
-> Note: This certificate is required to establish a secure connection to the ATTT server. Without it, you will not be able to access the login page.
+> Note: This certificate is required to establish a secure connection to the ATTT server. Without it, you will not be
+> able to access the login page.
 
 #### 5.3. Log in to the ATTT Server
 
