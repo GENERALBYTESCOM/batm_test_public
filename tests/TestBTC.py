@@ -2,7 +2,11 @@ import logging
 import unittest
 
 from BaseTest import BaseTest
-from Config.Constants import BTC_DESTINATION_ADDRESS, DISCOUNT_TEXT
+from Config.Constants import (
+    BTC_DESTINATION_ADDRESS,
+    DISCOUNT_TEXT,
+    AMOUNT,
+)
 from Helpers.FlowHelper import FlowHelper
 from Helpers.ScreenshotManager import safeSetUp, safeTearDown
 
@@ -30,7 +34,7 @@ class TestBTC(unittest.TestCase):
         self.flow.performBuyFlow(tier="anonymous")
         self.screens.basePage.typeText(BTC_DESTINATION_ADDRESS)
         self.screens.walletScreen.clickScanQrButton()
-        self.screens.walletScreen.insertBanknoteAndVerify("100 CZK")
+        self.screens.walletScreen.insertBanknoteAndVerify(AMOUNT)
         self.screens.basePage.assertExists("BUY_BTC_button.png", "BUY BTC BUTTON")
         self.screens.discountScreen.prepareDiscountDialog()
         self.screens.basePage.typeText(DISCOUNT_TEXT)
@@ -44,7 +48,10 @@ class TestBTC(unittest.TestCase):
         self.flow.performSellFlow(tier="anonymous")
         self.screens.basePage.typeText(DISCOUNT_TEXT)
         self.flow.completeSellFlow(
-            useDiscount=True, requireMarketingDecline=False, requireSmsDismiss=True
+            amount=AMOUNT,
+            useDiscount=True,
+            requireMarketingDecline=False,
+            requireSmsDismiss=True,
         )
         logging.info("=== Completed test: Anonym Sell BTC ===")
 
@@ -53,7 +60,7 @@ class TestBTC(unittest.TestCase):
         self.flow.performBuyFlow(tier="unregistered")
         self.screens.basePage.typeText(BTC_DESTINATION_ADDRESS)
         self.screens.walletScreen.clickScanQrButton()
-        self.screens.walletScreen.insertBanknoteAndVerify("100 CZK")
+        self.screens.walletScreen.insertBanknoteAndVerify(AMOUNT)
         self.screens.basePage.assertExists("BUY_BTC_button.png", "BUY BTC BUTTON")
         self.screens.discountScreen.prepareDiscountDialog()
         self.screens.basePage.typeText(DISCOUNT_TEXT)
@@ -68,7 +75,10 @@ class TestBTC(unittest.TestCase):
         self.flow.performSellFlow(tier="unregistered")
         self.screens.basePage.typeText(DISCOUNT_TEXT)
         self.flow.completeSellFlow(
-            useDiscount=True, requireMarketingDecline=True, requireSmsDismiss=False
+            amount=AMOUNT,
+            useDiscount=True,
+            requireMarketingDecline=True,
+            requireSmsDismiss=False,
         )
         logging.info("=== Completed test: Unregistered Sell BTC ===")
 
@@ -77,7 +87,7 @@ class TestBTC(unittest.TestCase):
         self.flow.performBuyFlow(tier="registered")
         self.screens.basePage.typeText(BTC_DESTINATION_ADDRESS)
         self.screens.walletScreen.clickScanQrButton()
-        self.screens.walletScreen.insertBanknoteAndVerify("100 CZK")
+        self.screens.walletScreen.insertBanknoteAndVerify(AMOUNT)
         self.screens.basePage.assertExists("BUY_BTC_button.png", "BUY BTC BUTTON")
         self.screens.discountScreen.prepareDiscountDialog()
         self.screens.basePage.typeText(DISCOUNT_TEXT)
@@ -92,7 +102,10 @@ class TestBTC(unittest.TestCase):
         self.flow.performSellFlow(tier="registered")
         self.screens.basePage.typeText(DISCOUNT_TEXT)
         self.flow.completeSellFlow(
-            useDiscount=True, requireMarketingDecline=True, requireSmsDismiss=False
+            amount=AMOUNT,
+            useDiscount=True,
+            requireMarketingDecline=True,
+            requireSmsDismiss=False,
         )
         logging.info("=== Completed test: Registered Sell BTC ===")
 

@@ -2,7 +2,7 @@ import logging
 import unittest
 
 from BaseTest import BaseTest
-from Config.Constants import ETH_DESTINATION_ADDRESS, ETH_DISCOUNT_TEXT
+from Config.Constants import ETH_DESTINATION_ADDRESS, DISCOUNT_TEXT, AMOUNT
 from Helpers.FlowHelper import FlowHelper
 from Helpers.ScreenshotManager import safeSetUp, safeTearDown
 
@@ -30,10 +30,10 @@ class TestETH(unittest.TestCase):
         self.flow.performBuyFlow(tier="anonymous")
         self.screens.basePage.typeText(ETH_DESTINATION_ADDRESS)
         self.screens.walletScreen.clickScanQrButton()
-        self.screens.walletScreen.insertBanknoteAndVerify("100 CZK")
+        self.screens.walletScreen.insertBanknoteAndVerify(AMOUNT)
         self.screens.basePage.assertExists("BUY_ETH_button.png", "BUY ETH BUTTON")
         self.screens.discountScreen.prepareDiscountDialog()
-        self.screens.basePage.typeText(ETH_DISCOUNT_TEXT)
+        self.screens.basePage.typeText(DISCOUNT_TEXT)
         self.flow.completeDiscountFlow()
         self.screens.insertMoneyScreen.buyETH()
         self.screens.dashboardScreen.completeTransaction()
@@ -44,10 +44,10 @@ class TestETH(unittest.TestCase):
         self.flow.performBuyFlow(tier="unregistered")
         self.screens.basePage.typeText(ETH_DESTINATION_ADDRESS)
         self.screens.walletScreen.clickScanQrButton()
-        self.screens.walletScreen.insertBanknoteAndVerify("100 CZK")
+        self.screens.walletScreen.insertBanknoteAndVerify(AMOUNT)
         self.screens.basePage.assertExists("BUY_ETH_button.png", "BUY ETH BUTTON")
         self.screens.discountScreen.prepareDiscountDialog()
-        self.screens.basePage.typeText(ETH_DISCOUNT_TEXT)
+        self.screens.basePage.typeText(DISCOUNT_TEXT)
         self.flow.completeDiscountFlow()
         self.screens.insertMoneyScreen.buyETH()
         self.screens.marketingAgreementScreen.declineMarketingAgreement()
@@ -59,10 +59,10 @@ class TestETH(unittest.TestCase):
         self.flow.performBuyFlow(tier="registered")
         self.screens.basePage.typeText(ETH_DESTINATION_ADDRESS)
         self.screens.walletScreen.clickScanQrButton()
-        self.screens.walletScreen.insertBanknoteAndVerify("100 CZK")
+        self.screens.walletScreen.insertBanknoteAndVerify(AMOUNT)
         self.screens.basePage.assertExists("BUY_ETH_button.png", "BUY ETH BUTTON")
         self.screens.discountScreen.prepareDiscountDialog()
-        self.screens.basePage.typeText(ETH_DISCOUNT_TEXT)
+        self.screens.basePage.typeText(DISCOUNT_TEXT)
         self.flow.completeDiscountFlow()
         self.screens.insertMoneyScreen.buyETH()
         self.screens.marketingAgreementScreen.declineMarketingAgreement()

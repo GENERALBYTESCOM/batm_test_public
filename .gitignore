@@ -12,6 +12,10 @@ dist/
 # Compiled Python bytecode
 __pycache__/
 *.py[cod]
+*$py.class
+
+# Caches
+.cache/
 
 # Jython cache
 .jython_cache/

@@ -22,9 +22,9 @@ class FlowHelper:
             raise ValueError("Unknown tier: %s" % tier)
 
     def finishSellTransaction(
-        self, requireMarketingDecline=False, requireSmsDismiss=False
+        self, amount, requireMarketingDecline=False, requireSmsDismiss=False
     ):
-        self.screens.walletScreen.add100CzkButton()
+        self.screens.walletScreen.clickAddAmountButton(amount)
         self.screens.dashboardScreen.completeSellTransaction()
 
         if requireSmsDismiss:
@@ -36,12 +36,16 @@ class FlowHelper:
         self.screens.dashboardScreen.completeTransaction()
 
     def completeSellFlow(
-        self, useDiscount=False, requireMarketingDecline=False, requireSmsDismiss=False
+        self,
+        amount,
+        useDiscount=False,
+        requireMarketingDecline=False,
+        requireSmsDismiss=False,
     ):
         if useDiscount:
             self.completeDiscountFlow()
 
-        self.finishSellTransaction(requireMarketingDecline, requireSmsDismiss)
+        self.finishSellTransaction(amount, requireMarketingDecline, requireSmsDismiss)
 
     def completeDiscountFlow(self):
         self.screens.discountScreen.submitAndCloseDiscountDialog()
