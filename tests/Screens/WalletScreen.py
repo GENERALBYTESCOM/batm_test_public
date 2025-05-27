@@ -27,27 +27,38 @@ class WalletScreen(BasePage):
         self.assertExists("scan_qr_code_button.png", "SCAN QR CODE BUTTON")
         self.clickElement("scan_qr_code_button.png", "SCAN QR CODE BUTTON")
 
-    def insertBanknoteAndVerify(self, amount="100 CZK"):
+    def insertBanknoteAndVerify(self, amount):
+        self.waitForInsertCash()
+        self.selectBanknoteFromDdAndInsert(amount)
+        self.verifyInsertedAmount(amount)
+
+    def waitForInsertCash(self):
         wait("insert_cash_text.png", WAIT_TIMEOUT)
         self.assertExists(
-            "cash_amount_inserted_value_0_CZK.png", "INSERTED VALUE = 0 CZK"
+            "cash_amount_inserted_text.png", "CASH AMOUNT INSERTED TEXT EXIST"
         )
-        self.clickElement("CZK_banknote_dropdown_button.png", "DROPDOWN")
-        self.assertExists(
-            "%s_banknote_value.png" % amount.split()[0], "INSERTED VALUE = %s" % amount
-        )
-        self.clickElement(
-            "%s_banknote_value.png" % amount.split()[0], "INSERT BANKNOTE %s" % amount
-        )
-        self.clickElement("insert_banknote_button.png", "INSERT BANKNOTE BUTTON")
-        insertedAmountPattern = "cash_amount_inserted_value_%s.png" % amount.replace(
-            " ", "_"
-        )
-        wait(insertedAmountPattern, WAIT_TIMEOUT)
+        self.assertExists("cash_amount_inserted_value_0.png", "INSERTED VALUE = 0.00")
 
-    def add100CzkButton(self):
-        self.assertExists("+100_CZK_button.png", "+100 CZK BUTTON")
-        self.clickElement("+100_CZK_button.png", "+100 CZK BUTTON")
+    def selectBanknoteFromDdAndInsert(self, amount):
+        self.clickElement("banknote_dropdown_button.png", "CLICK ON DROPDOWN")
+        banknoteDropdownValue = "%s_banknote_value.png" % int(float(amount))
+        self.assertExists(banknoteDropdownValue, "INSERTED VALUE = %s" % amount)
+        self.clickElement(banknoteDropdownValue, "INSERT BANKNOTE %s" % amount)
+        self.clickElement("insert_banknote_button.png", "INSERT BANKNOTE BUTTON")
+
+    def verifyInsertedAmount(self, amount):
+        if "." not in str(amount):
+            amountDisplay = "%s.00" % amount
+        else:
+            amountDisplay = str(amount)
+        img = "cash_amount_inserted_value_%s.png" % amountDisplay
+        self.assertExists(img, "INSERTED AMOUNT %s IS DISPLAYED" % amountDisplay)
+
+    def clickAddAmountButton(self, amount):
+        buttonImg = "+%s_sell_button.png" % amount
+        comment = "+%s SELL BUTTON" % amount
+        self.assertExists(buttonImg, comment)
+        self.clickElement(buttonImg, comment)
 
     def clickIHaveAWalletButton(self):
         self.assertExists(
@@ -61,9 +72,10 @@ class WalletScreen(BasePage):
     def insertBanknoteAndExpectError(self, amount):
         wait("insert_cash_text.png", WAIT_TIMEOUT)
         self.assertExists(
-            "cash_amount_inserted_value_0_CZK.png", "INSERTED VALUE = 0 CZK"
+            "cash_amount_inserted_text.png", "CASH AMOUNT INSERTED TEXT EXIST"
         )
-        self.clickElement("CZK_banknote_dropdown_button.png", "DROPDOWN")
+        self.assertExists("cash_amount_inserted_value_0.png", "INSERTED VALUE = 0.00")
+        self.clickElement("banknote_dropdown_button.png", "DROPDOWN")
         self.assertExists(
             "%s_banknote_value.png" % amount.split()[0], "INSERTED VALUE = %s" % amount
         )

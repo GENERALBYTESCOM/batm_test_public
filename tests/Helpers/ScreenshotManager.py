@@ -1,8 +1,9 @@
 import logging
 import os
+import shutil
 import sys
-import time
 
+from Helpers.LoggingHelper import generateFileName
 from sikuli import Screen
 
 
@@ -12,29 +13,37 @@ def ensureScreenshotsDir(screenshotsDir):
     for fileName in os.listdir(screenshotsDir):
         filePath = os.path.join(screenshotsDir, fileName)
         try:
-            if os.path.isfile(filePath):
+            if os.path.isfile(filePath) or os.path.islink(filePath):
                 os.unlink(filePath)
+            elif os.path.isdir(filePath):
+                shutil.rmtree(filePath)
         except OSError as e:
             logging.warning("Failed to delete file %s: %s", filePath, e)
 
 
 def captureScreenshot(screenshotsDir, testName):
-    timestamp = time.strftime("%Y%m%d_%H%M%S")
-    finalFileName = "FAILED_{}_{}.png".format(testName, timestamp)
+    if not isinstance(testName, str) or not testName.strip():
+        logging.error("Invalid test name for screenshot")
+        return None
+
+    finalFileName = generateFileName(testName, "png", prefix="FAILED_")
     finalPath = os.path.join(screenshotsDir, finalFileName)
     try:
         screen = Screen()
         img = screen.capture()
-        savedPath = img.getFile()
-        os.rename(savedPath, finalPath)
+        srcPath = str(img.getFile())
+
+        if not os.path.exists(srcPath):
+            raise RuntimeError("Captured image file not found at: {}".format(srcPath))
+
+        dstPath = str(os.path.join(screenshotsDir, finalFileName))
+        shutil.copy(srcPath, dstPath)
         logging.info("Screenshot saved: %s", finalPath)
         return finalPath
-    except (OSError, ValueError) as ex:
-        logging.error("Failed to capture screenshot: %s", ex)
+
+    except OSError as e:
+        logging.error("Could not capture screenshot: %s", e)
         return None
-    finally:
-        logging.debug("captureScreenshot attempted to save: %s", finalPath)
-        logging.debug("file exists? %s", os.path.exists(finalPath))
 
 
 def getTestClassAndMethod(testInstance):
