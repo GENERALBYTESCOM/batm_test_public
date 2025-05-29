@@ -1,23 +1,47 @@
 from Config.Constants import WAIT_TIMEOUT
 from Screens.BasePage import BasePage
-from sikuli import wait
+from sikuli import wait, sleep, Pattern, FindFailed
 
 
 class LanguageScreen(BasePage):
-    def selectLanguage(self, bannerImage, bannerLabel, welcomeLogo):
-        wait(bannerImage, WAIT_TIMEOUT)
-        self.assertExists(bannerImage, bannerLabel, similarity=0.9)
-        self.clickElement(bannerImage, bannerLabel, similarity=0.9)
-        self.assertExists(welcomeLogo, "%s WELCOME LOGO" % bannerLabel)
+    langBanners = {
+        "EN": ["GB_EN_banner.png", "US_EN_banner.png"],
+        "CZ": ["CZ_banner.png"],
+        "DE": ["DE_banner.png"],
+    }
 
-    def clickArrowRight(self):
-        self.assertExists("arrow_to_the_right_button.png", "ARROW TO THE RIGHT")
-        self.clickElement("arrow_to_the_right_button.png", "ARROW TO THE RIGHT")
+    welcomeLogos = {
+        "EN": "EN_welcome_logo_text.png",
+        "CZ": "CZ_welcome_logo_text.png",
+        "DE": "DE_welcome_logo_text.png",
+    }
 
-    def clickArrowLeft(self):
-        self.assertExists("arrow_to_the_left_button.png", "ARROW TO THE LEFT")
-        self.clickElement("arrow_to_the_left_button.png", "ARROW TO THE LEFT")
+    def selectLanguage(self, lang):
+        banners = self.langBanners[lang]
+        for banner in banners:
+            try:
+                wait(Pattern(banner).similar(0.8), WAIT_TIMEOUT)
+                sleep(1)
+                self.clickElement(banner, "%s BUTTON" % lang, similarity=0.8)
+                break
+            except FindFailed:
+                continue
+        wait(self.welcomeLogos[lang], WAIT_TIMEOUT)
+        self.assertExists(self.welcomeLogos[lang], "%s WELCOME LOGO" % lang)
+
+    def verifyWelcomeLogo(self, lang):
+        self.assertExists(self.welcomeLogos[lang], "%s WELCOME LOGO" % lang)
+
+    def switchArrow(self, direction):
+        if direction == "right":
+            self.assertExists(
+                "arrow_to_the_right_button.png", "ARROW TO THE RIGHT EXIST"
+            )
+            self.clickElement("arrow_to_the_right_button.png", "ARROW TO THE RIGHT")
+        elif direction == "left":
+            self.assertExists("arrow_to_the_left_button.png", "ARROW TO THE LEFT EXIST")
+            self.clickElement("arrow_to_the_left_button.png", "ARROW TO THE LEFT")
 
     def cancelAndVerify(self):
-        self.clickElement("CANCEL_button.png", "CANCEL BUTTON")
-        self.assertExists("EN_welcome_logo_text.png", "EN WELCOME LOGO")
+        self.clickElement("CANCEL_button.png", "CANCEL BUTTON CLICKED")
+        self.assertExists("EN_welcome_logo_text.png", "EN WELCOME LOGO EXIST")
