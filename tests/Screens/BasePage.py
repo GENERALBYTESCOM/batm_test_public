@@ -1,7 +1,23 @@
 import logging
+import os
+import sys
 
+from Config.ConfigReader import ConfigReader
 from Config.Constants import WAIT_TIMEOUT
-from sikuli import click, exists, type, FindFailed, Pattern
+from sikuli import click, exists, type, FindFailed, Pattern, ImagePath
+
+currentDir = os.path.dirname(os.path.abspath(__file__))
+projectRoot = os.path.abspath(os.path.join(currentDir, "..", ".."))
+if projectRoot not in sys.path:
+    sys.path.insert(0, projectRoot)
+
+config = ConfigReader.loadProperties()
+device = config["DEVICE"]
+deviceImageDir = os.path.abspath(
+    os.path.join(projectRoot, "tests", "Screenshots", device)
+)
+if deviceImageDir not in ImagePath.getPaths():
+    ImagePath.add(deviceImageDir)
 
 
 class BasePage:
