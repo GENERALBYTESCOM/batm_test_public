@@ -21,7 +21,7 @@ class DashboardScreen(BasePage):
 
     def checkMainScreenAndClickLogo(self):
         if exists("main_screen.png", WAIT_TIMEOUT):
-            self.clickElement("BTC_logo.png", "SCREENSAVER")
+            self.clickElement("main_screen.png", "SCREENSAVER")
 
     def chooseLanguageButton(self):
         self.assertExists("choose_language_button.png", "CHOOSE LANGUAGE SCREEN")
@@ -40,7 +40,7 @@ class DashboardScreen(BasePage):
         self.clickElement("SELL_complete_button.png", "SELL COMPLETE BUTTON")
 
     def completeTransaction(self):
-        wait("transaction_completed_text.png", WAIT_TIMEOUT)
+        wait("transaction_completed_text.png", 60)
         self.assertExists(
             "transaction_completed_text.png", "TRANSACTION COMPLETED TEXT EXIST"
         )
@@ -58,3 +58,17 @@ class DashboardScreen(BasePage):
         self.assertExists("wait_we_are_not_done_yet_text.png", "NOT DONE YET TEXT")
         wait("DONE_completed_button.png", 40)
         self.clickElement("DONE_completed_button.png", "BUY DONE BUTTON")
+
+    def abortTransaction(self):
+        self.assertExists(
+            "abort_this_transaction_text_in_modal.png",
+            "ABORT TRANSACTION TEXT EXIST IN MODAL",
+        )
+        self.clickElement("abort_transaction_button.png", "ABORT TRANSACTION BUTTON")
+        wait("transaction_canceled_text.png", WAIT_TIMEOUT)
+        self.assertExists(
+            "transaction_canceled_text.png", "TRANSACTION CANCELED TEXT EXIST"
+        )
+        self.clickElement(
+            "DONE_completed_button.png", "DONE BUTTON AFTER CANCELED TRANSACTION"
+        )

@@ -42,9 +42,15 @@ class TestNegativeScenarios(unittest.TestCase):
         self.flow.performBuyFlow(tier="anonymous")
         self.screens.basePage.typeText(BTC_DESTINATION_ADDRESS)
         self.screens.walletScreen.clickScanQrButton()
-        self.screens.walletScreen.insertBanknoteAndExpectError("1000 CZK")
+        total = 0
+        for _ in range(5):
+            self.screens.walletScreen.insertBanknoteAndVerify("100")
+            total += 100
+            self.screens.walletScreen.verifyInsertedAmount(str(total))
+        self.screens.walletScreen.insertBanknoteAndVerify("100")
         self.screens.toastScreen.errorLimitTransaction()
         self.screens.walletScreen.clickCancelButton()
+        self.screens.dashboardScreen.abortTransaction()
         logging.info("=== Completed test: Anonym Buy BTC Over the limit ===")
 
 
