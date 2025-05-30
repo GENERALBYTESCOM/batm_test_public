@@ -1,10 +1,9 @@
 import logging
 import unittest
 
-from sikuli import wait
-
 from BaseTest import BaseTest
-from Config.Constants import WAIT_TIMEOUT
+from Helpers.ScreenshotManager import safeTearDown
+from Screens.DashboardScreen import DashboardScreen
 from Screens.LanguageScreen import LanguageScreen
 
 
@@ -15,17 +14,12 @@ class TestLanguageChange(unittest.TestCase):
         cls.baseTest.setupEnv()
 
     def setUp(self):
-        try:
-            self.screens = self.baseTest.screens
-            self.languageScreen = LanguageScreen()
-        except Exception:
-            self.baseTest.handleFailureScreenshot(self)
-            raise
-        logging.info("Test '%s' setUp done.", self._testMethodName)
+        self.screens = self.baseTest.screens
+        self.languageScreen = LanguageScreen()
+        self.dashboardScreen = DashboardScreen()
 
     def tearDown(self):
-        self.baseTest.handleFailureScreenshot(self)
-        logging.info("Test '%s' cleaned up successfully.", self._testMethodName)
+        safeTearDown(self)
 
     @classmethod
     def tearDownClass(cls):
@@ -33,27 +27,15 @@ class TestLanguageChange(unittest.TestCase):
 
     def testLanguageChange(self):
         logging.info("Started test: Language Change.")
-        self.screens.basePage.assertExists(
-            "EN_welcome_logo_text.png", "EN WELCOME LOGO"
-        )
-        self.screens.dashboardScreen.chooseLanguageButton()
-        self.languageScreen.clickArrowRight()
-        wait("arrow_to_the_left_button.png", WAIT_TIMEOUT)
-        self.languageScreen.clickArrowLeft()
-        self.languageScreen.selectLanguage(
-            "ES_banner.png", "ES BUTTON", "ES_welcome_logo_text.png"
-        )
-        self.languageScreen.selectLanguage(
-            "CZ_banner.png", "CZ BUTTON", "CZ_welcome_logo_text.png"
-        )
-        self.languageScreen.selectLanguage(
-            "DE_banner.png", "DE BUTTON", "DE_welcome_logo_text.png"
-        )
-        self.screens.dashboardScreen.chooseLanguageButton()
-        self.languageScreen.selectLanguage(
-            "EN_banner.png", "EN BUTTON", "EN_welcome_logo_text.png"
-        )
-        self.screens.dashboardScreen.chooseLanguageButton()
+        self.languageScreen.verifyWelcomeLogo("EN")
+        self.dashboardScreen.chooseLanguageButton()
+        self.languageScreen.switchArrow("right")
+        self.languageScreen.switchArrow("left")
+        self.languageScreen.selectLanguage("CZ")
+        self.languageScreen.selectLanguage("DE")
+        self.dashboardScreen.chooseLanguageButton()
+        self.languageScreen.selectLanguage("EN")
+        self.dashboardScreen.chooseLanguageButton()
         self.languageScreen.cancelAndVerify()
 
 

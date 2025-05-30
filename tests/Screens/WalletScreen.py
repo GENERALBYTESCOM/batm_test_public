@@ -52,6 +52,7 @@ class WalletScreen(BasePage):
         else:
             amountDisplay = str(amount)
         img = "cash_amount_inserted_value_%s.png" % amountDisplay
+        wait(img, WAIT_TIMEOUT)
         self.assertExists(img, "INSERTED AMOUNT %s IS DISPLAYED" % amountDisplay)
 
     def clickAddAmountButton(self, amount):
@@ -68,18 +69,3 @@ class WalletScreen(BasePage):
 
     def clickCancelButton(self):
         self.clickElement("CANCEL_button.png", "CANCEL BUTTON")
-
-    def insertBanknoteAndExpectError(self, amount):
-        wait("insert_cash_text.png", WAIT_TIMEOUT)
-        self.assertExists(
-            "cash_amount_inserted_text.png", "CASH AMOUNT INSERTED TEXT EXIST"
-        )
-        self.assertExists("cash_amount_inserted_value_0.png", "INSERTED VALUE = 0.00")
-        self.clickElement("banknote_dropdown_button.png", "DROPDOWN")
-        self.assertExists(
-            "%s_banknote_value.png" % amount.split()[0], "INSERTED VALUE = %s" % amount
-        )
-        self.clickElement(
-            "%s_banknote_value.png" % amount.split()[0], "INSERT BANKNOTE %s" % amount
-        )
-        self.clickElement("insert_banknote_button.png", "INSERT BANKNOTE BUTTON")
