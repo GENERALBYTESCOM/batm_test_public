@@ -2,8 +2,9 @@ import logging
 import os
 import sys
 
-from sikuli import ImagePath, getBundlePath
+from sikuli import ImagePath
 
+from Config.ConfigReader import ConfigReader
 from Helpers.LoggingHelper import configureLogging, cleanLogsDir
 from Helpers.ScreenshotManager import (
     ensureScreenshotsDir,
@@ -12,6 +13,11 @@ from Helpers.ScreenshotManager import (
 )
 from Screens.ScreenManager import ScreenManager
 
+currentDir = os.path.dirname(os.path.abspath(__file__))
+projectRoot = os.path.abspath(os.path.join(currentDir, ".."))
+if projectRoot not in sys.path:
+    sys.path.insert(0, projectRoot)
+
 
 class BaseTest:
     def __init__(self):
@@ -19,13 +25,15 @@ class BaseTest:
         self.failedScreenshotsDir = None
 
     def setupEnv(self):
-        bundleDir = os.path.dirname(getBundlePath())
-        projectRoot = os.path.abspath(bundleDir)
-
         testsDir = os.path.join(projectRoot, "tests")
         if testsDir not in sys.path:
             sys.path.append(testsDir)
+        config = ConfigReader.loadProperties()
+        device = config["DEVICE"]
 
+        deviceImagePath = os.path.abspath(os.path.join(testsDir, "Screenshots", device))
+        if deviceImagePath not in ImagePath.getPaths():
+            ImagePath.add(deviceImagePath)
         screenshotsDir = os.path.join(projectRoot, "tests", "Screenshots")
         if screenshotsDir not in list(ImagePath.getPaths()):
             ImagePath.add(screenshotsDir)
