@@ -1,3 +1,5 @@
+import codecs
+import logging
 import os
 
 
@@ -9,11 +11,10 @@ class ConfigReader:
     def loadProperties(cls):
         if cls._cachedProps is not None:
             return cls._cachedProps
-
         props = {}
         try:
-            with open(cls.configPath, "r") as file:
-                for line in file:
+            with codecs.open(cls.configPath, encoding="utf-8") as f:
+                for line in f:
                     line = line.strip()
                     if line and not line.startswith("#"):
                         if "=" in line:
@@ -21,7 +22,6 @@ class ConfigReader:
                             props[key.strip()] = value.strip()
             cls._cachedProps = props
         except OSError as e:
-            print("Error reading config.properties: {}".format(e))
-
+            logging.info("Error reading config.properties: %s", e)
             cls._cachedProps = {}
         return cls._cachedProps
