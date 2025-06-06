@@ -2,6 +2,7 @@ import logging
 import unittest
 
 from BaseTest import BaseTest
+from Config.ConfigReader import ConfigReader
 from Config.Constants import (
     BTC_DESTINATION_ADDRESS,
     DISCOUNT_TEXT,
@@ -9,6 +10,9 @@ from Config.Constants import (
 )
 from Helpers.FlowHelper import FlowHelper
 from Helpers.ScreenshotManager import safeSetUp, safeTearDown
+
+config = ConfigReader.loadProperties()
+deviceType = config.get("DEVICE", "")
 
 
 class TestBTC(unittest.TestCase):
@@ -29,8 +33,8 @@ class TestBTC(unittest.TestCase):
     def tearDownClass(cls):
         cls.baseTest.teardownEnv()
 
-    def testAnonymBuyBTC(self):
-        logging.info("=== Started test: Anonym Buy BTC ===")
+    def testAnonymousBuyBTC(self):
+        logging.info("=== Started test: Anonymous Buy BTC ===")
         self.flow.performBuyFlow(tier="anonymous")
         self.screens.basePage.typeText(BTC_DESTINATION_ADDRESS)
         self.screens.walletScreen.clickScanQrButton()
@@ -41,10 +45,13 @@ class TestBTC(unittest.TestCase):
         self.flow.completeDiscountFlow()
         self.screens.insertMoneyScreen.buyBTC()
         self.screens.dashboardScreen.completeTransaction()
-        logging.info("=== Completed test: Anonym Buy BTC ===")
+        logging.info("=== Completed test: Anonymous Buy BTC ===")
 
-    def testAnonymSellBTC(self):
-        logging.info("=== Started test: Anonym Sell BTC ===")
+    @unittest.skipIf(
+        deviceType != "BATM10", "Sell tests are skipped unless DEVICE=BATM10"
+    )
+    def testAnonymousSellBTC(self):
+        logging.info("=== Started test: Anonymous Sell BTC ===")
         self.flow.performSellFlow(tier="anonymous")
         self.screens.basePage.typeText(DISCOUNT_TEXT)
         self.flow.completeSellFlow(
@@ -53,7 +60,7 @@ class TestBTC(unittest.TestCase):
             requireMarketingDecline=False,
             requireSmsDismiss=True,
         )
-        logging.info("=== Completed test: Anonym Sell BTC ===")
+        logging.info("=== Completed test: Anonymous Sell BTC ===")
 
     def testUnregisteredBuyBTC(self):
         logging.info("=== Started test: Unregistered Buy BTC ===")
@@ -70,6 +77,9 @@ class TestBTC(unittest.TestCase):
         self.screens.dashboardScreen.completeTransaction()
         logging.info("=== Completed test: Unregistered Buy BTC ===")
 
+    @unittest.skipIf(
+        deviceType != "BATM10", "Sell tests are skipped unless DEVICE=BATM10"
+    )
     def testUnregisteredSellBTC(self):
         logging.info("=== Started test: Unregistered Sell BTC ===")
         self.flow.performSellFlow(tier="unregistered")
@@ -97,6 +107,9 @@ class TestBTC(unittest.TestCase):
         self.screens.dashboardScreen.completeTransaction()
         logging.info("=== Completed test: Registered Buy BTC ===")
 
+    @unittest.skipIf(
+        deviceType != "BATM10", "Sell tests are skipped unless DEVICE=BATM10"
+    )
     def testRegisteredSellBTC(self):
         logging.info("=== Started test: Registered Sell BTC ===")
         self.flow.performSellFlow(tier="registered")

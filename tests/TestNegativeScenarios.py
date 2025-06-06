@@ -29,16 +29,16 @@ class TestNegativeScenarios(unittest.TestCase):
         cls.baseTest.teardownEnv()
 
     def testBannedAddress(self):
-        logging.info("=== Started test: Anonym Buy BTC Banned Address ===")
+        logging.info("=== Started test: Anonymous Buy BTC Banned Address ===")
         self.flow.performBuyFlow(tier="anonymous")
         self.screens.basePage.typeText(ETH_DESTINATION_ADDRESS)
         self.screens.walletScreen.clickScanQrButton()
         self.screens.toastScreen.errorBTCWallet()
         self.screens.walletScreen.clickCancelButton()
-        logging.info("=== Completed test: Anonym Buy BTC Banned Address ===")
+        logging.info("=== Completed test: Anonymous Buy BTC Banned Address ===")
 
     def testOverTheLimit(self):
-        logging.info("=== Started test: Anonym Buy BTC Over the limit ===")
+        logging.info("=== Started test: Anonymous Buy BTC Over the limit ===")
         self.flow.performBuyFlow(tier="anonymous")
         self.screens.basePage.typeText(BTC_DESTINATION_ADDRESS)
         self.screens.walletScreen.clickScanQrButton()
@@ -51,7 +51,7 @@ class TestNegativeScenarios(unittest.TestCase):
         self.screens.toastScreen.errorLimitTransaction()
         self.screens.walletScreen.clickCancelButton()
         self.screens.dashboardScreen.abortTransaction()
-        logging.info("=== Completed test: Anonym Buy BTC Over the limit ===")
+        logging.info("=== Completed test: Anonymous Buy BTC Over the limit ===")
 
 
 if __name__ == "__main__":

@@ -29,8 +29,8 @@ class TestLTC(unittest.TestCase):
     def tearDownClass(cls):
         cls.baseTest.teardownEnv()
 
-    def testAnonymBuyLTC(self):
-        logging.info("=== Started test: Anonym Buy LTC ===")
+    def testAnonymousBuyLTC(self):
+        logging.info("=== Started test: Anonymous Buy LTC ===")
         self.flow.performBuyFlow(tier="anonymous")
         self.screens.basePage.typeText(LTC_DESTINATION_ADDRESS)
         self.screens.walletScreen.clickScanQrButton()
@@ -41,7 +41,7 @@ class TestLTC(unittest.TestCase):
         self.flow.completeDiscountFlow()
         self.screens.insertMoneyScreen.buyLTC()
         self.screens.dashboardScreen.completeTransaction()
-        logging.info("=== Completed test: Anonym Buy LTC ===")
+        logging.info("=== Completed test: Anonymous Buy LTC ===")
 
     def testUnregisteredBuyLTC(self):
         logging.info("=== Started test: Unregistered Buy LTC ===")

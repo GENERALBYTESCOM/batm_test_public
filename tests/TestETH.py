@@ -2,11 +2,16 @@ import logging
 import unittest
 
 from BaseTest import BaseTest
+from Config.ConfigReader import ConfigReader
 from Config.Constants import ETH_DESTINATION_ADDRESS, DISCOUNT_TEXT, AMOUNT
 from Helpers.FlowHelper import FlowHelper
 from Helpers.ScreenshotManager import safeSetUp, safeTearDown
 
+config = ConfigReader.loadProperties()
+deviceType = config.get("DEVICE", "")
 
+
+@unittest.skipIf(deviceType != "BATM10", "Skipped unless DEVICE=BATM10")
 class TestETH(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -25,8 +30,8 @@ class TestETH(unittest.TestCase):
     def tearDownClass(cls):
         cls.baseTest.teardownEnv()
 
-    def testAnonymBuyETH(self):
-        logging.info("=== Started test: Test Anonym Buy ETH ===")
+    def testAnonymousBuyETH(self):
+        logging.info("=== Started test: Test Anonymous Buy ETH ===")
         self.flow.performBuyFlow(tier="anonymous")
         self.screens.basePage.typeText(ETH_DESTINATION_ADDRESS)
         self.screens.walletScreen.clickScanQrButton()
@@ -37,7 +42,7 @@ class TestETH(unittest.TestCase):
         self.flow.completeDiscountFlow()
         self.screens.insertMoneyScreen.buyETH()
         self.screens.dashboardScreen.completeTransaction()
-        logging.info("=== Completed test: Test Anonym Buy ETH ===")
+        logging.info("=== Completed test: Test Anonymous Buy ETH ===")
 
     def testUnregisteredBuyETH(self):
         logging.info("=== Started test: Test Unregistered Buy ETH ===")

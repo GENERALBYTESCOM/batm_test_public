@@ -2,6 +2,7 @@ import logging
 import unittest
 
 from BaseTest import BaseTest
+from Config.ConfigReader import ConfigReader
 from Config.Constants import (
     DISCOUNT_TEXT,
     AMOUNT,
@@ -9,7 +10,11 @@ from Config.Constants import (
 from Helpers.FlowHelper import FlowHelper
 from Helpers.ScreenshotManager import safeSetUp, safeTearDown
 
+config = ConfigReader.loadProperties()
+deviceType = config.get("DEVICE", "")
 
+
+@unittest.skipIf(deviceType != "BATM10", "Skipped unless DEVICE=BATM10")
 class TestLBTC(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -28,8 +33,8 @@ class TestLBTC(unittest.TestCase):
     def tearDownClass(cls):
         cls.baseTest.teardownEnv()
 
-    def testAnonymBuyLBTC(self):
-        logging.info("=== Started test: Anonym Buy LBTC ===")
+    def testAnonymousBuyLBTC(self):
+        logging.info("=== Started test: Anonymous Buy LBTC ===")
         self.flow.performBuyLBTCFlow()
         self.screens.chooseLimitScreen.chooseAnonymousTierAndContinue()
         self.screens.walletScreen.insertBanknoteAndVerify(AMOUNT)
@@ -39,7 +44,7 @@ class TestLBTC(unittest.TestCase):
         self.flow.completeDiscountFlow()
         self.screens.insertMoneyScreen.buyLBTC()
         self.screens.dashboardScreen.waitAndCompleteNotDoneYetTransaction()
-        logging.info("=== Completed test: Anonym Buy LBTC ===")
+        logging.info("=== Completed test: Anonymous Buy LBTC ===")
 
     def testUnregisteredBuyLBTC(self):
         logging.info("=== Started test: Unregistered Buy LBTC ===")

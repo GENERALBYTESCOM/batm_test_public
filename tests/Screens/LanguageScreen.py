@@ -5,7 +5,7 @@ from sikuli import wait, sleep, Pattern, FindFailed
 
 class LanguageScreen(BasePage):
     langBanners = {
-        "EN": ["GB_EN_banner.png", "US_EN_banner.png"],
+        "EN": ["US_EN_banner.png", "GB_EN_banner.png"],
         "CZ": ["CZ_banner.png"],
         "DE": ["DE_banner.png"],
     }

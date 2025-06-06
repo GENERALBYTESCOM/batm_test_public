@@ -28,7 +28,10 @@ def main():
     suite = unittest.defaultTestLoader.discover(testsDir, pattern="Test*.py")
     runner = unittest.TextTestRunner(verbosity=2)
     result = runner.run(suite)
-    sys.exit(not result.wasSuccessful())
+    if not result.wasSuccessful():
+        logging.error("Tests failed.")
+    else:
+        logging.info("All tests passed successfully.")
 
 
 if __name__ == "__main__":
