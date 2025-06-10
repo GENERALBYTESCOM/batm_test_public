@@ -130,6 +130,7 @@ Before setting up terminals, configure the following settings in CAS.
 - Sell Strategy - 1: **Receive coins to the Hot Wallet**
 - Sell Profit (%): **10.00%**
 - Fixed Transaction Fee: **10.00**
+- Invalid Payments Address: **15nvjrMZbxyLAAr9RAnqkoMXcFriAmbeLE**
 
 > [!NOTE]
 > ETH does not support sell wallets, thus sell transactions for ETH are not tested.
@@ -140,7 +141,6 @@ Before setting up terminals, configure the following settings in CAS.
 - Set all discount values (`Discount From Buy Profit Fee`, `Discount From Sell Profit Fee`, `Buy Fixed Fee Discount`,
   `Sell Fixed Fee Discount`) to **100.00%**
 - Crypto Currencies: **BTC**, **LBTC**, **LTC**, **ETH**
-- Configuration Cash Currency - **USD**
 - Set **Valid From** and **Valid To** dates to define the period the discount is active (e.g., `01.09.2024` –
   `01.02.2030`)
 
@@ -220,7 +220,6 @@ of configuring each setting manually.
 
 ### 4. Upload Activation Keys (on the BATM terminal)
 
-
 > [!WARNING]
 > Each terminal has its **own unique keystore file** (`attt.bks`).  
 > You **must repeat this step for every terminal individually**, using the correct `attt.bks` file provided specifically
@@ -241,7 +240,7 @@ of configuring each setting manually.
   After successful upload, a notification will appear.
 - Remove the USB drive (and reconnect the printer if necessary).
 - Press the button **ENABLE ATTT**.  
-The terminal will now establish a secure connection to the ATTT server.
+  The terminal will now establish a secure connection to the ATTT server.
 
 > [!CAUTION]
 > After **terminal reboot or upgrade**, you must enter the **Advanced Administration** menu and press the button `ENABLE ATTT` again.  
@@ -303,6 +302,30 @@ Below are general instructions that work across browsers:
     - Select and open a test file from the cloned `batm_test_public` repository.
     - Click the `Run` button.
 
+## Terminal Device Configuration
+
+To run tests on specific terminal models, specify the device in the `config.properties` file:
+`batm_test_public/tests/Config/config.properties`
+
+**Supported Devices:**
+
+- `BATM7`
+- `BATM10`
+
+**Configuration Steps:**
+
+- Open config.properties in any text editor
+- Set the DEVICE property to your target model
+- Save the file in its original format
+
+```properties
+DEVICE=BATM7 # Example for BATM7
+```
+
+> [!NOTE]
+> The test suite uses this value to adjust visual matching and interactions for the specified terminal.
+> If DEVICE is not set, the tests will default to BATM7.
+
 ## Troubleshooting
 
 - Ensure screen resolution and display scaling are set to 100%.
@@ -316,4 +339,4 @@ Below are general instructions that work across browsers:
   1280×800  (16:10)
 - Tests are optimized for these screen resolutions. Using unsupported resolutions may cause SikuliX visual matching to
   fail.
-- Tests are designed and verified on BATM 10 terminals. Other models may require adjustments.
+- Tests are designed and verified on BATM 10 and BATM 7 terminals. Other models may require adjustments.
