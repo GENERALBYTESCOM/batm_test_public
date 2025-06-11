@@ -112,6 +112,10 @@ Before setting up terminals, configure the following settings in CAS.
 - For each supported currency: **BTC, LBTC, LTC, ETH**.
 - Configuration Cash Currency: **USD**.
 
+> [!WARNING]
+> The **Configuration Cash Currency** must remain **consistent** across all CAS components.
+> Any mismatch between related currency settings is not supported and may lead to unexpected system behavior.
+
 **2.3.1 Buy Settings:**
 
 - Minimum Buy Cash Amount per Transaction: **100.00**
@@ -139,7 +143,7 @@ Before setting up terminals, configure the following settings in CAS.
 
 - Discount Type: **Discount from fee**
 - Set all discount values (`Discount From Buy Profit Fee`, `Discount From Sell Profit Fee`, `Buy Fixed Fee Discount`,
-  `Sell Fixed Fee Discount`) to **100.00%**
+  `Sell Fixed Fee Discount`) to **10.00%**
 - Crypto Currencies: **BTC**, **LBTC**, **LTC**, **ETH**
 - Set **Valid From** and **Valid To** dates to define the period the discount is active (e.g., `01.09.2024` –
   `01.02.2030`)
