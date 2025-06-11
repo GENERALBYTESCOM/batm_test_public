@@ -114,7 +114,7 @@ Before setting up terminals, configure the following settings in CAS.
 
 > [!WARNING]
 > The **Configuration Cash Currency** must remain **consistent** across all CAS components.
-> Any mismatch between related currency settings is not supported and may lead to unexpected system behavior.
+> Any mismatch between related currency settings is not supported and may prevent proper operation of transactions or configurations.
 
 **2.3.1 Buy Settings:**
 
