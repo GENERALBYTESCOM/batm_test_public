@@ -49,7 +49,6 @@ def configureLogging(logDir, testName=None):
 
     logger.addHandler(fileHandler)
     logger.addHandler(streamHandler)
-    logging.debug("Logging configured to: %s", logPath)
     return logPath
 
 
