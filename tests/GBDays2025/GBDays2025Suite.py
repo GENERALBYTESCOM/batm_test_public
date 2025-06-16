@@ -17,9 +17,9 @@ if testsDir not in sys.path:
 
 testCases = [
     ("TestBTC", "testAnonymousBuyBTC"),
-    ("TestLBTC", "testAnonymousBuyLBTC"),
     ("TestLTC", "testAnonymousBuyLTC"),
     ("TestETH", "testAnonymousBuyETH"),
+    ("TestLBTC", "testAnonymousBuyLBTC"),
 ]
 
 

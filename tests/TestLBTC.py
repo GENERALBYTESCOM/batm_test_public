@@ -2,7 +2,6 @@ import logging
 import unittest
 
 from BaseTest import BaseTest
-from Config.ConfigReader import ConfigReader
 from Config.Constants import (
     DISCOUNT_TEXT,
     AMOUNT,
@@ -10,11 +9,7 @@ from Config.Constants import (
 from Helpers.FlowHelper import FlowHelper
 from Helpers.ScreenshotManager import safeSetUp, safeTearDown
 
-config = ConfigReader.loadProperties()
-deviceType = config.get("DEVICE", "")
 
-
-@unittest.skipIf(deviceType != "BATM10", "Skipped unless DEVICE=BATM10")
 class TestLBTC(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
