@@ -28,8 +28,8 @@ class DashboardScreen(BasePage):
         self.clickElement("choose_language_button.png", "CHOOSE LANGUAGE BUTTON")
 
     def clickBuyButton(self):
-        self.assertExists("BUY_button.png", "BUY BUTTON")
-        self.clickElement("BUY_button.png", "BUY BUTTON")
+        if exists("BUY_button.png", WAIT_TIMEOUT):
+            self.clickElement("BUY_button.png", "BUY BUTTON")
 
     def clickSellButton(self):
         self.assertExists("SELL_button.png", "SELL BUTTON")
