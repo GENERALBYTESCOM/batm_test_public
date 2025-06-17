@@ -1,6 +1,6 @@
 from Config.Constants import WAIT_TIMEOUT
 from Screens.BasePage import BasePage
-from sikuli import wait
+from sikuli import wait, exists
 
 
 class WalletScreen(BasePage):
@@ -20,12 +20,16 @@ class WalletScreen(BasePage):
             "scan_your_wallet's_QR_text.png",
             "SCAN YOUR WALLET'S QR TEXT EXIST",
         )
-        self.assertExists("crypto_wallet_field.png", "CRYPTO WALLET FIELD")
-        self.clickElement("crypto_wallet_field.png", "CRYPTO WALLET FIELD")
+        if exists("crypto_wallet_field_win.png", WAIT_TIMEOUT):
+            self.clickElement("crypto_wallet_field_win.png", "CRYPTO WALLET FIELD")
+        elif exists("crypto_wallet_field.png", WAIT_TIMEOUT):
+            self.clickElement("crypto_wallet_field.png", "CRYPTO WALLET FIELD")
 
     def clickScanQrButton(self):
-        self.assertExists("scan_qr_code_button.png", "SCAN QR CODE BUTTON")
-        self.clickElement("scan_qr_code_button.png", "SCAN QR CODE BUTTON")
+        if exists("scan_qr_code_button_win.png", WAIT_TIMEOUT):
+            self.clickElement("scan_qr_code_button_win.png", "SCAN QR CODE BUTTON")
+        elif exists("scan_qr_code_button.png", WAIT_TIMEOUT):
+            self.clickElement("scan_qr_code_button.png", "SCAN QR CODE BUTTON")
 
     def insertBanknoteAndVerify(self, amount):
         self.waitForInsertCash()
@@ -44,7 +48,10 @@ class WalletScreen(BasePage):
         banknoteDropdownValue = "%s_banknote_value.png" % int(float(amount))
         self.assertExists(banknoteDropdownValue, "INSERTED VALUE = %s" % amount)
         self.clickElement(banknoteDropdownValue, "INSERT BANKNOTE %s" % amount)
-        self.clickElement("insert_banknote_button.png", "INSERT BANKNOTE BUTTON")
+        if exists("insert_banknote_button_win.png", WAIT_TIMEOUT):
+            self.clickElement("insert_banknote_button_win.png", "INSERT BANKNOTE BUTTON")
+        elif exists("insert_banknote_button.png", WAIT_TIMEOUT):
+            self.clickElement("insert_banknote_button.png", "INSERT BANKNOTE BUTTON")
 
     def verifyInsertedAmount(self, amount):
         if "." not in str(amount):

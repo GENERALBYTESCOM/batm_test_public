@@ -1,6 +1,6 @@
 from Config.Constants import WAIT_TIMEOUT
 from Screens.BasePage import BasePage
-from sikuli import waitVanish, wait, sleep
+from sikuli import waitVanish, wait, sleep, exists
 
 
 class DiscountScreen(BasePage):
@@ -14,14 +14,20 @@ class DiscountScreen(BasePage):
 
     def waitAndClickDiscountInputField(self):
         wait("enter_discount_code_text_in_modal.png", WAIT_TIMEOUT)
-        self.clickElement("send_text_input_text.png", "TEXT INPUT FIELD")
+        if exists("send_text_input_text_win.png", WAIT_TIMEOUT):
+            self.clickElement("send_text_input_text_win.png", "TEXT INPUT FIELD")
+        elif exists("send_text_input_text.png", WAIT_TIMEOUT):
+            self.clickElement("send_text_input_text.png", "TEXT INPUT FIELD")
 
     def prepareDiscountDialog(self):
         self.openDiscountDialog()
         self.waitAndClickDiscountInputField()
 
     def submitAndCloseDiscountDialog(self):
-        self.clickElement("send_text_input_button.png", "SEND TEXT INPUT BUTTON")
+        if exists("send_text_input_button_win.png", WAIT_TIMEOUT):
+            self.clickElement("send_text_input_button_win.png", "SEND TEXT INPUT BUTTON")
+        elif exists("send_text_input_button.png", WAIT_TIMEOUT):
+            self.clickElement("send_text_input_button.png", "SEND TEXT INPUT BUTTON")
         sleep(3)
         self.clickElement("OK_button.png", "OK BUTTON")
         waitVanish("enter_discount_code_text_in_modal.png")
