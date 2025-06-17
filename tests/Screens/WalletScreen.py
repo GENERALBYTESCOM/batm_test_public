@@ -20,15 +20,15 @@ class WalletScreen(BasePage):
             "scan_your_wallet's_QR_text.png",
             "SCAN YOUR WALLET'S QR TEXT EXIST",
         )
-        if exists("crypto_wallet_field_win.png", WAIT_TIMEOUT):
+        if exists("crypto_wallet_field_win.png", 2):
             self.clickElement("crypto_wallet_field_win.png", "CRYPTO WALLET FIELD")
-        elif exists("crypto_wallet_field.png", WAIT_TIMEOUT):
+        elif exists("crypto_wallet_field.png", 2):
             self.clickElement("crypto_wallet_field.png", "CRYPTO WALLET FIELD")
 
     def clickScanQrButton(self):
-        if exists("scan_qr_code_button_win.png", WAIT_TIMEOUT):
+        if exists("scan_qr_code_button_win.png", 2):
             self.clickElement("scan_qr_code_button_win.png", "SCAN QR CODE BUTTON")
-        elif exists("scan_qr_code_button.png", WAIT_TIMEOUT):
+        elif exists("scan_qr_code_button.png", 2):
             self.clickElement("scan_qr_code_button.png", "SCAN QR CODE BUTTON")
 
     def insertBanknoteAndVerify(self, amount):
@@ -48,11 +48,11 @@ class WalletScreen(BasePage):
         banknoteDropdownValue = "%s_banknote_value.png" % int(float(amount))
         self.assertExists(banknoteDropdownValue, "INSERTED VALUE = %s" % amount)
         self.clickElement(banknoteDropdownValue, "INSERT BANKNOTE %s" % amount)
-        if exists("insert_banknote_button_win.png", WAIT_TIMEOUT):
+        if exists("insert_banknote_button_win.png", 2):
             self.clickElement(
                 "insert_banknote_button_win.png", "INSERT BANKNOTE BUTTON"
             )
-        elif exists("insert_banknote_button.png", WAIT_TIMEOUT):
+        elif exists("insert_banknote_button.png", 2):
             self.clickElement("insert_banknote_button.png", "INSERT BANKNOTE BUTTON")
 
     def verifyInsertedAmount(self, amount):
