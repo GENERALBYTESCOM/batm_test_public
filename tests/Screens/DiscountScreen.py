@@ -25,7 +25,9 @@ class DiscountScreen(BasePage):
 
     def submitAndCloseDiscountDialog(self):
         if exists("send_text_input_button_win.png", WAIT_TIMEOUT):
-            self.clickElement("send_text_input_button_win.png", "SEND TEXT INPUT BUTTON")
+            self.clickElement(
+                "send_text_input_button_win.png", "SEND TEXT INPUT BUTTON"
+            )
         elif exists("send_text_input_button.png", WAIT_TIMEOUT):
             self.clickElement("send_text_input_button.png", "SEND TEXT INPUT BUTTON")
         sleep(3)

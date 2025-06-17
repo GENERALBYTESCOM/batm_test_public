@@ -49,7 +49,9 @@ class WalletScreen(BasePage):
         self.assertExists(banknoteDropdownValue, "INSERTED VALUE = %s" % amount)
         self.clickElement(banknoteDropdownValue, "INSERT BANKNOTE %s" % amount)
         if exists("insert_banknote_button_win.png", WAIT_TIMEOUT):
-            self.clickElement("insert_banknote_button_win.png", "INSERT BANKNOTE BUTTON")
+            self.clickElement(
+                "insert_banknote_button_win.png", "INSERT BANKNOTE BUTTON"
+            )
         elif exists("insert_banknote_button.png", WAIT_TIMEOUT):
             self.clickElement("insert_banknote_button.png", "INSERT BANKNOTE BUTTON")
 
