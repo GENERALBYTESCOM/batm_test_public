@@ -25,3 +25,7 @@ class ConfigReader:
             logging.info("Error reading config.properties: %s", e)
             cls._cachedProps = {}
         return cls._cachedProps
+
+    @classmethod
+    def getOsType(cls):
+        return cls.loadProperties().get("OS_TYPE", "linux").lower()
