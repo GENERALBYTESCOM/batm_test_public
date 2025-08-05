@@ -2,7 +2,6 @@ import logging
 import unittest
 
 from BaseTest import BaseTest
-from Config.ConfigReader import ConfigReader
 from Config.Constants import (
     BTC_DESTINATION_ADDRESS,
     DISCOUNT_TEXT,
@@ -11,17 +10,16 @@ from Config.Constants import (
 from Helpers.FlowHelper import FlowHelper
 from Helpers.ScreenshotManager import safeSetUp, safeTearDown
 
-config = ConfigReader.loadProperties()
-deviceType = config.get("DEVICE", "")
-
 
 class TestBTC(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.baseTest = BaseTest()
         cls.baseTest.setupEnv()
+        cls.device = cls.baseTest.device
 
     def setUp(self):
+        self.device = self.__class__.device
         self.screens = self.baseTest.screens
         self.flow = FlowHelper(self.screens)
         safeSetUp(self, coin="btc")
@@ -47,10 +45,9 @@ class TestBTC(unittest.TestCase):
         self.screens.dashboardScreen.completeTransaction()
         logging.info("=== Completed test: Anonymous Buy BTC ===")
 
-    @unittest.skipIf(
-        deviceType != "BATM10", "Sell tests are skipped unless DEVICE=BATM10"
-    )
     def testAnonymousSellBTC(self):
+        if self.device != "BATM10":
+            self.skipTest("Sell tests are skipped unless DEVICE=BATM10")
         logging.info("=== Started test: Anonymous Sell BTC ===")
         self.flow.performSellFlow(tier="anonymous")
         self.screens.basePage.typeText(DISCOUNT_TEXT)
@@ -77,10 +74,9 @@ class TestBTC(unittest.TestCase):
         self.screens.dashboardScreen.completeTransaction()
         logging.info("=== Completed test: Unregistered Buy BTC ===")
 
-    @unittest.skipIf(
-        deviceType != "BATM10", "Sell tests are skipped unless DEVICE=BATM10"
-    )
     def testUnregisteredSellBTC(self):
+        if self.device != "BATM10":
+            self.skipTest("Sell tests are skipped unless DEVICE=BATM10")
         logging.info("=== Started test: Unregistered Sell BTC ===")
         self.flow.performSellFlow(tier="unregistered")
         self.screens.basePage.typeText(DISCOUNT_TEXT)
@@ -107,10 +103,9 @@ class TestBTC(unittest.TestCase):
         self.screens.dashboardScreen.completeTransaction()
         logging.info("=== Completed test: Registered Buy BTC ===")
 
-    @unittest.skipIf(
-        deviceType != "BATM10", "Sell tests are skipped unless DEVICE=BATM10"
-    )
     def testRegisteredSellBTC(self):
+        if self.device != "BATM10":
+            self.skipTest("Sell tests are skipped unless DEVICE=BATM10")
         logging.info("=== Started test: Registered Sell BTC ===")
         self.flow.performSellFlow(tier="registered")
         self.screens.basePage.typeText(DISCOUNT_TEXT)

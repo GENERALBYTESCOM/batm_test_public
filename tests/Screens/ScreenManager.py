@@ -14,19 +14,20 @@ from Screens.WalletScreen import WalletScreen
 
 
 class ScreenManager:
-    def __init__(self):
-        self.basePage = BasePage()
+    def __init__(self, device):
+        self.device = device
+        self.basePage = BasePage(device)
         self.screens = {
-            "toast": ToastScreen(),
-            "wallet": WalletScreen(),
-            "number": NumberScreen(),
-            "privacy": PrivacyScreen(),
-            "discount": DiscountScreen(),
-            "dashboard": DashboardScreen(),
-            "chooseLimit": ChooseLimitScreen(),
-            "insertMoney": InsertMoneyScreen(),
-            "marketingAgreement": MarketingAgreementScreen(),
-            "requiredDisclosures": RequiredDisclosuresScreen(),
+            "toast": ToastScreen(device),
+            "wallet": WalletScreen(device),
+            "number": NumberScreen(device),
+            "privacy": PrivacyScreen(device),
+            "discount": DiscountScreen(device),
+            "dashboard": DashboardScreen(device),
+            "chooseLimit": ChooseLimitScreen(device),
+            "insertMoney": InsertMoneyScreen(device),
+            "marketingAgreement": MarketingAgreementScreen(device),
+            "requiredDisclosures": RequiredDisclosuresScreen(device),
         }
         logging.debug("Screen Manager: All screens initialized.")
 

@@ -1,10 +1,10 @@
+import codecs
 import logging
 import os
 import sys
 
-from sikuli import ImagePath
+from sikuli import ImagePath, exists, Pattern
 
-from Config.ConfigReader import ConfigReader
 from Helpers.LoggingHelper import configureLogging, cleanLogsDir
 from Helpers.ScreenshotManager import (
     ensureScreenshotsDir,
@@ -23,15 +23,34 @@ class BaseTest:
     def __init__(self):
         self.screens = None
         self.failedScreenshotsDir = None
+        self.device = None
+
+    def detectDevice(self):
+        screenshotsDir = os.path.join(projectRoot, "tests", "Screenshots")
+        batm7Indicator = os.path.join(screenshotsDir, "BATM7", "BATM7.png")
+        batm10Indicator = os.path.join(screenshotsDir, "BATM10", "BATM10.png")
+        logging.info("Detecting device type...")
+
+        if exists(Pattern(batm7Indicator).similar(0.8), 5):
+            logging.info("Device detected: BATM7")
+            return "BATM7"
+
+        if exists(Pattern(batm10Indicator).similar(0.8), 5):
+            logging.info("Device detected: BATM10")
+            return "BATM10"
+
+        raise RuntimeError("Unable to detect device type!")
 
     def setupEnv(self):
         testsDir = os.path.join(projectRoot, "tests")
         if testsDir not in sys.path:
             sys.path.append(testsDir)
-        config = ConfigReader.loadProperties()
-        device = config["DEVICE"]
 
-        deviceImagePath = os.path.abspath(os.path.join(testsDir, "Screenshots", device))
+        self.device = self.detectDevice()
+        self.screens = ScreenManager(self.device)
+        self._updateConfigDevice(self.device)
+
+        deviceImagePath = os.path.join(testsDir, "Screenshots", self.device)
         if deviceImagePath not in ImagePath.getPaths():
             ImagePath.add(deviceImagePath)
         screenshotsDir = os.path.join(projectRoot, "tests", "Screenshots")
@@ -45,7 +64,7 @@ class BaseTest:
         cleanLogsDir(logDir)
         configureLogging(logDir)
 
-        self.screens = ScreenManager()
+        self.screens = ScreenManager(self.device)
         self.screens.dashboardScreen.checkMainScreenAndClickLogo()
         logging.info("SikuliX environment configured successfully.")
 
@@ -56,3 +75,18 @@ class BaseTest:
         testId = getTestClassAndMethod(testInstance)
         screenshotPath = captureScreenshot(self.failedScreenshotsDir, testId)
         logging.info("Screenshot saved to: %s", screenshotPath)
+
+    def _updateConfigDevice(self, device):
+        configFile = os.path.join(projectRoot, "tests", "Config", "config.properties")
+        lines = []
+        with codecs.open(configFile, "r", "utf-8") as f:
+            for line in f:
+                if line.startswith("DEVICE="):
+                    lines.append("DEVICE=%s\n" % device)
+                else:
+                    lines.append(line)
+
+        with codecs.open(configFile, "w", "utf-8") as f:
+            f.writelines(lines)
+
+        logging.info("Updated config.properties: DEVICE=%s", device)
