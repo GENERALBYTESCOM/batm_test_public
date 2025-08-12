@@ -20,7 +20,7 @@ class DashboardScreen(BasePage):
         self.clickElement(btn["image"], btn["desc"])
 
     def checkMainScreenAndClickLogo(self):
-        if exists("main_screen.png", 5):
+        if exists("main_screen.png", 2):
             self.clickElement("main_screen.png", "SCREENSAVER")
 
     def chooseLanguageButton(self):
