@@ -41,11 +41,13 @@ def configureLogging(logDir, testName=None):
             except (OSError, ValueError):
                 logging.debug("Ignoring error closing FileHandler %r", h, exc_info=True)
 
-    fmt = logging.Formatter("[%(levelname)s] %(asctime)s - %(message)s", "%H:%M:%S")
+    formatter = logging.Formatter(
+        "[%(levelname)s] %(asctime)s - %(message)s", "%H:%M:%S"
+    )
 
-    fh = logging.FileHandler(logPath, mode="w")
-    fh.setFormatter(fmt)
-    root.addHandler(fh)
+    fileHandler = logging.FileHandler(logPath, mode="w")
+    fileHandler.setFormatter(formatter)
+    root.addHandler(fileHandler)
 
     hasStream = any(
         isinstance(h, logging.StreamHandler) and not isinstance(h, logging.FileHandler)
@@ -56,12 +58,12 @@ def configureLogging(logDir, testName=None):
             if isinstance(h, logging.StreamHandler) and not isinstance(
                 h, logging.FileHandler
             ):
-                h.setFormatter(fmt)
+                h.setFormatter(formatter)
                 root.addHandler(h)
     else:
-        sh = logging.StreamHandler(sys.stdout)
-        sh.setFormatter(fmt)
-        root.addHandler(sh)
+        streamHandler = logging.StreamHandler(sys.stdout)
+        streamHandler.setFormatter(formatter)
+        root.addHandler(streamHandler)
 
     logging.info("Logging configured. File: %s", logPath)
     return logPath
