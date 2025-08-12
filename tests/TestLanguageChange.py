@@ -14,9 +14,10 @@ class TestLanguageChange(unittest.TestCase):
         cls.baseTest.setupEnv()
 
     def setUp(self):
+        self.device = self.baseTest.device
         self.screens = self.baseTest.screens
-        self.languageScreen = LanguageScreen()
-        self.dashboardScreen = DashboardScreen()
+        self.languageScreen = LanguageScreen(self.device)
+        self.dashboardScreen = DashboardScreen(self.device)
 
     def tearDown(self):
         safeTearDown(self)

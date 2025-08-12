@@ -20,22 +20,26 @@ def detectTestName():
 
 def configureLogging(logDir, testName=None):
     if testName is None:
-        testName = detectTestName()
-    if not testName:
-        testName = "test"
+        testName = detectTestName() or "test"
 
     if not os.path.exists(logDir):
         os.makedirs(logDir)
 
-    logFileName = generateFileName(testName, "log")
-    logPath = os.path.join(logDir, logFileName)
+    logPath = os.path.join(
+        logDir, "{}_{}.log".format(testName, datetime.now().strftime("%Y%m%d_%H%M%S"))
+    )
 
-    logger = logging.getLogger()
-    logger.setLevel(logging.DEBUG)
+    root = logging.getLogger()
+    root.setLevel(logging.DEBUG)
 
-    for handler in list(logger.handlers):
-        handler.close()
-        logger.removeHandler(handler)
+    oldHandlers = list(root.handlers)
+    for h in oldHandlers:
+        root.removeHandler(h)
+        if isinstance(h, logging.FileHandler):
+            try:
+                h.close()
+            except (OSError, ValueError):
+                logging.debug("Ignoring error closing FileHandler %r", h, exc_info=True)
 
     formatter = logging.Formatter(
         "[%(levelname)s] %(asctime)s - %(message)s", "%H:%M:%S"
@@ -43,12 +47,25 @@ def configureLogging(logDir, testName=None):
 
     fileHandler = logging.FileHandler(logPath, mode="w")
     fileHandler.setFormatter(formatter)
+    root.addHandler(fileHandler)
 
-    streamHandler = logging.StreamHandler(sys.stdout)
-    streamHandler.setFormatter(formatter)
+    hasStream = any(
+        isinstance(h, logging.StreamHandler) and not isinstance(h, logging.FileHandler)
+        for h in oldHandlers
+    )
+    if hasStream:
+        for h in oldHandlers:
+            if isinstance(h, logging.StreamHandler) and not isinstance(
+                h, logging.FileHandler
+            ):
+                h.setFormatter(formatter)
+                root.addHandler(h)
+    else:
+        streamHandler = logging.StreamHandler(sys.stdout)
+        streamHandler.setFormatter(formatter)
+        root.addHandler(streamHandler)
 
-    logger.addHandler(fileHandler)
-    logger.addHandler(streamHandler)
+    logging.info("Logging configured. File: %s", logPath)
     return logPath
 
 
@@ -67,5 +84,6 @@ def cleanLogsDir(logDir):
 
 
 def generateFileName(testName, fileType="log", prefix=""):
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    return "{}{}_{}.{}".format(prefix, testName, timestamp, fileType)
+    return "{}{}_{}.{}".format(
+        prefix, testName, datetime.now().strftime("%Y%m%d_%H%M%S"), fileType
+    )

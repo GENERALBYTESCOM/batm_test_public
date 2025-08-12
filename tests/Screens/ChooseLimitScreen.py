@@ -6,7 +6,7 @@ class ChooseLimitScreen(BasePage):
     def chooseAnonymousTierAndContinue(self):
         self.assertExists("choose_cash_limit_text.png", "CHOOSE CASH LIMIT")
         self.clickElement("anonymous_tier_button.png", "ANONYMOUS TIER")
-        RequiredDisclosuresScreen().acceptRequiredDisclosures()
+        RequiredDisclosuresScreen(self.device).acceptRequiredDisclosures()
 
     def chooseUnregisteredTier(self):
         self.assertExists("choose_cash_limit_text.png", "CHOOSE CASH LIMIT")
