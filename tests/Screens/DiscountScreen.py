@@ -14,16 +14,14 @@ class DiscountScreen(BasePage):
 
     def waitAndClickDiscountInputField(self):
         wait("enter_discount_code_text_in_modal.png", WAIT_TIMEOUT)
-        btn = self.osFile("send_text_input_text.png")
-        self.clickElement(btn, "TEXT INPUT FIELD")
+        self.clickElement("send_text_input_text.png", "TEXT INPUT FIELD")
 
     def prepareDiscountDialog(self):
         self.openDiscountDialog()
         self.waitAndClickDiscountInputField()
 
     def submitAndCloseDiscountDialog(self):
-        btn = self.osFile("send_text_input_button.png")
-        self.clickElement(btn, "SEND TEXT INPUT BUTTON")
+        self.clickElement("send_text_input_button.png", "SEND TEXT INPUT BUTTON")
         sleep(3)
         self.clickElement("OK_button.png", "OK BUTTON")
         waitVanish("enter_discount_code_text_in_modal.png")

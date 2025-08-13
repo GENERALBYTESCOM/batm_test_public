@@ -16,16 +16,14 @@ class WalletScreen(BasePage):
         )
 
     def clickCryptoWallet(self):
-        btn = self.osFile("crypto_wallet_field.png")
         self.assertExists(
             "scan_your_wallet's_QR_text.png",
             "SCAN YOUR WALLET'S QR TEXT EXIST",
         )
-        self.clickElement(btn, "CRYPTO WALLET FIELD")
+        self.clickElement("crypto_wallet_field.png", "CRYPTO WALLET FIELD")
 
     def clickScanQrButton(self):
-        btn = self.osFile("scan_qr_code_button.png")
-        self.clickElement(btn, "SCAN QR CODE BUTTON")
+        self.clickElement("scan_qr_code_button.png", "SCAN QR CODE BUTTON")
 
     def insertBanknoteAndVerify(self, amount):
         self.waitForInsertCash()
@@ -44,8 +42,7 @@ class WalletScreen(BasePage):
         banknoteDropdownValue = "%s_banknote_value.png" % int(float(amount))
         self.assertExists(banknoteDropdownValue, "INSERTED VALUE = %s" % amount)
         self.clickElement(banknoteDropdownValue, "INSERT BANKNOTE %s" % amount)
-        btn = self.osFile("insert_banknote_button.png")
-        self.clickElement(btn, "INSERT BANKNOTE BUTTON")
+        self.clickElement("insert_banknote_button.png", "INSERT BANKNOTE BUTTON")
 
     def verifyInsertedAmount(self, amount):
         if "." not in str(amount):
