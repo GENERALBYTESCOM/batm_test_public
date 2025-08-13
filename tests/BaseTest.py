@@ -1,4 +1,3 @@
-import codecs
 import logging
 import os
 import sys
@@ -48,7 +47,6 @@ class BaseTest:
 
         self.device = self.detectDevice()
         self.screens = ScreenManager(self.device)
-        self._updateConfigDevice(self.device)
 
         deviceImagePath = os.path.join(testsDir, "Screenshots", self.device)
         if deviceImagePath not in ImagePath.getPaths():
@@ -75,18 +73,3 @@ class BaseTest:
         testId = getTestClassAndMethod(testInstance)
         screenshotPath = captureScreenshot(self.failedScreenshotsDir, testId)
         logging.info("Screenshot saved to: %s", screenshotPath)
-
-    def _updateConfigDevice(self, device):
-        configFile = os.path.join(projectRoot, "tests", "Config", "config.properties")
-        lines = []
-        with codecs.open(configFile, "r", "utf-8") as f:
-            for line in f:
-                if line.startswith("DEVICE="):
-                    lines.append("DEVICE=%s\n" % device)
-                else:
-                    lines.append(line)
-
-        with codecs.open(configFile, "w", "utf-8") as f:
-            f.writelines(lines)
-
-        logging.info("Updated config.properties: DEVICE=%s", device)

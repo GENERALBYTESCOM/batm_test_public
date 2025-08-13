@@ -2,7 +2,6 @@ import logging
 import os
 import sys
 
-from Config.ConfigReader import ConfigReader
 from Config.Constants import WAIT_TIMEOUT
 from sikuli import click, exists, type, FindFailed, Pattern
 
@@ -14,7 +13,6 @@ if projectRoot not in sys.path:
 
 class BasePage:
     def __init__(self, device):
-        self.osType = ConfigReader.getOsType()
         self.device = device
 
     def clickElement(self, image, name, similarity=0.7):
@@ -38,10 +36,3 @@ class BasePage:
     def typeText(self, text):
         type(text)
         logging.info("Typed text: %s", text)
-
-    def osFile(self, baseFileName):
-        if self.osType == "windows":
-            if baseFileName.endswith(".png"):
-                return baseFileName.replace(".png", "_win.png")
-            return baseFileName + "_win"
-        return baseFileName
