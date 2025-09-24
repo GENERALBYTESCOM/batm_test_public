@@ -9,9 +9,7 @@ testing of their BATM fleet.
 ATTT ensures error-free, stable operation across various configurations, reducing testing time from days to
 hours.
 > [!TIP]
-> For more details, refer to
->
-the [Knowledge Base](https://generalbytes.atlassian.net/wiki/spaces/ESD/pages/3554541570/ATTT+-+Automated+Testing+Tool+for+Terminal).
+> For more details, refer to the [Knowledge Base](https://generalbytes.atlassian.net/wiki/spaces/ESD/pages/3554541570/ATTT+-+Automated+Testing+Tool+for+Terminal).
 
 ## Use Cases
 
@@ -116,8 +114,7 @@ Before setting up terminals, configure the following settings in CAS.
 
 > [!WARNING]
 > The **Configuration Cash Currency** must remain **consistent** across all CAS components.
-> Any mismatch between related currency settings is not supported and may prevent proper operation of transactions or
-> configurations.
+> Any mismatch between related currency settings is not supported and may prevent proper operation of transactions or configurations.
 
 **2.3.1 Buy Settings:**
 
@@ -239,9 +236,7 @@ of configuring each setting manually.
   Enter the **Advanced Administration** menu.
 
 > [!TIP]
-> For access instructions,
->
-see [Access ADVANCED Administration](https://generalbytes.atlassian.net/wiki/spaces/ESD/pages/934609153/Access+ADVANCED+Administration)
+> For access instructions, see [Access ADVANCED Administration](https://generalbytes.atlassian.net/wiki/spaces/ESD/pages/934609153/Access+ADVANCED+Administration)
 
 - Click on the **UPLOAD ATTT KEYS** button.
 - Insert the USB drive into any available USB port on the BATM.
@@ -252,11 +247,9 @@ see [Access ADVANCED Administration](https://generalbytes.atlassian.net/wiki/spa
   The terminal will now establish a secure connection to the ATTT server.
 
 > [!CAUTION]
-> After **terminal reboot or upgrade**, you must enter the **Advanced Administration** menu and press the button
-`ENABLE ATTT` again.  
+> After **terminal reboot or upgrade**, you must enter the **Advanced Administration** menu and press the button `ENABLE ATTT` again.  
 > There is **no need to re-upload** the keystore file (`attt.bks`).  
-> If you skip this step, remote testing will **NOT** be possible: the terminal will not be able to connect to the ATTT
-> server, and automated tests will not function.
+> If you skip this step, remote testing will **NOT** be possible: the terminal will not be able to connect to the ATTT server, and automated tests will not function.
 
 > [!WARNING]
 > The **UPLOAD ATTT KEYS** option will only be visible if the `attt` flag is set in the `special_configuration`
