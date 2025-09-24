@@ -317,5 +317,5 @@ Below are general instructions that work across browsers:
   1680×1050 (16:10)
   1440×900  (16:10)
   1280×800  (16:10)
-- Tests are optimized for these resolutions. Using other resolutions may reduce the reliability of SikuliX visual
+- Tests are optimized for these screen resolutions. Using other resolutions may reduce the reliability of SikuliX visual
   matching.
