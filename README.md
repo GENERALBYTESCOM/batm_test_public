@@ -306,34 +306,10 @@ Below are general instructions that work across browsers:
     - Select and open a test file from the cloned `batm_test_public` repository.
     - Click the `Run` button.
 
-## Terminal Device Configuration
-
-To run tests on specific terminal models, specify the device in the `config.properties` file:
-`batm_test_public/tests/Config/config.properties`
-
-**Supported Devices:**
-
-- `BATM7`
-- `BATM10`
-
-**Configuration Steps:**
-
-- Open config.properties in any text editor
-- Set the DEVICE property to your target model
-- Save the file in its original format
-
-```properties
-DEVICE=BATM7 # Example for BATM7
-```
-
-> [!NOTE]
-> The test suite uses this value to adjust visual matching and interactions for the specified terminal.
-> If DEVICE is not set, the tests will default to BATM7.
-
 ## Troubleshooting
 
 - Ensure screen resolution and display scaling are set to 100%.
-- Supported screen resolutions:
+- Supported and tested screen resolutions:
   1920×1080 (16:9)
   1600×900  (16:9)
   1366×768  (16:9)
@@ -341,6 +317,5 @@ DEVICE=BATM7 # Example for BATM7
   1680×1050 (16:10)
   1440×900  (16:10)
   1280×800  (16:10)
-- Tests are optimized for these screen resolutions. Using unsupported resolutions may cause SikuliX visual matching to
-  fail.
-- Tests are designed and verified on BATM 10 and BATM 7 terminals. Other models may require adjustments.
+- Tests are optimized for these screen resolutions. Using other resolutions may reduce the reliability of SikuliX visual
+  matching.
