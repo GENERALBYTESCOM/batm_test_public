@@ -9,7 +9,9 @@ testing of their BATM fleet.
 ATTT ensures error-free, stable operation across various configurations, reducing testing time from days to
 hours.
 > [!TIP]
-> For more details, refer to the [Knowledge Base](https://generalbytes.atlassian.net/wiki/spaces/ESD/pages/3554541570/ATTT+-+Automated+Testing+Tool+for+Terminal).
+> For more details, refer to
+>
+the [Knowledge Base](https://generalbytes.atlassian.net/wiki/spaces/ESD/pages/3554541570/ATTT+-+Automated+Testing+Tool+for+Terminal).
 
 ## Use Cases
 
@@ -114,7 +116,8 @@ Before setting up terminals, configure the following settings in CAS.
 
 > [!WARNING]
 > The **Configuration Cash Currency** must remain **consistent** across all CAS components.
-> Any mismatch between related currency settings is not supported and may prevent proper operation of transactions or configurations.
+> Any mismatch between related currency settings is not supported and may prevent proper operation of transactions or
+> configurations.
 
 **2.3.1 Buy Settings:**
 
@@ -236,7 +239,9 @@ of configuring each setting manually.
   Enter the **Advanced Administration** menu.
 
 > [!TIP]
-> For access instructions, see [Access ADVANCED Administration](https://generalbytes.atlassian.net/wiki/spaces/ESD/pages/934609153/Access+ADVANCED+Administration)
+> For access instructions,
+>
+see [Access ADVANCED Administration](https://generalbytes.atlassian.net/wiki/spaces/ESD/pages/934609153/Access+ADVANCED+Administration)
 
 - Click on the **UPLOAD ATTT KEYS** button.
 - Insert the USB drive into any available USB port on the BATM.
@@ -247,9 +252,11 @@ of configuring each setting manually.
   The terminal will now establish a secure connection to the ATTT server.
 
 > [!CAUTION]
-> After **terminal reboot or upgrade**, you must enter the **Advanced Administration** menu and press the button `ENABLE ATTT` again.  
+> After **terminal reboot or upgrade**, you must enter the **Advanced Administration** menu and press the button
+`ENABLE ATTT` again.  
 > There is **no need to re-upload** the keystore file (`attt.bks`).  
-> If you skip this step, remote testing will **NOT** be possible: the terminal will not be able to connect to the ATTT server, and automated tests will not function.
+> If you skip this step, remote testing will **NOT** be possible: the terminal will not be able to connect to the ATTT
+> server, and automated tests will not function.
 
 > [!WARNING]
 > The **UPLOAD ATTT KEYS** option will only be visible if the `attt` flag is set in the `special_configuration`
@@ -306,34 +313,10 @@ Below are general instructions that work across browsers:
     - Select and open a test file from the cloned `batm_test_public` repository.
     - Click the `Run` button.
 
-## Terminal Device Configuration
-
-To run tests on specific terminal models, specify the device in the `config.properties` file:
-`batm_test_public/tests/Config/config.properties`
-
-**Supported Devices:**
-
-- `BATM7`
-- `BATM10`
-
-**Configuration Steps:**
-
-- Open config.properties in any text editor
-- Set the DEVICE property to your target model
-- Save the file in its original format
-
-```properties
-DEVICE=BATM7 # Example for BATM7
-```
-
-> [!NOTE]
-> The test suite uses this value to adjust visual matching and interactions for the specified terminal.
-> If DEVICE is not set, the tests will default to BATM7.
-
 ## Troubleshooting
 
 - Ensure screen resolution and display scaling are set to 100%.
-- Supported screen resolutions:
+- Supported and tested screen resolutions:
   1920×1080 (16:9)
   1600×900  (16:9)
   1366×768  (16:9)
@@ -341,6 +324,5 @@ DEVICE=BATM7 # Example for BATM7
   1680×1050 (16:10)
   1440×900  (16:10)
   1280×800  (16:10)
-- Tests are optimized for these screen resolutions. Using unsupported resolutions may cause SikuliX visual matching to
-  fail.
-- Tests are designed and verified on BATM 10 and BATM 7 terminals. Other models may require adjustments.
+- Tests are optimized for these resolutions. Using other resolutions may reduce the reliability of SikuliX visual
+  matching.
